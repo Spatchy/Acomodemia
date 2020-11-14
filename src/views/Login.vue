@@ -8,6 +8,7 @@
 </template>
 
 <script>
+    import io from 'socket.io'
     export default {
         name: 'Login',
         data() {
@@ -20,13 +21,9 @@
         },
         methods: {
             login() {
+                var socket = io();
                 if(this.input.username != "" && this.input.password != "") {
-                    if(this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
-                        this.$emit("authenticated", true);
-                        this.$router.replace({ name: "secure" });
-                    } else {
-                        console.log("The username and / or password is incorrect");
-                    }
+                    socket.emit("login-attempt", [this.username.input, this.password.input])
                 } else {
                     console.log("A username and password must be present");
                 }

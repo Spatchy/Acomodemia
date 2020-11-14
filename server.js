@@ -14,22 +14,33 @@ app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-// SQL integration
+
 var credentials = JSON.parse(fs.readFileSync(__dirname + "/credentials.json"));
-console.log(credentials["user"]);
-var con = mysql.createConnection({
-    host: credentials["host"],
-    user: credentials["user"],
-    password: credentials["password"]
+
+// Socket.io integration
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+io.on('connection', (socket) => {
+    console.log('a user connected');
+
+    // --- SQL integration ---
+    var con = mysql.createConnection({
+        host: credentials["host"],
+        user: credentials["user"],
+        password: credentials["password"]
+    });
+
+    // connect to the MySQL database 
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log("Connected!");
+        
+        // All queries and statements go here
+        /* con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("Result: " + result);
+        }); */
+    });
+
 });
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    
-    // All queries and statements go here
-    /* con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("Result: " + result);
-    }); */
-});
