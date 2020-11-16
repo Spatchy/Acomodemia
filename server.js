@@ -1,46 +1,21 @@
-var express = require('express');
-var path = require('path');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
 var serveStatic = require('serve-static');
-var mysql = require('mysql');
-var fs = require('fs');
 
-app = express();
+// set up port
+const port = process.env.PORT || 3000;
+
+app.use(bodyParser.json());
+app.use(cors());
+
+// add routes
+const router = require('./routes/router.js');
+app.use('/api', router);
 app.use(serveStatic(__dirname + "/dist"));
-var port = process.env.PORT || 8080;
-var hostname = '127.0.0.1';
 
 // Start the server
-app.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
-
-
-var credentials = JSON.parse(fs.readFileSync(__dirname + "/credentials.json"));
-
-// Socket.io integration
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-io.on('connection', (socket) => {
-    console.log('a user connected');
-
-    // --- SQL integration ---
-    var con = mysql.createConnection({
-        host: credentials["host"],
-        user: credentials["user"],
-        password: credentials["password"]
-    });
-
-    // connect to the MySQL database 
-    con.connect(function(err) {
-        if (err) throw err;
-        console.log("Connected!");
-        
-        // All queries and statements go here
-        /* con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("Result: " + result);
-        }); */
-    });
-
-});
-
