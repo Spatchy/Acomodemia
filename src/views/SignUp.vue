@@ -8,8 +8,8 @@
     <input type="text" placeholder="University email" v-model="uniEmail" />
     <input type="text" placeholder="Gender" v-model="gender" />
 
-    <input type="text" placeholder="Password" v-model="password" />
-    <input type="text" placeholder="Password (repeat)" v-model="password_repeat" />
+    <input type="password" placeholder="Password" v-model="password" />
+    <input type="password" placeholder="Password (repeat)" v-model="password_repeat" />
     <input type="button" @click="signUp" value="Sign Up" />
     <p v-if="msg">{{ msg }}</p>
   </div>
