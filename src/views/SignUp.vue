@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import AuthService from '@/services/AuthService.js';
+import AuthService from '@/services/AuthService.js'
 export default {
-  data() {
+  data () {
     return {
       username: '',
       firstName: '',
@@ -29,10 +29,10 @@ export default {
       password: '',
       password_repeat: '',
       msg: ''
-    };
+    }
   },
   methods: {
-    async signUp() {
+    async signUp () {
       try {
         const credentials = {
           username: this.username,
@@ -43,13 +43,13 @@ export default {
           gender: this.gender,
           password: this.password,
           password_repeat: this.password_repeat
-        };
-        const response = await AuthService.signUp(credentials);
-        this.msg = response.msg;
+        }
+        const response = await AuthService.signUp(credentials)
+        this.msg = response.msg
       } catch (error) {
-        this.msg = error.response.data.msg;
+        this.msg = error.response.data.msg
       }
     }
   }
-};
+}
 </script>
