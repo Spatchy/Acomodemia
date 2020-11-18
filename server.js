@@ -5,7 +5,7 @@ const cors = require('cors');
 var serveStatic = require('serve-static');
 
 // set up port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3072;
 
 app.use(bodyParser.json());
 app.use(cors());
