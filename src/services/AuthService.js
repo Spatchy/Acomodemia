@@ -1,7 +1,7 @@
 // orginally obtained from: https://webdeasy.de/en/complete-login-system-with-node-js-vue-js-vuex-part-2-2/
 
 import axios from 'axios';
-const url = 'http://localhost:3000/api/';
+const url = 'http://localhost:3072/api/';
 export default {
   login(credentials) {
     return axios
