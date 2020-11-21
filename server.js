@@ -6,7 +6,7 @@ var serveStatic = require('serve-static');
 var path = require('path');
 
 // set up port
-const port = process.env.PORT || 3072;
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(cors());
