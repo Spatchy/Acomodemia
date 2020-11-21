@@ -7,6 +7,7 @@
     <input type="password" placeholder="Password" v-model="password" />
     <input type="button" @click="login" value="Login" />
     <p v-if="msg">{{ msg }}</p>
+    <router-link to="/sign-up">Sign-up </router-link>
   </div>
 </template>
 
