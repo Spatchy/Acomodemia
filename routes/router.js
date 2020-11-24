@@ -52,6 +52,23 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
   );
 });
 
+router.post('/settings', (req, res, next) => {
+  db.query(
+    `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)} WHERE PrimaryEmail = ${db.escape(req.body.PrimaryEmail)};`,
+    (err, result) => {
+      if(err){
+        throw err;
+        return res.status(400).send({
+          msg: err
+        });
+      } 
+      return res.status(200).send({
+        msg: 'Changed!'
+      });
+    }
+  );
+});
+
 // login function
 router.post('/login', (req, res, next) => {
   db.query(
