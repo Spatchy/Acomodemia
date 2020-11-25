@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 //import { response } from 'express';
-const url = 'http://localhost:8080/api/';
+const url = 'api/';
 export default {
   login(credentials) {
     return axios

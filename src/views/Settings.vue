@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Settings</h1>
+        <h3>Hi {{ username }}</h3>
         <input type="text" placeholder="Change Bio" v-model="newBio" />
         <input type="number" placeholder="Set Budget" v-model="budget" />
         <input type="text" placeholder="Location" v-model="location" />
@@ -19,9 +20,20 @@ export default {
             budget: '',
             location: '',
             movDate: '',
-            PrimaryEmail: ''
+            PrimaryEmail: '',
+            secretMessage: '',
+            username: ''
         }
     },
+
+    async created() {
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push('/');
+    }
+    this.username = this.$store.getters.getUser.username;
+    this.secretMessage = await AuthService.getSecretContent();
+    },
+
     methods: {
         async settings()  {
             try {
