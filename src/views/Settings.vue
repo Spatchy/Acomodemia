@@ -30,7 +30,7 @@ export default {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push('/');
     }
-    this.username = this.$store.getters.getUser.username;
+    this.username = this.$store.getters.getUser.PrimaryEmail;
     this.secretMessage = await AuthService.getSecretContent();
     },
 
