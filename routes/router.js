@@ -59,7 +59,7 @@ router.get('/settings', userMiddleware.isLoggedIn, (req, res, next) => {
 
 router.post('/settings', (req, res, next) => {
   db.query(
-    `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)}, DrinkingLevel = ${db.escape(req.body.drinkingVal)}, IsNightOwl = ${db.escape(req.body.nightOwl)} WHERE PrimaryEmail = ${db.escape(req.body.PrimaryEmail)};`,
+    `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)}, DrinkingLevel = ${db.escape(req.body.drinkingVal)}, IsNightOwl = ${db.escape(req.body.nightOwl)}, IsExtrovert = ${db.escape(req.body.extro)} WHERE PrimaryEmail = ${db.escape(req.body.PrimaryEmail)};`,
     (err, result) => {
       if(err){
         throw err;

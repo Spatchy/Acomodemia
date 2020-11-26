@@ -30,6 +30,12 @@
             <input type="radio" id="owlNo" value="0" v-model="nightOwl">
             <label for="owlNo">No</label><br>
 
+            <p>Would you describe yourself as an extrovert?</p>
+            <input type="radio" id="extroYes" value="1" v-model="extro">
+            <label for="owlYes">Yes</label>
+            <input type="radio" id="extroNo" value="0" v-model="extro">
+            <label for="owlNo">No</label><br>
+
             <input type="button" @click="lifestyle" value="Submit" />
 
         </div>
@@ -55,7 +61,10 @@ export default {
             drinkingVal: '',
             oldDrink: '',
             nightOwl: '',
-            oldOwl: ''
+            oldOwl: '',
+            extro: '',
+            oldExtro: '',
+
         }
     },
 
@@ -70,6 +79,7 @@ export default {
     this.oldDate = this.$store.getters.getUser.MoveDate.substring(0, 10);
     this.oldDrink = this.$store.getters.getUser.DrinkingLevel
     this.oldOlw = this.$store.getters.getUser.IsNightOwl
+    this.oldExtro = this.$store.getters.getUser.IsExtrovert
 
     this.secretMessage = await AuthService.getSecretContent();
     },
@@ -84,7 +94,8 @@ export default {
                     movDate: this.movDate,
                     PrimaryEmail: this.username,
                     drinkingVal: this.oldDrink,
-                    nightOwl: this.oldOwl
+                    nightOwl: this.oldOwl,
+                    extro: this.oldExtro
                 }
                 const response = await AuthService.settings(info)
                 this.msg = response.msg
@@ -101,7 +112,8 @@ export default {
                     movDate: this.oldDate,
                     PrimaryEmail: this.username,
                     drinkingVal: this.drinkingVal,
-                    nightOwl: this.nightOwl
+                    nightOwl: this.nightOwl,
+                    extro: this.extro
                 }
                 const response = await AuthService.settings(info)
                 this.msg = response.msg
