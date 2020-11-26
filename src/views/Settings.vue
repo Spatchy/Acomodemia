@@ -13,16 +13,23 @@
         <div>
             <h2>Set Lifestyle</h2>
             <p>Please select how often you like to drink alcohol</p>
-            <input type="radio" id="0" value="0" v-model="lifestyleVal"> 
+            <input type="radio" id="0" value="0" v-model="drinkingVal"> 
             <label for="0">Not at all</label>
-            <input type="radio" id="1" value="1" v-model="lifestyleVal">
+            <input type="radio" id="1" value="1" v-model="drinkingVal">
             <label for="1">Once a month</label>
-            <input type="radio" id="2" value="2" v-model="lifestyleVal">
+            <input type="radio" id="2" value="2" v-model="drinkingVal">
             <label for="2">Once a fortnight</label>
-            <input type="radio" id="3" value="3" v-model="lifestyleVal">
+            <input type="radio" id="3" value="3" v-model="drinkingVal">
             <label for="3">Once a week</label>
-            <input type="radio" id="4" value="4" v-model="lifestyleVal">
+            <input type="radio" id="4" value="4" v-model="drinkingVal">
             <label for="4">Every day</label><br>
+
+            <p>Would you describe yourself as a night owl?</p>
+            <input type="radio" id="owlYes" value="1" v-model="nightOwl">
+            <label for="owlYes">Yes</label>
+            <input type="radio" id="owlNo" value="0" v-model="nightOwl">
+            <label for="owlNo">No</label><br>
+
             <input type="button" @click="lifestyle" value="Submit" />
 
         </div>
@@ -45,7 +52,10 @@ export default {
             oldBudget: '',
             oldLocation: '',
             oldDate: '',
-            lifestyleVal: ''
+            drinkingVal: '',
+            oldDrink: '',
+            nightOwl: '',
+            oldOwl: ''
         }
     },
 
@@ -57,7 +67,9 @@ export default {
     this.oldBio = this.$store.getters.getUser.Bio
     this.oldBudget = this.$store.getters.getUser.Budget
     this.oldLocation = this.$store.getters.getUser.Location
-    this.oldDate = this.$store.getters.getUser.MoveDate
+    this.oldDate = this.$store.getters.getUser.MoveDate.substring(0, 10);
+    this.oldDrink = this.$store.getters.getUser.DrinkingLevel
+    this.oldOlw = this.$store.getters.getUser.IsNightOwl
 
     this.secretMessage = await AuthService.getSecretContent();
     },
@@ -70,7 +82,9 @@ export default {
                     budget: this.budget,
                     location: this.location,
                     movDate: this.movDate,
-                    PrimaryEmail: this.username
+                    PrimaryEmail: this.username,
+                    drinkingVal: this.oldDrink,
+                    nightOwl: this.oldOwl
                 }
                 const response = await AuthService.settings(info)
                 this.msg = response.msg
@@ -79,7 +93,21 @@ export default {
             }
         },
         async lifestyle() {
-
+            try {
+                const info = {
+                    newBio: this.oldBio,
+                    budget: this.oldBudget,
+                    location: this.oldLocation,
+                    movDate: this.oldDate,
+                    PrimaryEmail: this.username,
+                    drinkingVal: this.drinkingVal,
+                    nightOwl: this.nightOwl
+                }
+                const response = await AuthService.settings(info)
+                this.msg = response.msg
+            } catch(error){
+                this.msg = error.response.data.msg
+            }
             }
         }
     }
