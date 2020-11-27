@@ -7,6 +7,7 @@
             <input type="number" :placeholder="oldBudget" v-model="budget" />
             <input type="text" :placeholder="oldLocation" v-model="location" />
             <input type="date" :placeholder="oldDate" v-model="movDate" />
+            <input type="text" :placeholder="oldStudy" v-model="study" />
             <input type="button" @click="settings" value="Submit" />
             <p v-if="msg">{{ msg }}</p>
         </div>
@@ -36,7 +37,23 @@
             <input type="radio" id="extroNo" value="0" v-model="extro">
             <label for="owlNo">No</label><br>
 
-            <input type="button" @click="lifestyle" value="Submit" />
+            <p>How often do you smoke?</p>
+            <input type="radio" id="smoke0" value="0" v-model="smoke">
+            <label for="smoke0">Never</label>
+            <input type="radio" id="smoke1" value="1" v-model="smoke">
+            <label for="smoke1">Rarely/Socially</label>
+            <input type="radio" id="smoke2" value="2" v-model="smoke">
+            <label for="smoke2">Every Day</label><br>
+
+            <p>Are you a vegetarian, vegan or neither?</p>
+            <input type="radio" id="diet0" value="0" v-model="diet">
+            <label for="diet0">Vegan</label>
+            <input type="radio" id="diet1" value="1" v-model="diet">
+            <label for="diet1">Vegetarian</label>
+            <input type="radio" id="diet2" value="2" v-model="diet">
+            <label for="diet2">Neither</label><br>
+
+            <input type="button" @click="lifestyle" value="Set Lifestyle" />
 
         </div>
     </div>
@@ -64,6 +81,12 @@ export default {
             oldOwl: '',
             extro: '',
             oldExtro: '',
+            smoke: '',
+            oldSmoke: '',
+            diet: '',
+            oldDiet: '',
+            study: '',
+            oldStudy: ''
 
         }
     },
@@ -76,10 +99,13 @@ export default {
     this.oldBio = this.$store.getters.getUser.Bio
     this.oldBudget = this.$store.getters.getUser.Budget
     this.oldLocation = this.$store.getters.getUser.Location
-    this.oldDate = this.$store.getters.getUser.MoveDate.substring(0, 10);
+    this.oldDate = this.$store.getters.getUser.MoveDate.substring(0, 10)
     this.oldDrink = this.$store.getters.getUser.DrinkingLevel
-    this.oldOlw = this.$store.getters.getUser.IsNightOwl
+    this.oldOwl = this.$store.getters.getUser.IsNightOwl
     this.oldExtro = this.$store.getters.getUser.IsExtrovert
+    this.oldSmoke = this.$store.getters.getUser.SmokingLevel
+    this.oldDiet = this.$store.getters.getUser.DietLevel
+    this.oldStudy = this.$store.getters.getUser.StudySubject
 
     this.secretMessage = await AuthService.getSecretContent();
     },
@@ -95,7 +121,10 @@ export default {
                     PrimaryEmail: this.username,
                     drinkingVal: this.oldDrink,
                     nightOwl: this.oldOwl,
-                    extro: this.oldExtro
+                    extro: this.oldExtro,
+                    smoke: this.oldSmoke,
+                    diet: this.oldDiet,
+                    study: this.study
                 }
                 const response = await AuthService.settings(info)
                 this.msg = response.msg
@@ -113,7 +142,10 @@ export default {
                     PrimaryEmail: this.username,
                     drinkingVal: this.drinkingVal,
                     nightOwl: this.nightOwl,
-                    extro: this.extro
+                    extro: this.extro,
+                    smoke: this.smoke,
+                    diet: this.diet,
+                    study: this.oldStudy
                 }
                 const response = await AuthService.settings(info)
                 this.msg = response.msg
