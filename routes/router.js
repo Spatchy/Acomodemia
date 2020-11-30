@@ -57,6 +57,11 @@ router.get('/settings', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });
 
+router.get('/complete', userMiddleware.isLoggedIn, (req, res, next) => {
+  console.log(req.userData);
+  res.send('This is the secret content. Only logged in users can see that!');
+});
+
 router.post('/settings', (req, res, next) => {
   db.query(
     `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)}, DrinkingLevel = ${db.escape(req.body.drinkingVal)}, IsNightOwl = ${db.escape(req.body.nightOwl)}, IsExtrovert = ${db.escape(req.body.extro)}, SmokingLevel = ${db.escape(req.body.smoke)}, DietLevel = ${db.escape(req.body.diet)}, StudySubject = ${db.escape(req.body.study)} WHERE PrimaryEmail = ${db.escape(req.body.PrimaryEmail)};`,
