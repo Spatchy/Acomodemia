@@ -2,12 +2,11 @@
     <div>
         <div>
             <h3>Hi {{ username }}</h3>
-            <input type="text" :placeholder="oldBio" v-model="newBio" />
-            <input type="number" :placeholder="oldBudget" v-model="budget" />
-            <input type="text" :placeholder="oldLocation" v-model="location" />
-            <input type="date" :placeholder="oldDate" v-model="movDate" />
-            <input type="text" :placeholder="oldStudy" v-model="study" />
-            <input type="button" @click="settings" value="Submit" />
+            <input type="text" :placeholder="newBio" v-model="newBio" />
+            <input type="number" :placeholder="budget" v-model="budget" />
+            <input type="text" :placeholder="location" v-model="location" />
+            <input type="date" :placeholder="movDate" v-model="movDate" />
+            <input type="text" :placeholder="study" v-model="study" />
             <p v-if="msg">{{ msg }}</p>
         </div>
         <div>
@@ -52,11 +51,10 @@
             <input type="radio" id="diet2" value="2" v-model="diet">
             <label for="diet2">Neither</label><br>
 
-            <input type="button" @click="lifestyle" value="Set Lifestyle" />
+            <input type="button" @click="settings" value="Save Changes" />
 
         </div>
     </div>
-    
 </template>
 <script>
 import AuthService from '@/services/AuthService.js'
@@ -71,23 +69,12 @@ export default {
             PrimaryEmail: '',
             secretMessage: '',
             username: '',
-            oldBio: '',
-            oldBudget: '',
-            oldLocation: '',
-            oldDate: '',
             drinkingVal: '',
-            oldDrink: '',
             nightOwl: '',
-            oldOwl: '',
             extro: '',
-            oldExtro: '',
             smoke: '',
-            oldSmoke: '',
             diet: '',
-            oldDiet: '',
-            study: '',
-            oldStudy: ''
-
+            study: ''
         }
     },
 
@@ -96,16 +83,16 @@ export default {
       this.$router.push('/');
     }
     this.username = this.$store.getters.getUser.PrimaryEmail
-    this.oldBio = this.$store.getters.getUser.Bio
-    this.oldBudget = this.$store.getters.getUser.Budget
-    this.oldLocation = this.$store.getters.getUser.Location
-    this.oldDate = this.$store.getters.getUser.MoveDate.substring(0, 10)
-    this.oldDrink = this.$store.getters.getUser.DrinkingLevel
-    this.oldOwl = this.$store.getters.getUser.IsNightOwl
-    this.oldExtro = this.$store.getters.getUser.IsExtrovert
-    this.oldSmoke = this.$store.getters.getUser.SmokingLevel
-    this.oldDiet = this.$store.getters.getUser.DietLevel
-    this.oldStudy = this.$store.getters.getUser.StudySubject
+    this.newBio = this.$store.getters.getUser.Bio
+    this.budget = this.$store.getters.getUser.Budget
+    this.location = this.$store.getters.getUser.Location
+    this.movDate = this.$store.getters.getUser.MoveDate.substring(0, 10)
+    this.drinkingVal = this.$store.getters.getUser.DrinkingLevel
+    this.nightOwl = this.$store.getters.getUser.IsNightOwl
+    this.extro = this.$store.getters.getUser.IsExtrovert
+    this.smoke = this.$store.getters.getUser.SmokingLevel
+    this.diet = this.$store.getters.getUser.DietLevel
+    this.study = this.$store.getters.getUser.StudySubject
 
     this.secretMessage = await AuthService.getSecretContent();
     },
@@ -119,11 +106,11 @@ export default {
                     location: this.location,
                     movDate: this.movDate,
                     PrimaryEmail: this.username,
-                    drinkingVal: this.oldDrink,
-                    nightOwl: this.oldOwl,
-                    extro: this.oldExtro,
-                    smoke: this.oldSmoke,
-                    diet: this.oldDiet,
+                    drinkingVal: this.drinkingVal,
+                    nightOwl: this.nightOwl,
+                    extro: this.extro,
+                    smoke: this.smoke,
+                    diet: this.diet,
                     study: this.study
                 }
                 const response = await AuthService.settings(info)
@@ -132,27 +119,6 @@ export default {
                 this.msg = error.response.data.msg
             }
         },
-        async lifestyle() {
-            try {
-                const info = {
-                    newBio: this.oldBio,
-                    budget: this.oldBudget,
-                    location: this.oldLocation,
-                    movDate: this.oldDate,
-                    PrimaryEmail: this.username,
-                    drinkingVal: this.drinkingVal,
-                    nightOwl: this.nightOwl,
-                    extro: this.extro,
-                    smoke: this.smoke,
-                    diet: this.diet,
-                    study: this.oldStudy
-                }
-                const response = await AuthService.settings(info)
-                this.msg = response.msg
-            } catch(error){
-                this.msg = error.response.data.msg
-            }
-            }
         }
     }
 </script>
