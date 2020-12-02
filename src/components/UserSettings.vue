@@ -2,10 +2,20 @@
     <div>
         <div>
             <h3>Hi {{ username }}</h3>
+            <br>
+            <p>Bio</p>
             <input type="text" :placeholder="newBio" v-model="newBio" />
+            <br>
+            <p>Budget</p>
             <input type="number" :placeholder="budget" v-model="budget" />
+            <br>
+            <p>Location</p>
             <input type="text" :placeholder="location" v-model="location" />
+            <br>
+            <p>Move in Date</p>
             <input type="date" :placeholder="movDate" v-model="movDate" />
+            <br>
+            <p>Course</p>
             <input type="text" :placeholder="study" v-model="study" />
             <p v-if="msg">{{ msg }}</p>
         </div>
@@ -50,15 +60,30 @@
             <label for="diet1">Vegetarian</label>
             <input type="radio" id="diet2" value="2" v-model="diet">
             <label for="diet2">Neither</label><br>
+        </div>
 
+        <div class="control_wrapper">
+            <h2>Choose your Interests</h2>    
+            <p>Sports</p>
+            <ejs-dropdownlist id='dropdownlist' :dataSource='sportsData'></ejs-dropdownlist>
+            <p>Outdoor/Adventure</p>
+            <ejs-dropdownlist id='dropdownlist' :dataSource='oaData'></ejs-dropdownlist>
+            <p>Indoor</p>
+            <ejs-dropdownlist id='dropdownlist' :dataSource='indoorData'></ejs-dropdownlist>
+            <p>Music</p>
+            <ejs-dropdownlist id='dropdownlist' :dataSource='musicData'></ejs-dropdownlist>
+            <br>
+            <br>
             <input type="button" @click="settings" value="Save Changes" />
-
         </div>
     </div>
 </template>
 <script>
 import AuthService from '@/services/AuthService.js'
-export default {
+import Vue from 'vue'; //https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns'; //https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+Vue.use(DropDownListPlugin); //https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+export default Vue.extend ({
     name: "UserSettings",
     data() {
         return{
@@ -74,7 +99,8 @@ export default {
             extro: '',
             smoke: '',
             diet: '',
-            study: ''
+            study: '',
+            sportsData: ['Badminton', 'Cricket', 'Football', 'Golf', 'Tennis']
         }
     },
 
@@ -120,5 +146,6 @@ export default {
             }
         },
         }
-    }
+    });
 </script>
+
