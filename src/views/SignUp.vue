@@ -12,12 +12,19 @@
     <input type="password" placeholder="Password (repeat)" v-model="password_repeat" />
     <input type="button" @click="signUp" value="Sign Up" />
     <p v-if="msg">{{ msg }}</p>
+
+    <confirm v-if="showConfirm"/>  
   </div>
+  
 </template>
 
 <script>
 import AuthService from '@/services/AuthService.js'
+import Confirm from '@/components/Confirm.vue'
 export default {
+  components: {
+    Confirm
+  },
   data () {
     return {
       username: '',
@@ -28,7 +35,9 @@ export default {
       gender: '',
       password: '',
       password_repeat: '',
-      msg: ''
+      msg: '',
+      component: 'Confirm',
+      showConfirm: false
     }
   },
   methods: {
@@ -46,7 +55,8 @@ export default {
         }
         const response = await AuthService.signUp(credentials)
         this.msg = response.msg
-        this.$router.push('/confirm');
+        //this.$router.push('/confirm');
+        this.showConfirm = true;
       } catch (error) {
         this.msg = error.response.data.msg
       }

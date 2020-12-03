@@ -91,11 +91,9 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
             });
           } else {
             // has hashed pw => add to database
-            var expiryDate = new Date(Math.floor(Date.now() / 1000) + 7200 ).toISOString()
+            var expiryDate = new Date(Math.floor(Date.now() / 1000) + 7200 ).toISOString().replace('T',' ').substring(0, 19)
             db.query(
-              `INSERT INTO User (PrimaryEmail, FirstName, Surname, DateOfBirth, UniversityEmail, Gender, HashedPassword, Salt, PhotoUUID) VALUES (${db.escape(req.body.username)}, ${db.escape(req.body.firstName)}, ${db.escape(req.body.secondName)}, ${db.escape(req.body.dob)}, ${db.escape(req.body.uniEmail)}, ${db.escape(req.body.gender)}, ${db.escape(hash)}, ${db.escape(salt)}, ${db.escape(photoID)}); 
-               INSERT INTO UnverifiedUsers VALUES(${db.escape(req.body.username)}, "1234", "5678", ${expiryDate});`,
-              /* `INSERT INTO User (id, username, password, registered) VALUES ('${uuid.v4()}', ${db.escape(req.body.username)}, ${db.escape(hash)}, now())`, */              
+              `INSERT INTO User (PrimaryEmail, FirstName, Surname, DateOfBirth, UniversityEmail, Gender, HashedPassword, Salt, PhotoUUID) VALUES (${db.escape(req.body.username)}, ${db.escape(req.body.firstName)}, ${db.escape(req.body.secondName)}, ${db.escape(req.body.dob)}, ${db.escape(req.body.uniEmail)}, ${db.escape(req.body.gender)}, ${db.escape(hash)}, ${db.escape(salt)}, ${db.escape(photoID)});`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -103,6 +101,14 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
                     msg: err
                   });
                 }
+                db.query(
+                  `INSERT INTO UnverifiedUsers VALUES(${db.escape(req.body.username)}, '1234', '5678', '${expiryDate}');`,
+                  (err, result) => {
+                    if (err) {
+                      throw err;
+                    }
+                  }
+                )
                 return res.status(201).send({
                   msg: 'Registered!'
                 });
