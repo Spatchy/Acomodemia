@@ -65,13 +65,13 @@
         <div class="control_wrapper">
             <h2>Choose your Interests</h2>    
             <p>Sports</p>
-            <ejs-dropdownlist id='dropdownlist' :dataSource='sportsData'></ejs-dropdownlist>
+            <ejs-dropdownlist id='sportsData' :dataSource='sportsData'></ejs-dropdownlist>
             <p>Outdoor/Adventure</p>
-            <ejs-dropdownlist id='dropdownlist' :dataSource='oaData'></ejs-dropdownlist>
+            <ejs-dropdownlist id='oaData' :dataSource='oaData'></ejs-dropdownlist>
             <p>Indoor</p>
-            <ejs-dropdownlist id='dropdownlist' :dataSource='indoorData'></ejs-dropdownlist>
+            <ejs-dropdownlist id='indoorData' :dataSource='indoorData'></ejs-dropdownlist>
             <p>Music</p>
-            <ejs-dropdownlist id='dropdownlist' :dataSource='musicData'></ejs-dropdownlist>
+            <ejs-dropdownlist id='musicData' :dataSource='musicData'></ejs-dropdownlist>
             <br>
             <br>
             <input type="button" @click="settings" value="Save Changes" />
@@ -100,7 +100,16 @@ export default Vue.extend ({
             smoke: '',
             diet: '',
             study: '',
-            sportsData: ['Badminton', 'Cricket', 'Football', 'Golf', 'Tennis']
+            // 
+            sportsData: [],
+            oaData: [],
+            indoorData: [],
+            musicData: [],
+            //
+            dataSports: [],
+            dataOAData: [],
+            dataIndoorData: [],
+            dataMusicData: []
         }
     },
 
@@ -120,6 +129,15 @@ export default Vue.extend ({
     this.diet = this.$store.getters.getUser.DietLevel
     this.study = this.$store.getters.getUser.StudySubject
 
+    this.dataSports = await AuthService.retrieveSportsData();
+    this.dataSports.msg.forEach(element => this.sportsData.push(element['Interest']));
+    this.dataOAData = await AuthService.retrieveOaData();
+    this.dataOAData.msg.forEach(element => this.oaData.push(element['Interest']));
+    this.dataIndoorData = await AuthService.retrieveIndoorData();
+    this.dataIndoorData.msg.forEach(element => this.indoorData.push(element['Interest']));
+    this.dataMusicData = await AuthService.retrieveMusicData();
+    this.dataMusicData.msg.forEach(element => this.musicData.push(element['Interest']));
+    
     this.secretMessage = await AuthService.getSecretContent();
     },
 

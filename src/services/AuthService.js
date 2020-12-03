@@ -19,6 +19,27 @@ export default {
       .post(url + 'settings/', info)
       .then(response => response.data);
   },
+  retrieveSportsData(){
+    return axios
+      .post(url + 'sportsData/')
+      .then(response => response.data);
+  },
+  retrieveOaData(){
+    return axios
+      .post(url + 'oaData/')
+      .then(response => response.data);
+  },
+  retrieveIndoorData(){
+    return axios
+      .post(url + 'indoorData/')
+      .then(response => response.data);
+  },
+  retrieveMusicData(){
+    return axios
+      .post(url + 'musicData/')
+      .then(response => response.data);
+  },
+
   getSecretContent() {
     return axios.get(url + 'secret-route/').then(response => response.data);
   }
