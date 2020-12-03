@@ -100,12 +100,12 @@ export default Vue.extend ({
             smoke: '',
             diet: '',
             study: '',
-            // 
+            // array used for dropdown menu, which is getting populated using foreach loop
             sportsData: [],
             oaData: [],
             indoorData: [],
             musicData: [],
-            //
+            // array variables to populate sql queries respectively, used before foreach loop
             dataSports: [],
             dataOAData: [],
             dataIndoorData: [],
@@ -128,7 +128,7 @@ export default Vue.extend ({
     this.smoke = this.$store.getters.getUser.SmokingLevel
     this.diet = this.$store.getters.getUser.DietLevel
     this.study = this.$store.getters.getUser.StudySubject
-
+    // retrieving and populating dropDown menu in Settings page
     this.dataSports = await AuthService.retrieveSportsData();
     this.dataSports.msg.forEach(element => this.sportsData.push(element['Interest']));
     this.dataOAData = await AuthService.retrieveOaData();

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../db.js');
 const userMiddleware = require('../middleware/users.js');
 
-//new stuff
+// SQL query to retrieve Sports from interests list 
 router.post('/sportsData', (req, res, next) => {
   db.query(
     'SELECT Interest FROM Interests WHERE Category = "Sports";',
@@ -22,6 +22,7 @@ router.post('/sportsData', (req, res, next) => {
     }
   )
 });
+// SQL query to retrieve Outdoor/Adventure from interests list 
 router.post('/oaData', (req, res, next) => {
   db.query(
     'SELECT Interest FROM Interests WHERE Category = "Outdoor/Adventure";',
@@ -36,6 +37,7 @@ router.post('/oaData', (req, res, next) => {
     }
   )
 });
+// SQL query to retrieve Indoor from interests list 
 router.post('/indoorData', (req, res, next) => {
   db.query(
     'SELECT Interest FROM Interests WHERE Category = "Indoor";',
@@ -50,6 +52,7 @@ router.post('/indoorData', (req, res, next) => {
     }
   )
 });
+// SQL query to retrieve Music from interests list 
 router.post('/musicData', (req, res, next) => {
   db.query(
     'SELECT Interest FROM Interests WHERE Category = "Music";',
