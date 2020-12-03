@@ -30,8 +30,10 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
             });
           } else {
             // has hashed pw => add to database
+            var expiryDate = new Date(Math.floor(Date.now() / 1000) + 7200 ).toISOString()
             db.query(
-              `INSERT INTO User (PrimaryEmail, FirstName, Surname, DateOfBirth, UniversityEmail, Gender, HashedPassword, Salt, PhotoUUID) VALUES (${db.escape(req.body.username)}, ${db.escape(req.body.firstName)}, ${db.escape(req.body.secondName)}, ${db.escape(req.body.dob)}, ${db.escape(req.body.uniEmail)}, ${db.escape(req.body.gender)}, ${db.escape(hash)}, ${db.escape(salt)}, ${db.escape(photoID)});`,
+              `INSERT INTO User (PrimaryEmail, FirstName, Surname, DateOfBirth, UniversityEmail, Gender, HashedPassword, Salt, PhotoUUID) VALUES (${db.escape(req.body.username)}, ${db.escape(req.body.firstName)}, ${db.escape(req.body.secondName)}, ${db.escape(req.body.dob)}, ${db.escape(req.body.uniEmail)}, ${db.escape(req.body.gender)}, ${db.escape(hash)}, ${db.escape(salt)}, ${db.escape(photoID)}); 
+               INSERT INTO UnverifiedUsers VALUES(${db.escape(req.body.username)}, "1234", "5678", ${expiryDate});`,
               /* `INSERT INTO User (id, username, password, registered) VALUES ('${uuid.v4()}', ${db.escape(req.body.username)}, ${db.escape(hash)}, now())`, */              
               (err, result) => {
                 if (err) {
@@ -131,6 +133,29 @@ router.post('/login', (req, res, next) => {
           });
         }
       );
+    }
+  );
+});
+
+router.post('/confirm', (req, res, next) => {
+  db.query(
+    `SELECT UserId FROM UnverifiedUsers WHERE UserId = ${db.escape(req.body.username)} AND CodeP1 = ${db.escape(req.body.confirm1)} AND CodeP2 = ${db.escape(req.body.confirm2)} ;`,
+    
+    (err, result) => {
+      if(err){
+        throw err;
+        return res.status(400).send({
+          msg: err
+        });
+      }
+      if(result){
+        return res.status(200).send({
+          msg: 'Confirmed!'
+        });
+      } 
+      return res.status(403).send({
+        msg: 'Incorrect Code!'
+      });
     }
   );
 });

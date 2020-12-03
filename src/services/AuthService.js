@@ -21,5 +21,10 @@ export default {
   },
   getSecretContent() {
     return axios.get(url + 'secret-route/').then(response => response.data);
+  },
+  confirm(credentials) {
+    return axios
+      .post(url +'confirm/', credentials)
+      .then(response => response.data);
   }
 };
