@@ -8,7 +8,8 @@ Vue.use(Vuex);
 const getDefaultState = () => {
   return {
     token: '',
-    user: {}
+    user: {},
+    interests: {} //added
   };
 };
 export default new Vuex.Store({
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     getUser: state => {
       return state.user;
+    },
+    getInterests: state => { //added
+      return state.interests
     }
   },
   mutations: {
@@ -30,6 +34,9 @@ export default new Vuex.Store({
     SET_USER: (state, user) => {
       state.user = user;
     },
+    SET_INTERESTS: (state, interests) => { //added
+      state.interests = interests;
+    },
     RESET: state => {
       Object.assign(state, getDefaultState());
     }
@@ -38,6 +45,7 @@ export default new Vuex.Store({
     login: ({ commit, dispatch }, { token, user }) => {
       commit('SET_TOKEN', token);
       commit('SET_USER', user);
+      commit('SET_INTERESTS', interests);
       // set auth header
       Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     },

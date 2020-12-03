@@ -7,6 +7,67 @@ const jwt = require('jsonwebtoken');
 const db = require('../db.js');
 const userMiddleware = require('../middleware/users.js');
 
+// SQL query to retrieve Sports from interests list 
+router.post('/sportsData', (req, res, next) => {
+  db.query(
+    'SELECT Interest FROM Interests WHERE Category = "Sports";',
+    (err, result) => {
+      if (err){
+        throw err;
+      }
+      //console.log(result)
+      return res.status(200).send({
+        msg: result
+      });
+    }
+  )
+});
+// SQL query to retrieve Outdoor/Adventure from interests list 
+router.post('/oaData', (req, res, next) => {
+  db.query(
+    'SELECT Interest FROM Interests WHERE Category = "Outdoor/Adventure";',
+    (err, result) => {
+      if (err){
+        throw err;
+      }
+      //console.log(result)
+      return res.status(200).send({
+        msg: result
+      });
+    }
+  )
+});
+// SQL query to retrieve Indoor from interests list 
+router.post('/indoorData', (req, res, next) => {
+  db.query(
+    'SELECT Interest FROM Interests WHERE Category = "Indoor";',
+    (err, result) => {
+      if (err){
+        throw err;
+      }
+      //console.log(result)
+      return res.status(200).send({
+        msg: result
+      });
+    }
+  )
+});
+// SQL query to retrieve Music from interests list 
+router.post('/musicData', (req, res, next) => {
+  db.query(
+    'SELECT Interest FROM Interests WHERE Category = "Music";',
+    (err, result) => {
+      if (err){
+        throw err;
+      }
+      //console.log(result)
+      return res.status(200).send({
+        msg: result
+      });
+    }
+  )
+});
+
 //signup function
 router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
   db.query(
