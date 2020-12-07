@@ -216,6 +216,22 @@ router.post('/confirm', (req, res, next) => {
         });
       }
       if(result){
+        db.query(
+          `DELETE FROM UnverifiedUsers WHERE UserId = ${db.escape(req.body.username)}`, // needs fixing to use actual email
+          (err, result) => {
+            if(err){
+              throw err
+            }
+          }
+        )
+        db.query(
+          `UPDATE User SET Verified = true WHERE PrimaryEmail = ${db.escape(req.body.username)}`,
+          (err, result) => {
+            if(err){
+              throw err
+            }
+          }
+        )
         return res.status(200).send({
           msg: 'Confirmed!'
         });
