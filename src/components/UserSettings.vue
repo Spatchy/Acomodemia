@@ -184,6 +184,7 @@ export default Vue.extend ({
                     musicSelection: this.musicSelection,
                     username: this.username
                 }
+                console.log(info)
                 const response = await AuthService.dropdown(info)
                 this.msg = response.msg
             }catch(error){
