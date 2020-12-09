@@ -39,20 +39,23 @@ export default {
       .post(url + 'musicData/')
       .then(response => response.data);
   },
-  fileUpload() {
+
+  fileUpload(credentials) {
     return axios
-    .post(url + 'fileUpload/')
+    .post(url + 'fileUpload/', credentials)
     .then(response => response.data)
   },
-  dropdown() {
+
+  dropdown(credentials) {
     return axios
-    .post(url + 'interests/')
+    .post(url + 'interests/', credentials)
     .then(response => response.data)
   },
 
   getSecretContent() {
     return axios.get(url + 'secret-route/').then(response => response.data);
   },
+
   confirm(credentials) {
     return axios
       .post(url +'confirm/', credentials)
