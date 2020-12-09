@@ -39,6 +39,11 @@ export default {
       .post(url + 'musicData/')
       .then(response => response.data);
   },
+  fileUpload() {
+    return axios
+    .post(url + 'fileUpload/')
+    .then(response => response.data)
+  },
 
   getSecretContent() {
     return axios.get(url + 'secret-route/').then(response => response.data);

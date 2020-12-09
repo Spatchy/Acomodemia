@@ -6,6 +6,7 @@ const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 const db = require('../db.js');
 const userMiddleware = require('../middleware/users.js');
+const multer = require('multer');
 
 // SQL query to retrieve Sports from interests list 
 router.post('/sportsData', (req, res, next) => {
@@ -121,6 +122,26 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
   );
 });
 
+router.post('/fileUpload', (req, res) => {
+  console.log(req.file);
+  res.json({ file: req.file });
+  const upload = multer({
+    dest: './uploads',
+  });
+  const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if(!allowedTypes.includes(req.file.mimetype)){
+    return res.status(400).send({
+      msg: 'Incorrect filetype!'
+    })
+  } else {
+    return res.status(201).send({
+      msg: 'Uploaded!'
+    })
+  }
+
+
+})
+
 router.get('/settings', userMiddleware.isLoggedIn, (req, res, next) => {
   console.log(req.userData);
   res.send('This is the secret content. Only logged in users can see that!');
@@ -216,22 +237,6 @@ router.post('/confirm', (req, res, next) => {
         });
       }
       if(result){
-        db.query(
-          `DELETE FROM UnverifiedUsers WHERE UserId = ${db.escape(req.body.username)}`, // needs fixing to use actual email
-          (err, result) => {
-            if(err){
-              throw err
-            }
-          }
-        )
-        db.query(
-          `UPDATE User SET Verified = true WHERE PrimaryEmail = ${db.escape(req.body.username)}`,
-          (err, result) => {
-            if(err){
-              throw err
-            }
-          }
-        )
         return res.status(200).send({
           msg: 'Confirmed!'
         });
