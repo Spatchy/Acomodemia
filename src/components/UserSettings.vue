@@ -60,21 +60,22 @@
             <label for="diet1">Vegetarian</label>
             <input type="radio" id="diet2" value="2" v-model="diet">
             <label for="diet2">Neither</label><br>
+            <input type="button" @click="settings" value="Save Changes" />
         </div>
 
         <div class="control_wrapper">
             <h2>Choose your Interests</h2>    
             <p>Sports</p>
-            <ejs-dropdownlist id='sportsData' :dataSource='sportsData'></ejs-dropdownlist>
+            <ejs-dropdownlist id='sportsData' :dataSource='sportsData' v-model="sportsSelection"></ejs-dropdownlist>
             <p>Outdoor/Adventure</p>
-            <ejs-dropdownlist id='oaData' :dataSource='oaData'></ejs-dropdownlist>
+            <ejs-dropdownlist id='oaData' :dataSource='oaData' v-model="outdoorSelection"></ejs-dropdownlist>
             <p>Indoor</p>
-            <ejs-dropdownlist id='indoorData' :dataSource='indoorData'></ejs-dropdownlist>
+            <ejs-dropdownlist id='indoorData' :dataSource='indoorData' v-model="indoorSelection"></ejs-dropdownlist>
             <p>Music</p>
-            <ejs-dropdownlist id='musicData' :dataSource='musicData'></ejs-dropdownlist>
+            <ejs-dropdownlist id='musicData' :dataSource='musicData' v-model="musicSelection"></ejs-dropdownlist>
             <br>
             <br>
-            <input type="button" @click="settings" value="Save Changes" />
+            <input type="button" @click="dropdown" value="Save Interests" />
         </div>
         <div> 
             <file-upload> 
@@ -116,7 +117,11 @@ export default Vue.extend ({
             dataSports: [],
             dataOAData: [],
             dataIndoorData: [],
-            dataMusicData: []
+            dataMusicData: [],
+            sportsSelection: '',
+            outdoorSelection: '',
+            indoorSelection: '',
+            musicSelection: ''
         }
     },
 
@@ -170,6 +175,21 @@ export default Vue.extend ({
                 this.msg = error.response.data.msg
             }
         },
+        async dropdown() {
+            try {
+                const info = {
+                    sportsSelection: this.sportsSelection,
+                    outdoorSelection: this.outdoorSelection,
+                    indoorSelection: this.indoorSelection,
+                    musicSelection: this.musicSelection,
+                    username: this.username
+                }
+                const response = await AuthService.dropdown(info)
+                this.msg = response.msg
+            }catch(error){
+                this.msg = error.response.data.msg
+            }
+        }
         }
     });
 </script>
