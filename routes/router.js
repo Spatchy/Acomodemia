@@ -259,82 +259,51 @@ router.post('/interests', (req, res, next) => {
           msg: err
         });
       }
-      if(result){
-        return res.status(200).send({
-          msg: 'Confirmed!'
-        });
-      } 
-      return res.status(403).send({
-        msg: 'Incorrect Code!'
-      });
-    }
-  );
-
-  db.query(
-    `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.outdoorSelection)});`,
-
-    (err, result) => {
-      if(err){
-        throw err;
-        return res.status(400).send({
-          msg: err
-        });
-      }
-      if(result){
-        return res.status(200).send({
-          msg: 'Confirmed!'
-        });
-      } 
-      return res.status(403).send({
-        msg: 'Incorrect Code!'
-      });
-    }
-  );
-
-  db.query(
-    `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.indoorSelection)});`,
-
-    (err, result) => {
-      if(err){
-        throw err;
-        return res.status(400).send({
-          msg: err
-        });
-      }
-      if(result){
-        return res.status(200).send({
-          msg: 'Confirmed!'
-        });
-      } 
-      return res.status(403).send({
-        msg: 'Incorrect Code!'
-      });
-    }
-  );
-
-  db.query(
-    `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.musicSelection)});`,
-
-    (err, result) => {
-      if(err){
-        throw err;
-        return res.status(400).send({
-          msg: err
-        });
-      }
-      if(result){
-        return res.status(200).send({
-          msg: 'Confirmed!'
-        });
-      } 
-      return res.status(403).send({
-        msg: 'Incorrect Code!'
-      });
+      db.query(
+        `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.outdoorSelection)});`,
+    
+        (err, result) => {
+          if(err){
+            throw err;
+            return res.status(400).send({
+              msg: err
+            });
+          }
+          db.query(
+            `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.indoorSelection)});`,
+        
+            (err, result) => {
+              if(err){
+                throw err;
+                return res.status(400).send({
+                  msg: err
+                });
+              }
+              db.query(
+                `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.musicSelection)});`,
+            
+                (err, result) => {
+                  if(err){
+                    throw err;
+                    return res.status(400).send({
+                      msg: err
+                    });
+                  }
+                  if(result){
+                    return res.status(200).send({
+                      msg: 'Confirmed!'
+                    });
+                  } 
+                  return res.status(403).send({
+                    msg: 'Incorrect Code!'
+                  });
+                }     
+        );    
     }
   );
 });
-
-
+});
+});
 
 router.get('/secret-route', (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
