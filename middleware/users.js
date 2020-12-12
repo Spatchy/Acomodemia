@@ -14,7 +14,7 @@ module.exports = {
 
       if (!validUniEmailRegex.test(req.body.uniEmail) || !req.body.uniEmail.endsWith('.ac.uk')) {
         return res.status(400).send({
-          msg: 'you entered: ' + req.body.uniEmail
+          msg: 'Please enter a valid university email address ending with .ac.uk'
         });
       }
   
