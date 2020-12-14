@@ -203,7 +203,8 @@ router.post('/login', (req, res, next) => {
           if (bResult) {
             const token = jwt.sign({
                 email: result[0].PrimaryEmail,
-                name: result[0].FirstName
+                name: result[0].FirstName,
+                verified: result[0].Verified
               },
               'SECRETKEY', {
                 expiresIn: '30d'
