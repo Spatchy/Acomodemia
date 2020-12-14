@@ -57,6 +57,16 @@ export default {
         this.msg = response.msg
         //this.$router.push('/confirm');
         this.showConfirm = true;
+        const login = {
+          username: this.username,
+          password: this.password
+        }
+        const res = await AuthService.login(login)
+        const token = res.token;
+        const user = res.user;
+
+        this.$store.dispatch('login', { token, user });
+
       } catch (error) {
         this.msg = error.response.data.msg
       }
