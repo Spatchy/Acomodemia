@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # Sensitive files
 credentials.json
+
+# user content
+/uploads/*
