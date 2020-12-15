@@ -125,7 +125,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
 });
 
 const upload = multer({
-  dest: './uploads',
+  dest: './uploads'
 });
 
 router.post('/fileUpload', upload.single('file'), (req, res) => {
@@ -135,6 +135,21 @@ router.post('/fileUpload', upload.single('file'), (req, res) => {
       msg: 'Incorrect filetype!'
     })
   } else {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(
+      token,
+      'SECRETKEY'
+    );
+    db.query(
+      `UPDATE User SET PhotoUUID = '${req.file.filename}' WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
+      (result, err) => {
+        if(err) {
+          throw err;
+        }
+        else {
+          console.log(result);
+        }
+      })
     return res.status(201).send({
       msg: 'Uploaded!'
     })
