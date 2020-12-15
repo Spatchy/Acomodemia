@@ -124,12 +124,11 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
   );
 });
 
-router.post('/fileUpload', (req, res) => {
-  console.log(req.file);
-  res.json({ file: req.file });
-  const upload = multer({
-    dest: './uploads',
-  });
+const upload = multer({
+  dest: './uploads',
+});
+
+router.post('/fileUpload', upload.single('file'), (req, res) => {
   const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
   if(!allowedTypes.includes(req.file.mimetype)){
     return res.status(400).send({
@@ -140,8 +139,6 @@ router.post('/fileUpload', (req, res) => {
       msg: 'Uploaded!'
     })
   }
-
-
 })
 
 router.get('/settings', userMiddleware.isLoggedIn, (req, res, next) => {
