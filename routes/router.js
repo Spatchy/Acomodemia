@@ -313,11 +313,13 @@ router.post('/interests', (req, res, next) => {
                     msg: 'Incorrect Code!'
                   });
                 }     
-        );    
+              );    
+            }
+          );
+        }
+      );
     }
   );
-});
-});
 });
 
 router.get('/secret-route', (req, res, next) => {
