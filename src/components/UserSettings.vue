@@ -22,7 +22,7 @@
         <div>
             <h2>Set Lifestyle</h2>
             <p>Please select how often you like to drink alcohol</p>
-            <input type="radio" id="0" value="1" v-model="drinkingVal"> 
+            <input type="radio" id="0" value="1" v-model="drinkingVal">
             <label for="0">Not at all</label>
             <input type="radio" id="1" value="2" v-model="drinkingVal">
             <label for="1">Once a month</label>
@@ -64,7 +64,7 @@
         </div>
 
         <div class="control_wrapper">
-            <h2>Choose your Interests</h2>    
+            <h2>Choose your Interests</h2>
             <p>Sports</p>
             <ejs-dropdownlist id='sportsData' :dataSource='sportsData' v-model="sportsSelection"></ejs-dropdownlist>
             <p>Outdoor/Adventure</p>
@@ -82,66 +82,65 @@
             <h2>profile pic</h2>
         </div>
         <div>
-            <file-upload> 
+            <file-upload>
         </div>
         <div>
             <logout>
         </div>
     </div>
 
-    
 </template>
 <script>
 import AuthService from '@/services/AuthService.js'
 import FileUpload from '@/components/FileUpload.vue'
 import Logout from '@/components/Logout.vue'
 import ProfilePic from '@/components/ProfilePic.vue'
-import Vue from 'vue'; //https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
-import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns'; //https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
-Vue.use(DropDownListPlugin); //https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
-export default Vue.extend ({
-    name: "UserSettings",
-    components: {
-       FileUpload,
-       Logout,
-       ProfilePic
-    },
-    data() {
-        return{
-            newBio: '',
-            budget: '',
-            location: '',
-            movDate: '',
-            PrimaryEmail: '',
-            secretMessage: '',
-            username: '',
-            drinkingVal: '',
-            nightOwl: '',
-            extro: '',
-            smoke: '',
-            diet: '',
-            study: '',
-            // array used for dropdown menu, which is getting populated using foreach loop
-            sportsData: [],
-            oaData: [],
-            indoorData: [],
-            musicData: [],
-            // array variables to populate sql queries respectively, used before foreach loop
-            dataSports: [],
-            dataOAData: [],
-            dataIndoorData: [],
-            dataMusicData: [],
-            sportsSelection: '',
-            outdoorSelection: '',
-            indoorSelection: '',
-            musicSelection: '',
-            dropdownSelections: []
-        }
-    },
+import Vue from 'vue' // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns' // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+Vue.use(DropDownListPlugin) // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+export default Vue.extend({
+  name: 'UserSettings',
+  components: {
+    FileUpload,
+    Logout,
+    ProfilePic
+  },
+  data () {
+    return {
+      newBio: '',
+      budget: '',
+      location: '',
+      movDate: '',
+      PrimaryEmail: '',
+      secretMessage: '',
+      username: '',
+      drinkingVal: '',
+      nightOwl: '',
+      extro: '',
+      smoke: '',
+      diet: '',
+      study: '',
+      // array used for dropdown menu, which is getting populated using foreach loop
+      sportsData: [],
+      oaData: [],
+      indoorData: [],
+      musicData: [],
+      // array variables to populate sql queries respectively, used before foreach loop
+      dataSports: [],
+      dataOAData: [],
+      dataIndoorData: [],
+      dataMusicData: [],
+      sportsSelection: '',
+      outdoorSelection: '',
+      indoorSelection: '',
+      musicSelection: '',
+      dropdownSelections: []
+    }
+  },
 
-    async created() {
+  async created () {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push('/');
+      this.$router.push('/')
     }
     this.username = this.$store.getters.getUser.PrimaryEmail
     const details = await AuthService.getDetails()
@@ -156,58 +155,57 @@ export default Vue.extend ({
     this.diet = details.diet
     this.study = details.study
     // retrieving and populating dropDown menu in Settings page
-    this.dataSports = await AuthService.retrieveSportsData();
-    this.dataSports.msg.forEach(element => this.sportsData.push(element['Interest']));
-    this.dataOAData = await AuthService.retrieveOaData();
-    this.dataOAData.msg.forEach(element => this.oaData.push(element['Interest']));
-    this.dataIndoorData = await AuthService.retrieveIndoorData();
-    this.dataIndoorData.msg.forEach(element => this.indoorData.push(element['Interest']));
-    this.dataMusicData = await AuthService.retrieveMusicData();
-    this.dataMusicData.msg.forEach(element => this.musicData.push(element['Interest']));
-    
-    this.secretMessage = await AuthService.getSecretContent();
+    this.dataSports = await AuthService.retrieveSportsData()
+    this.dataSports.msg.forEach(element => this.sportsData.push(element.Interest))
+    this.dataOAData = await AuthService.retrieveOaData()
+    this.dataOAData.msg.forEach(element => this.oaData.push(element.Interest))
+    this.dataIndoorData = await AuthService.retrieveIndoorData()
+    this.dataIndoorData.msg.forEach(element => this.indoorData.push(element.Interest))
+    this.dataMusicData = await AuthService.retrieveMusicData()
+    this.dataMusicData.msg.forEach(element => this.musicData.push(element.Interest))
+
+    this.secretMessage = await AuthService.getSecretContent()
     console.log(details)
+  },
+
+  methods: {
+    async settings () {
+      try {
+        const info = {
+          newBio: this.newBio,
+          budget: this.budget,
+          location: this.location,
+          movDate: this.movDate,
+          PrimaryEmail: this.username,
+          drinkingVal: this.drinkingVal,
+          nightOwl: this.nightOwl,
+          extro: this.extro,
+          smoke: this.smoke,
+          diet: this.diet,
+          study: this.study
+        }
+        const response = await AuthService.settings(info)
+        this.msg = response.msg
+      } catch (error) {
+        this.msg = error.response.data.msg
+      }
     },
-
-    methods: {
-        async settings()  {
-            try {
-                const info = {
-                    newBio: this.newBio,
-                    budget: this.budget,
-                    location: this.location,
-                    movDate: this.movDate,
-                    PrimaryEmail: this.username,
-                    drinkingVal: this.drinkingVal,
-                    nightOwl: this.nightOwl,
-                    extro: this.extro,
-                    smoke: this.smoke,
-                    diet: this.diet,
-                    study: this.study
-                }
-                const response = await AuthService.settings(info)
-                this.msg = response.msg
-            } catch(error){
-                this.msg = error.response.data.msg
-            }
-        },
-        async dropdown() {
-            try {
-                const info = {
-                    sportsSelection: this.sportsSelection,
-                    outdoorSelection: this.outdoorSelection,
-                    indoorSelection: this.indoorSelection,
-                    musicSelection: this.musicSelection,
-                    username: this.username
-                }
-                console.log(info)
-                const response = await AuthService.dropdown(info)
-                this.msg = response.msg
-            }catch(error){
-                this.msg = error.response.data.msg
-            }
+    async dropdown () {
+      try {
+        const info = {
+          sportsSelection: this.sportsSelection,
+          outdoorSelection: this.outdoorSelection,
+          indoorSelection: this.indoorSelection,
+          musicSelection: this.musicSelection,
+          username: this.username
         }
-        }
-    });
+        console.log(info)
+        const response = await AuthService.dropdown(info)
+        this.msg = response.msg
+      } catch (error) {
+        this.msg = error.response.data.msg
+      }
+    }
+  }
+})
 </script>
-

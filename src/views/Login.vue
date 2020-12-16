@@ -18,33 +18,33 @@
 import AuthService from '@/services/AuthService.js'
 
 export default {
-  data() {
+  data () {
     return {
       username: '',
       password: '',
       msg: ''
-    };
+    }
   },
   methods: {
-    async login() {
+    async login () {
       try {
         const credentials = {
           username: this.username,
           password: this.password
-        };
-        const response = await AuthService.login(credentials);
-        this.msg = response.msg;
+        }
+        const response = await AuthService.login(credentials)
+        this.msg = response.msg
 
-        const token = response.token;
-        const user = response.user;
+        const token = response.token
+        const user = response.user
 
-        this.$store.dispatch('login', { token, user });
+        this.$store.dispatch('login', { token, user })
 
-        this.$router.push('/');
+        this.$router.push('/')
       } catch (error) {
-        this.msg = error.response.data.msg;
+        this.msg = error.response.data.msg
       }
     }
   }
-};
+}
 </script>

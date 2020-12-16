@@ -28,7 +28,7 @@ const routes = [
     path: '/complete',
     name: 'Complete',
     component: Complete
-  },
+  }
 ]
 
 const router = new VueRouter({

@@ -13,9 +13,9 @@
     <input type="button" @click="signUp" value="Sign Up" />
     <p v-if="msg">{{ msg }}</p>
 
-    <confirm v-if="showConfirm"/>  
+    <confirm v-if="showConfirm"/>
   </div>
-  
+
 </template>
 
 <script>
@@ -55,18 +55,17 @@ export default {
         }
         const response = await AuthService.signUp(credentials)
         this.msg = response.msg
-        //this.$router.push('/confirm');
-        this.showConfirm = true;
+        // this.$router.push('/confirm');
+        this.showConfirm = true
         const login = {
           username: this.username,
           password: this.password
         }
         const res = await AuthService.login(login)
-        const token = res.token;
-        const user = res.user;
+        const token = res.token
+        const user = res.user
 
-        this.$store.dispatch('login', { token, user });
-
+        this.$store.dispatch('login', { token, user })
       } catch (error) {
         this.msg = error.response.data.msg
       }

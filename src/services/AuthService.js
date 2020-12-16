@@ -61,12 +61,12 @@ export default {
       .post(url + 'confirm/', credentials)
       .then(response => response.data)
   },
-  
-getDetails(){
-  return axios
-    .post(url + 'details/')
-    .then(response => response.data)
-},
+
+  getDetails () {
+    return axios
+      .post(url + 'details/')
+      .then(response => response.data)
+  },
 
   getProfilePic () {
     return axios({ url: url + 'getProfilePic/', method: 'GET', responseType: 'arraybuffer' })
