@@ -79,6 +79,9 @@
         </div>
         <div>
             <profile-pic>
+            <h2>profile pic</h2>
+        </div>
+        <div>
             <file-upload> 
         </div>
         <div>
