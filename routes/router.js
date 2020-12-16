@@ -143,14 +143,7 @@ router.post('/fileUpload', upload.single('file'), (req, res) => {
     );
     db.query(
       `UPDATE User SET PhotoUUID = '${req.file.filename}' WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
-      (result, err) => {
-        if(err) {
-          throw err;
-        }
-        else {
-          console.log(result);
-        }
-      })
+      (result, err) => {})
     return res.status(201).send({
       msg: 'Uploaded!'
     })
