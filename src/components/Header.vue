@@ -25,7 +25,7 @@
   float: left;
   color: black;
   text-align: center;
-  padding: 30px;
+  padding: 35px;
   text-decoration: none;
   font-size: 18px;
   line-height: 25px;

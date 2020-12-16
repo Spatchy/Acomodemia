@@ -10,13 +10,8 @@
 
 <script>
 import UserSettings from '@/components/UserSettings.vue'
-// importing header for Settings page
-import Header from '@/components/Header'
 
 export default {
-  comments: {
-    'settings-header': Header
-  },
   name: 'Settings',
   components: {
     UserSettings

@@ -15,13 +15,9 @@
 </template>
 
 <script>
-import AuthService from '@/services/AuthService.js';
-import Header from '@/components/Header'
+import AuthService from '@/services/AuthService.js'
 
 export default {
-  components:{
-    'login-header': Header
-  },
   data() {
     return {
       username: '',
