@@ -26,4 +26,5 @@ pnpm-debug.log*
 credentials.json
 
 # user content
-/uploads/profile-images/*
+/uploads/*
+!/uploads/00000000000000000000000000000000

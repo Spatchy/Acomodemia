@@ -126,7 +126,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
 });
 
 const upload = multer({
-  dest: './uploads/profile-images/'
+  dest: './uploads/'
 });
 
 router.post('/fileUpload', upload.single('file'), (req, res) => {
@@ -328,7 +328,7 @@ router.get('/getProfilePic', (req, res, next) => {
       throw err
     }
     else {
-      payload = fs.readFileSync('./uploads/profile-images/' + result[0].PhotoUUID)
+      payload = fs.readFileSync('./uploads/' + result[0].PhotoUUID)
       res.status(200).send(
         payload
       )
