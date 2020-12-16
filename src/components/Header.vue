@@ -2,7 +2,7 @@
     <div class="header">
     <img alt="our logo" align="left" src="../assets/ourlogo.png">
     <div class="header-right">
-    <a href="#contact">Contact</a>
+    <!-- <a href="#contact">Contact</a> -->
     <a href="#about">About</a>
   </div>
 </div>
@@ -25,17 +25,12 @@ export default {
   float: left;
   color: black;
   text-align: center;
-  padding: 35px;
+  padding: 20px;
   text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 15px;
+  /* dont adjust line-height  */
+  line-height: 35px; 
   border-radius: 4px;
-}
-
-/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
-.header a.logo {
-  font-size: 25px;
-  font-weight: bold;
 }
 
 /* Change the background color on mouse-over */
