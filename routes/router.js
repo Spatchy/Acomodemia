@@ -83,7 +83,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
         });
       } else {
         // username is available
-        var photoID = uuid.v4().replace(/-/g, '')
+        var photoID = 00000000000000000000000000000000;
         var salt = uuid.v4().replace(/-/g, '')
         var password = req.body.password+salt
         bcrypt.hash(password, 12, (err, hash) => {
