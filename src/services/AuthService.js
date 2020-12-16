@@ -62,9 +62,9 @@ export default {
       .then(response => response.data)
   },
   
-getDetails(credentials){
+getDetails(){
   return axios
-    .post(url + 'details/', credentials)
+    .post(url + 'details/')
     .then(response => response.data)
 },
 

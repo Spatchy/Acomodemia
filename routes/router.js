@@ -258,7 +258,12 @@ router.post('/confirm', (req, res, next) => {
 });
 
 router.post('/details', (req, res, next) => {
-  db.query(`SELECT * FROM User WHERE PrimaryEmail = ${db.escape(req.body.username)};`,
+  const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(
+          token,
+          'SECRETKEY'
+        );
+  db.query(`SELECT * FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
   (err, result) => {
     if(err) {
       return res.status(400).send({
@@ -268,17 +273,17 @@ router.post('/details', (req, res, next) => {
     if(result) {
       console.log(result)
       return res.status(200).send({
-        email: result.PrimaryEmail,
-        bio: result.Bio,
-        location: result.Location,
-        budget: result.Budget,
-        movDate: result.MoveDate,
-        drinking: result.drinkingVal,
-        owl: result.IsNightOwl,
-        extro: result.IsExtrovert,
-        smoke: result.SmokingLevel,
-        diet: result.DietLevel,
-        study: result.StudySubject
+        email: result[0].PrimaryEmail,
+        bio: result[0].Bio,
+        location: result[0].Location,
+        budget: result[0].Budget,
+        movDate: result[0].MoveDate,
+        drinking: result[0].drinkingVal,
+        owl: result[0].IsNightOwl,
+        extro: result[0].IsExtrovert,
+        smoke: result[0].SmokingLevel,
+        diet: result[0].DietLevel,
+        study: result[0].StudySubject
       });
     }
   })

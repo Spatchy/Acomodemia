@@ -143,7 +143,7 @@ export default Vue.extend ({
       this.$router.push('/');
     }
     this.username = this.$store.getters.getUser.PrimaryEmail
-    const details = await AuthService.getDetails(this.username)
+    const details = await AuthService.getDetails()
     this.newBio = details.bio
     this.budget = details.budget
     this.location = details.location
