@@ -83,7 +83,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
         });
       } else {
         // username is available
-        var photoID = 00000000000000000000000000000000;
+        var photoID = '00000000000000000000000000000000';
         var salt = uuid.v4().replace(/-/g, '')
         var password = req.body.password+salt
         bcrypt.hash(password, 12, (err, hash) => {
@@ -255,6 +255,33 @@ router.post('/confirm', (req, res, next) => {
       });
     }
   );
+});
+
+router.post('/details', (req, res, next) => {
+  db.query(`SELECT * FROM User WHERE PrimaryEmail = ${db.escape(req.body.username)};`,
+  (err, result) => {
+    if(err) {
+      return res.status(400).send({
+        msg:err
+      });
+    }
+    if(result) {
+      console.log(result)
+      return res.status(200).send({
+        email: result.PrimaryEmail,
+        bio: result.Bio,
+        location: result.Location,
+        budget: result.Budget,
+        movDate: result.MoveDate,
+        drinking: result.drinkingVal,
+        owl: result.IsNightOwl,
+        extro: result.IsExtrovert,
+        smoke: result.SmokingLevel,
+        diet: result.DietLevel,
+        study: result.StudySubject
+      });
+    }
+  })
 });
 
 router.post('/interests', (req, res, next) => {

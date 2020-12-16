@@ -143,16 +143,17 @@ export default Vue.extend ({
       this.$router.push('/');
     }
     this.username = this.$store.getters.getUser.PrimaryEmail
-    this.newBio = this.$store.getters.getUser.Bio
-    this.budget = this.$store.getters.getUser.Budget
-    this.location = this.$store.getters.getUser.Location
-    this.movDate = this.$store.getters.getUser.MoveDate.substring(0, 10)
-    this.drinkingVal = this.$store.getters.getUser.DrinkingLevel
-    this.nightOwl = this.$store.getters.getUser.IsNightOwl
-    this.extro = this.$store.getters.getUser.IsExtrovert
-    this.smoke = this.$store.getters.getUser.SmokingLevel
-    this.diet = this.$store.getters.getUser.DietLevel
-    this.study = this.$store.getters.getUser.StudySubject
+    const details = await AuthService.getDetails(this.username)
+    this.newBio = details.bio
+    this.budget = details.budget
+    this.location = details.location
+    this.movDate = details.movDate
+    this.drinkingVal = details.drinking
+    this.nightOwl = details.owl
+    this.extro = details.extro
+    this.smoke = details.smoke
+    this.diet = details.diet
+    this.study = details.study
     // retrieving and populating dropDown menu in Settings page
     this.dataSports = await AuthService.retrieveSportsData();
     this.dataSports.msg.forEach(element => this.sportsData.push(element['Interest']));
@@ -164,6 +165,7 @@ export default Vue.extend ({
     this.dataMusicData.msg.forEach(element => this.musicData.push(element['Interest']));
     
     this.secretMessage = await AuthService.getSecretContent();
+    console.log(details)
     },
 
     methods: {
