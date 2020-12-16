@@ -1,6 +1,8 @@
 // src/views/Login.vue
 
 <template>
+<div>
+  <login-header></login-header>
   <div>
     <h1>Login</h1>
     <input type="text" placeholder="Username" v-model="username" />
@@ -9,12 +11,17 @@
     <p v-if="msg">{{ msg }}</p>
     <router-link to="/sign-up">Sign-up </router-link>
   </div>
+  </div>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService.js';
+import Header from '@/components/Header'
 
 export default {
+  components:{
+    'login-header': Header
+  },
   data() {
     return {
       username: '',

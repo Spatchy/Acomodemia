@@ -1,70 +1,69 @@
 // orginally obtained from: https://webdeasy.de/en/complete-login-system-with-node-js-vue-js-vuex-part-2-2/
 
-import axios from 'axios';
-//import { response } from 'express';
-const url = 'api/';
+import axios from 'axios'
+// import { response } from 'express';
+const url = 'api/'
 export default {
-  login(credentials) {
+  login (credentials) {
     return axios
       .post(url + 'login/', credentials)
-      .then(response => response.data);
+      .then(response => response.data)
   },
-  signUp(credentials) {
+  signUp (credentials) {
     return axios
       .post(url + 'sign-up/', credentials)
-      .then(response => response.data);
+      .then(response => response.data)
   },
-  settings(info) {
-    return axios  
+  settings (info) {
+    return axios
       .post(url + 'settings/', info)
-      .then(response => response.data);
+      .then(response => response.data)
   },
-  retrieveSportsData(){
+  retrieveSportsData () {
     return axios
       .post(url + 'sportsData/')
-      .then(response => response.data);
+      .then(response => response.data)
   },
-  retrieveOaData(){
+  retrieveOaData () {
     return axios
       .post(url + 'oaData/')
-      .then(response => response.data);
+      .then(response => response.data)
   },
-  retrieveIndoorData(){
+  retrieveIndoorData () {
     return axios
       .post(url + 'indoorData/')
-      .then(response => response.data);
+      .then(response => response.data)
   },
-  retrieveMusicData(){
+  retrieveMusicData () {
     return axios
       .post(url + 'musicData/')
-      .then(response => response.data);
+      .then(response => response.data)
   },
 
-  fileUpload(credentials) {
+  fileUpload (credentials) {
     return axios
-    .post(url + 'fileUpload/', credentials)
-    .then(response => response.data)
+      .post(url + 'fileUpload/', credentials)
+      .then(response => response.data)
   },
 
-  dropdown(credentials) {
+  dropdown (credentials) {
     return axios
-    .post(url + 'interests/', credentials)
-    .then(response => response.data)
+      .post(url + 'interests/', credentials)
+      .then(response => response.data)
   },
 
-  getSecretContent() {
-    return axios.get(url + 'secret-route/').then(response => response.data);
+  getSecretContent () {
+    return axios.get(url + 'secret-route/').then(response => response.data)
   },
 
-  confirm(credentials) {
+  confirm (credentials) {
     return axios
-      .post(url +'confirm/', credentials)
-      .then(response => response.data);
+      .post(url + 'confirm/', credentials)
+      .then(response => response.data)
   },
 
-  getProfilePic() {
-    return axios({url: url + 'getProfilePic/', method: 'GET', responseType: 'arraybuffer'})
-    .then(response => response.data)
-
+  getProfilePic () {
+    return axios({ url: url + 'getProfilePic/', method: 'GET', responseType: 'arraybuffer' })
+      .then(response => response.data)
   }
-};
+}
