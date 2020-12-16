@@ -60,5 +60,11 @@ export default {
     return axios
       .post(url +'confirm/', credentials)
       .then(response => response.data);
+  },
+
+  getProfilePic() {
+    return axios({url: url + 'getProfilePic/', method: 'GET', responseType: 'arraybuffer'})
+    .then(response => response.data)
+
   }
 };

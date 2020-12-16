@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../db.js');
 const userMiddleware = require('../middleware/users.js');
 const multer = require('multer');
+const fs = require('fs')
 
 // SQL query to retrieve Sports from interests list 
 router.post('/sportsData', (req, res, next) => {
@@ -321,6 +322,26 @@ router.post('/interests', (req, res, next) => {
     }
   );
 });
+
+router.get('/getProfilePic', (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+    token,
+    'SECRETKEY'
+  );
+  db.query(`SELECT PhotoUUID FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`, 
+  (err, result) => {
+    if(err) {
+      throw err
+    }
+    else {
+      payload = fs.readFileSync('./uploads/' + result[0].PhotoUUID)
+      res.status(200).send(
+        payload
+      )
+    }
+  })
+})
 
 router.get('/secret-route', (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
