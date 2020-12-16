@@ -22,15 +22,15 @@
         <div>
             <h2>Set Lifestyle</h2>
             <p>Please select how often you like to drink alcohol</p>
-            <input type="radio" id="0" value="0" v-model="drinkingVal"> 
+            <input type="radio" id="0" value="1" v-model="drinkingVal"> 
             <label for="0">Not at all</label>
-            <input type="radio" id="1" value="1" v-model="drinkingVal">
+            <input type="radio" id="1" value="2" v-model="drinkingVal">
             <label for="1">Once a month</label>
-            <input type="radio" id="2" value="2" v-model="drinkingVal">
+            <input type="radio" id="2" value="3" v-model="drinkingVal">
             <label for="2">Once a fortnight</label>
-            <input type="radio" id="3" value="3" v-model="drinkingVal">
+            <input type="radio" id="3" value="4" v-model="drinkingVal">
             <label for="3">Once a week</label>
-            <input type="radio" id="4" value="4" v-model="drinkingVal">
+            <input type="radio" id="4" value="5" v-model="drinkingVal">
             <label for="4">Every day</label><br>
 
             <p>Would you describe yourself as a night owl?</p>
@@ -46,19 +46,19 @@
             <label for="owlNo">No</label><br>
 
             <p>How often do you smoke?</p>
-            <input type="radio" id="smoke0" value="0" v-model="smoke">
+            <input type="radio" id="smoke0" value="1" v-model="smoke">
             <label for="smoke0">Never</label>
-            <input type="radio" id="smoke1" value="1" v-model="smoke">
+            <input type="radio" id="smoke1" value="2" v-model="smoke">
             <label for="smoke1">Rarely/Socially</label>
-            <input type="radio" id="smoke2" value="2" v-model="smoke">
+            <input type="radio" id="smoke2" value="3" v-model="smoke">
             <label for="smoke2">Every Day</label><br>
 
             <p>Are you a vegetarian, vegan or neither?</p>
-            <input type="radio" id="diet0" value="0" v-model="diet">
+            <input type="radio" id="diet0" value="1" v-model="diet">
             <label for="diet0">Vegan</label>
-            <input type="radio" id="diet1" value="1" v-model="diet">
+            <input type="radio" id="diet1" value="2" v-model="diet">
             <label for="diet1">Vegetarian</label>
-            <input type="radio" id="diet2" value="2" v-model="diet">
+            <input type="radio" id="diet2" value="3" v-model="diet">
             <label for="diet2">Neither</label><br>
             <input type="button" @click="settings" value="Save Changes" />
         </div>
@@ -134,7 +134,8 @@ export default Vue.extend ({
             sportsSelection: '',
             outdoorSelection: '',
             indoorSelection: '',
-            musicSelection: ''
+            musicSelection: '',
+            dropdownSelections: []
         }
     },
 
