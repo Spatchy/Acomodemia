@@ -438,7 +438,7 @@ router.post('/getFeed', (req, res, next) => {
                     interests: await retrieveInterests(result[i].PrimaryEmail).then(data => {
                       return data
                     }),
-                    matchingID: result[i].matchingID
+                    matchingId: result[i].MatchingID
                   }
                 ) 
               }
