@@ -452,6 +452,49 @@ router.post('/getFeed', (req, res, next) => {
   )
 })
 
+router.post('/requestMatch', (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+    token,
+    'SECRETKEY'
+  );
+  db.query(
+    `SELECT PrimaryEmail FROM User WHERE MatchingID = ${db.escape(req.body.matchingId)};`,
+    (err, result) => {
+      if(err) {
+        throw err
+      }
+      else{
+        db.query(
+          `SELECT RelType FROM Matches WHERE Person1 = ${db.escape(result[0].PrimaryEmail)} AND Person2 = ${db.escape(decoded.email)}`,
+          (err, result) => {
+            if(err){
+              throw err
+            }
+            else if(result) {
+              if(result[0].RelType == "Requested"){
+                // other user has already requested, match the users
+                db.query(
+                  `UPDATE Matches SET RelType = Matched WHERE Person1 = ${db.escape(result[0].PrimaryEmail)} AND Person2 = ${db.escape(decoded.email)}`
+                )
+              }
+              else if(result[0].RelType == "Rejected"){
+                //not a match
+              }
+            }
+            else {
+              // not yet a match, save the request
+              db.query(
+                `INSERT INTO Matches${db.escape(result[0].PrimaryEmail)}, Person2 = ${db.escape(decoded.email)}, Requested`
+              )
+            }
+          }
+        )
+      }
+    }
+  )
+})
+
 router.get('/secret-route', (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });

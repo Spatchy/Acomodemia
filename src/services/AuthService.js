@@ -1,6 +1,7 @@
 // orginally obtained from: https://webdeasy.de/en/complete-login-system-with-node-js-vue-js-vuex-part-2-2/
 
 import axios from 'axios'
+import { response } from 'express'
 // import { response } from 'express';
 const url = 'api/'
 export default {
@@ -76,6 +77,12 @@ export default {
   getFeed (credentials) {
     return axios
       .post(url + 'getFeed/', credentials)
+      .then(response => response.data)
+  },
+
+  requestMatch(credentials) {
+    return axios
+      .post(url + 'requestMatch/', credentials)
       .then(response => response.data)
   }
 }
