@@ -407,7 +407,7 @@ router.post('/getFeed', (req, res, next) => {
       }
       else {
         db.query(
-          `SELECT PrimaryEmail, Bio, FirstName, Gender, DateOfBirth, Location, Budget, DrinkingLevel, SmokingLevel, DietLevel, IsNightOwl, IsExtrovert, StudySubject FROM User WHERE Location = ${db.escape(result[0].Location)} AND PrimaryEmail != ${db.escape(decoded.email)};`,
+          `SELECT PrimaryEmail, MatchingID, Bio, FirstName, Gender, DateOfBirth, Location, Budget, DrinkingLevel, SmokingLevel, DietLevel, IsNightOwl, IsExtrovert, StudySubject FROM User WHERE Location = ${db.escape(result[0].Location)} AND PrimaryEmail != ${db.escape(decoded.email)};`,
           async (err, result) => {
             if(err) {
               throw err
@@ -437,7 +437,8 @@ router.post('/getFeed', (req, res, next) => {
                     subject: result[i].StudySubject,
                     interests: await retrieveInterests(result[i].PrimaryEmail).then(data => {
                       return data
-                    })
+                    }),
+                    matchingID: result[i].matchingID
                   }
                 ) 
               }
