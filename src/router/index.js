@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import SignUp from '../views/SignUp.vue'
 import Settings from '../views/Settings.vue'
 import Complete from '../views/Complete.vue'
+import Matching from '../views/Matching.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/complete',
     name: 'Complete',
     component: Complete
+  },
+  {
+    path: '/feed',
+    name: 'Matching',
+    component: Matching
   }
 ]
 
