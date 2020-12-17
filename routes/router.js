@@ -467,7 +467,7 @@ router.post('/requestMatch', (req, res, next) => {
       }
       else{
         db.query(
-          `SELECT RelType FROM Matches WHERE Person1 = ${db.escape(result[0].PrimaryEmail)} AND Person2 = ${db.escape(decoded.email)}`,
+          `SELECT RelType FROM Matches WHERE Person1 = ${db.escape(result[0].PrimaryEmail)} AND Person2 = ${db.escape(decoded.email)};`,
           (err, result) => {
             if(err){
               throw err
@@ -476,17 +476,41 @@ router.post('/requestMatch', (req, res, next) => {
               if(result[0].RelType == "Requested"){
                 // other user has already requested, match the users
                 db.query(
-                  `UPDATE Matches SET RelType = Matched WHERE Person1 = ${db.escape(result[0].PrimaryEmail)} AND Person2 = ${db.escape(decoded.email)}`
+                  `UPDATE Matches SET RelType = Matched WHERE Person1 = ${db.escape(result[0].PrimaryEmail)} AND Person2 = ${db.escape(decoded.email)};`,
+                  (err, result) => {
+                    if(err) {
+                      throw err
+                    }
+                    else{
+                      res.status(202).send({
+                        msg: 'request accepted'
+                      })
+                    }
+                  }
                 )
+                
               }
               else if(result[0].RelType == "Rejected"){
                 //not a match
+                res.status(202).send({
+                  msg: 'request accepted'
+                })
               }
             }
             else {
               // not yet a match, save the request
               db.query(
-                `INSERT INTO Matches${db.escape(result[0].PrimaryEmail)}, Person2 = ${db.escape(decoded.email)}, Requested`
+                `INSERT INTO Matches${db.escape(result[0].PrimaryEmail)}, Person2 = ${db.escape(decoded.email)}, Requested;`,
+                (err, result) => {
+                  if(err) {
+                    throw err
+                  }
+                  else {
+                    res.status(200).send({
+                      msg: `Matched with ${req.body.matchingId}`
+                    })
+                  }
+                }
               )
             }
           }
