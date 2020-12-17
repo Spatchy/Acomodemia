@@ -429,6 +429,7 @@ router.post('/getFeed', (req, res, next) => {
                     budget: result[i].Budget,
                     drinking: result[i].DrinkingLevel,
                     smoking: result[i].SmokingLevel,
+                    location: result[i].Location,
                     diet: result[i].DietLevel,
                     sleep: result[i].IsNightOwl,
                     social: result[i].IsExtrovert,

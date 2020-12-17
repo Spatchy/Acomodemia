@@ -1,21 +1,7 @@
 <template>
     <div>
-        <div>
-            <h3 id="name"></h3><h3 id="age"></h3>
-            <profile-pic>
-        </div>
-        <div id="Details">
-            <br>
-            <p>GENDER: </p><br>
-            <p>LOCATION: </p><br>
-            <p>BUDGET: </p><br>
-            <p>INTERESTS: </p><br>
-            <p>LIFESTYLE: </p><br>
-            <p>SUBJECT: </p><br>
-        </div>
-        <div id="bioDiv">
-            <h3>Bio:</h3>
-            <p></p>
+        <div ref="container"> 
+        
         </div>
         <div id="controls">
             <input type="button" value="Previous" @click="prev" />
@@ -28,10 +14,13 @@
 <script>
 import AuthService from '@/services/AuthService.js'
 import ProfilePic from '@/components/ProfilePic.vue'
+import FeedItem from '@/components/FeedItem.vue'
+import Vue from 'vue'
 export default {
     name: 'Feed',
     components: {
-        ProfilePic
+        ProfilePic,
+        FeedItem
     },
     data() {
         return {
@@ -41,9 +30,15 @@ export default {
             location: '',
             budget: '',
             interests: [],
-            lifestyle: [],
+            drinking: '',
+            smoking: '',
+            diet: '',
+            sleep: '',
+            social: '',
             subject: '',
-            bio: ''
+            bio: '',
+            currentSuggestion: -1,
+            res: []
         }
     },
     async created() {
@@ -51,6 +46,36 @@ export default {
         console.log("created ran")
         const result = await AuthService.getFeed(credentials)
         console.log(result)
+        this.res = result
+        this.next()
+    },
+    methods: {
+        next() {
+            this.currentSuggestion += 1
+            this.$refs.container.innerHTML=''
+            var ComponentClass = Vue.extend(FeedItem)
+            var instance = new ComponentClass({
+            propsData: { 
+                name: this.res[this.currentSuggestion].name, 
+                age: this.res[this.currentSuggestion].age,
+                gender: this.res[this.currentSuggestion].gender,
+                location:  this.res[this.currentSuggestion].location,
+                budget: this.res[this.currentSuggestion].budget,
+                subject: this.res[this.currentSuggestion].subject,
+                bio: this.res[this.currentSuggestion].bio,
+                drinking: this.drinking = this.res[this.currentSuggestion].drinking,
+                smoking: this.res[this.currentSuggestion].smoking,
+                diet: this.res[this.currentSuggestion].diet,
+                sleep: this.res[this.currentSuggestion].sleep,
+                social: this.res[this.currentSuggestion].social,
+                interests: this.res[this.currentSuggestion].interests
+              }
+            })
+            instance.$mount() // pass nothing
+            this.$refs.container.appendChild(instance.$el)
+        },
+       
     }
+    
 }
 </script>
