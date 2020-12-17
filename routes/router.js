@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken');
 const db = require('../db.js');
 const userMiddleware = require('../middleware/users.js');
 const multer = require('multer');
-const fs = require('fs')
+const fs = require('fs');
+const { resolve } = require('path');
 
 // SQL query to retrieve Sports from interests list 
 router.post('/sportsData', (req, res, next) => {
@@ -151,12 +152,12 @@ router.post('/fileUpload', upload.single('file'), (req, res) => {
 })
 
 router.get('/settings', userMiddleware.isLoggedIn, (req, res, next) => {
-  console.log(req.userData);
+  //console.log(req.userData);
   res.send('This is the secret content. Only logged in users can see that!');
 });
 
 router.get('/complete', userMiddleware.isLoggedIn, (req, res, next) => {
-  console.log(req.userData);
+  //console.log(req.userData);
   res.send('This is the secret content. Only logged in users can see that!');
 });
 
@@ -271,7 +272,7 @@ router.post('/details', (req, res, next) => {
       });
     }
     if(result) {
-      console.log(result)
+      //console.log(result)
       return res.status(200).send({
         email: result[0].PrimaryEmail,
         bio: result[0].Bio,
@@ -366,6 +367,87 @@ router.get('/getProfilePic', (req, res, next) => {
       )
     }
   })
+})
+
+function calculateAge(birthday) { // birthday is a date
+  var ageDifMs = Date.now() - birthday.getTime();
+  var ageDate = new Date(ageDifMs); // miliseconds from epoch
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+function retrieveInterests (id) {
+  
+  return new Promise((resolve, reject) => {
+    db.query(
+      `SELECT Interest FROM InterestsSet WHERE UserID = ${db.escape(id)}`,
+      (err, result) => {
+        if(err) {
+          throw err
+        }
+        else{
+          resolve(result)
+        }
+      }
+    )
+  })
+}
+
+router.post('/getFeed', (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+    token,
+    'SECRETKEY'
+  );
+  db.query(
+    `SELECT Location FROM User Where PrimaryEmail = ${db.escape(decoded.email)};`,
+    (err, result) => {
+      if(err) {
+        throw err
+      }
+      else {
+        db.query(
+          `SELECT PrimaryEmail, Bio, FirstName, Gender, DateOfBirth, Location, Budget, DrinkingLevel, SmokingLevel, DietLevel, IsNightOwl, IsExtrovert, StudySubject FROM User WHERE Location = ${db.escape(result[0].Location)};`,
+          async (err, result) => {
+            if(err) {
+              throw err
+            }
+            else {
+              payload = []
+              pageSize = 20
+              firstIndex = pageSize * req.body.page
+              lastIndex = firstIndex + pageSize
+              if(result.length < 20){
+                lastIndex = result.length
+              }
+              for(i = firstIndex; i<lastIndex; i++){
+                payload.push(
+                  {
+                    name: result[i].FirstName,
+                    bio: result[i].Bio,
+                    gender: result[i].Gender,
+                    age: calculateAge(result[i].DateOfBirth),
+                    budget: result[i].Budget,
+                    drinking: result[i].DrinkingLevel,
+                    smoking: result[i].SmokingLevel,
+                    diet: result[i].DietLevel,
+                    sleep: result[i].IsNightOwl,
+                    social: result[i].IsExtrovert,
+                    subject: result[i].StudySubject,
+                    interests: await retrieveInterests(result[i].PrimaryEmail).then(data => {
+                      return data
+                    })
+                  }
+                ) 
+              }
+              res.status(200).send(
+                payload
+              )
+            }
+          }
+        )
+      }
+    }
+  )
 })
 
 router.get('/secret-route', (req, res, next) => {

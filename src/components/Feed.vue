@@ -45,6 +45,12 @@ export default {
             subject: '',
             bio: ''
         }
+    },
+    async created() {
+        var credentials = {page: 0}
+        console.log("created ran")
+        const result = await AuthService.getFeed(credentials)
+        console.log(result)
     }
 }
 </script>
