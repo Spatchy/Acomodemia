@@ -87,22 +87,27 @@ export default {
     },
     async match() {
       try {
+        this.res.splice(this.currentSuggestion, 1)
         const credentials = {
           matchingId: this.matchID
         }
         const response = await AuthService.requestMatch(credentials)
         this.matchMessage = response.msg
+        next()
       } catch(error) {
         this.matchMessage = error.response.data.msg
       }
     },
     async reject() {
       try {
+        this.res.splice(this.currentSuggestion, 1)
+        this.res[this.currentSuggestion]
         const credentials = {
           matchingId: this.matchID
         }
         const response = await AuthService.reject(credentials)
         this.matchMessage = response.msg
+        next()
       } catch(error) {
         this.matchMessage = error.response.data.msg
       }
