@@ -6,7 +6,7 @@
         <div id="controls">
             <p> {{matchMessage}} </p>
             <input type="button" value="Previous" @click="prev" />
-            <input type="button" value="Hide" @click="hide" />
+            <input type="button" value="Hide" @click="reject" />
             <input type="button" value="Match" @click="match" />
             <input type="button" value="Next" @click="next" />
         </div>
@@ -91,6 +91,17 @@ export default {
           matchingId: this.matchID
         }
         const response = await AuthService.requestMatch(credentials)
+        this.matchMessage = response.msg
+      } catch(error) {
+        this.matchMessage = error.response.data.msg
+      }
+    },
+    async reject() {
+      try {
+        const credentials = {
+          matchingId: this.matchID
+        }
+        const response = await AuthService.reject(credentials)
         this.matchMessage = response.msg
       } catch(error) {
         this.matchMessage = error.response.data.msg
