@@ -4,6 +4,7 @@
 
         </div>
         <div id="controls">
+            <p> {{matchMessage}} </p>
             <input type="button" value="Previous" @click="prev" />
             <input type="button" value="Hide" @click="hide" />
             <input type="button" value="Match" @click="match" />
@@ -37,8 +38,10 @@ export default {
       social: '',
       subject: '',
       bio: '',
+      matchID: '',
       currentSuggestion: -1,
-      res: []
+      res: [],
+      matchMessage: '',
     }
   },
   async created () {
@@ -60,6 +63,7 @@ export default {
     },
     change () {
       this.$refs.container.innerHTML = ''
+      this.matchID = this.res[this.currentSuggestion].matchingId
       var ComponentClass = Vue.extend(FeedItem)
       var instance = new ComponentClass({
         propsData: {
@@ -80,6 +84,17 @@ export default {
       })
       instance.$mount() // pass nothing
       this.$refs.container.appendChild(instance.$el)
+    },
+    async match() {
+      try {
+        const credentials = {
+          matchingId: this.matchID
+        }
+        const response = await AuthService.requestMatch(credentials)
+        this.matchMessage = response.msg
+      } catch(error) {
+        this.matchMessage = error.response.data.msg
+      }
     }
   }
 }
