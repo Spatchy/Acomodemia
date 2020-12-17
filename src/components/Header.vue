@@ -29,7 +29,7 @@ export default {
   text-decoration: none;
   font-size: 15px;
   /* dont adjust line-height  */
-  line-height: 35px; 
+  line-height: 35px;
   border-radius: 4px;
 }
 

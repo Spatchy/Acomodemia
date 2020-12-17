@@ -75,7 +75,7 @@ export default {
 
   getFeed (credentials) {
     return axios
-    .post(url + 'getFeed/', credentials)
-    .then(response => response.data)
+      .post(url + 'getFeed/', credentials)
+      .then(response => response.data)
   }
 }

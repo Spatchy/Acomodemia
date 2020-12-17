@@ -14,15 +14,15 @@ import Feed from '@/components/Feed.vue'
 import Logout from '@/components/Logout.vue'
 
 export default {
-    name: 'Matching',
-    components: {
-        Feed,
-        Logout
-    },
-    async created () {
+  name: 'Matching',
+  components: {
+    Feed,
+    Logout
+  },
+  async created () {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push('/')
     }
-    }
+  }
 }
 </script>
