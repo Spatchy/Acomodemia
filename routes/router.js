@@ -538,28 +538,29 @@ router.post('/reject', (req, res, next) => {
         emailToSelect = result[0].PrimaryEmail // needed as `result` is overwritten in next statement
         nameToSelect = result[0].firstName
         db.query(
-          `SELECT RelType FROM Matches WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
+          `SELECT RelType FROM Matches WHERE (Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)}) OR (Person2 = ${db.escape(emailToSelect)} AND Person1 = ${db.escape(decoded.email)});`,
           (err, result) => {
+            console.log(result[0])
             if(err){
               throw err
             }
-            // there is either a requested match or a rejection in the table
+            // there is either a requested match, a successful match or a rejection in the table
             else if(result[0] !== undefined) {
-              if(result[0].RelType == "Rejected"){
+              if(result[0].RelType == "Rejected"){ // they've already rejected you, nothing needs to be done
                 res.status(200).send({
                   msg: `rejected ${nameToSelect}`
                 })
               }
               else {
                 db.query(
-                  `UPDATE Matches SET RelType = 'Rejected' WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
+                  `UPDATE Matches SET RelType = 'Rejected' WHERE (Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)}) OR (Person2 = ${db.escape(emailToSelect)} AND Person1 = ${db.escape(decoded.email)});`,
                   (err, result) => {
                     if(err) {
                       throw err
                     }
                     else{
                       res.status(200).send({
-                        msg: `rejected ${nameToSelect}`
+                        msg: `rejected ${this.nameToSelect}`
                       })
                     }
                   }
