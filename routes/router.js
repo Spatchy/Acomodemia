@@ -475,7 +475,6 @@ router.post('/requestMatch', (req, res, next) => {
             }
             // there is either a requested match or a rejection in the table
             else if(result[0] !== undefined) {
-              console.log(typeof result)
               if(result[0].RelType == "Requested"){
                 // other user has already requested, match the users
                 db.query(
@@ -512,6 +511,73 @@ router.post('/requestMatch', (req, res, next) => {
                     res.status(202).send({
                       msg: 'request accepted'
                     })                    
+                  }
+                }
+              )
+            }
+          }
+        )
+      }
+    }
+  )
+}),
+
+router.post('/reject', (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+    token,
+    'SECRETKEY'
+  );
+  db.query(
+    `SELECT PrimaryEmail, FirstName FROM User WHERE MatchingID = ${db.escape(req.body.matchingId)};`,
+    (err, result) => {
+      if(err) {
+        throw err
+      }
+      else{
+        emailToSelect = result[0].PrimaryEmail // needed as `result` is overwritten in next statement
+        nameToSelect = result[0].firstName
+        db.query(
+          `SELECT RelType FROM Matches WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
+          (err, result) => {
+            if(err){
+              throw err
+            }
+            // there is either a requested match or a rejection in the table
+            else if(result[0] !== undefined) {
+              if(result[0].RelType == "Rejected"){
+                res.status(200).send({
+                  msg: `rejected ${nameToSelect}`
+                })
+              }
+              else {
+                db.query(
+                  `UPDATE Matches SET RelType = 'Rejected' WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
+                  (err, result) => {
+                    if(err) {
+                      throw err
+                    }
+                    else{
+                      res.status(200).send({
+                        msg: `rejected ${nameToSelect}`
+                      })
+                    }
+                  }
+                )
+              }
+            }
+            else {
+              // not yet an entry, reject them
+              db.query(
+                `INSERT INTO Matches VALUES( ${db.escape(decoded.email)}, ${db.escape(emailToSelect)}, 'Rejected');`,
+                (err, result) => {
+                  if(err) {
+                    throw err
+                  }
+                  else {
+                    res.status(200).send({
+                      msg: `rejected ${nameToSelect}`
+                    })                  
                   }
                 }
               )
