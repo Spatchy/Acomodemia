@@ -9,6 +9,7 @@ const userMiddleware = require('../middleware/users.js');
 const multer = require('multer');
 const fs = require('fs');
 const { resolve } = require('path');
+const { decode } = require('punycode');
 
 // SQL query to retrieve Sports from interests list 
 router.post('/sportsData', (req, res, next) => {
@@ -406,9 +407,11 @@ router.post('/getFeed', (req, res, next) => {
         throw err
       }
       else {
+        // Select everyone not yet matched with, requested or rejected from the same location as the user
         db.query(
-          `SELECT PrimaryEmail, MatchingID, Bio, FirstName, Gender, DateOfBirth, Location, Budget, DrinkingLevel, SmokingLevel, DietLevel, IsNightOwl, IsExtrovert, StudySubject FROM User WHERE Location = ${db.escape(result[0].Location)} AND PrimaryEmail != ${db.escape(decoded.email)};`,
+          `SELECT u.PrimaryEmail, u.MatchingID, u.Bio, u.FirstName, u.Gender, u.DateOfBirth, u.Location, u.Budget, u.DrinkingLevel, u.SmokingLevel, u.DietLevel, u.IsNightOwl, u.IsExtrovert, u.StudySubject FROM User u WHERE u.Location = ${db.escape(result[0].Location)} AND u.PrimaryEmail != ${db.escape(decoded.email)} AND ((SELECT RelType FROM Matches WHERE (Person1 = ${db.escape(decoded.email)} AND Person2 = u.PrimaryEmail) OR (Person2 = ${db.escape(decoded.email)} AND Person1 = u.PrimaryEmail)) IS NULL);`,
           async (err, result) => {
+            console.log(result)
             if(err) {
               throw err
             }
@@ -596,7 +599,7 @@ router.post('/getMatches', (req, res, next) => {const token = req.headers.author
     'SECRETKEY'
   );
   db.query(
-    `SELECT u.FirstName, u.DateofBirth, u.MatchingID FROM Matches m, User u WHERE m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2 AND m.RelType = 'Matched';`,
+    `SELECT u.FirstName, u.DateOfBirth, u.MatchingID FROM Matches m, User u WHERE ((m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2) OR (m.Person2 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person1)) AND m.RelType = 'Matched';`,
     (err, result) => {
       if(err) {
         throw err

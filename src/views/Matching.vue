@@ -3,7 +3,7 @@
         <div>
             <logout>
         </div>
-        <div ref="matchedlist"></div>
+        <div ref="matchedlist" style="float:left"></div>
         <div>
             <h2>Feed</h2>
             <feed>
@@ -15,6 +15,7 @@ import Feed from '@/components/Feed.vue'
 import Logout from '@/components/Logout.vue'
 import AuthService from '@/services/AuthService.js'
 import MatchedPerson from '@/components/MatchedPerson.vue'
+import Vue from 'vue'
 
 export default {
   name: 'Matching',
@@ -29,12 +30,12 @@ export default {
     MatchedPerson
   },
   methods: {
-    displayMatches (matchNumber) {
+    displayMatches (match) {
       var ComponentClass = Vue.extend(MatchedPerson)
       var instance = new ComponentClass({
         propsData: {
-          name: this.matchesList[matchNumber].name,
-          age: this.matchesList[matchNumber].age
+          name: match.name,
+          age: match.age
         }
       })
       instance.$mount() // pass nothing
@@ -46,6 +47,10 @@ export default {
       this.$router.push('/')
     }
     this.matchesList = await AuthService.getMatches()
+    console.log(this.matchesList)
+    this.matchesList.forEach(element => {
+        this.displayMatches(element)
+    });
   }
 }
 </script>
