@@ -83,5 +83,10 @@ export default {
     return axios
       .post(url + 'requestMatch/', credentials)
       .then(response => response.data)
+  },
+  reject(credentials) {
+    return axios
+    .post(url + 'reject/', credentials)
+    .then(response => response.data)
   }
 }
