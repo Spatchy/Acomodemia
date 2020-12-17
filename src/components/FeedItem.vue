@@ -21,7 +21,7 @@
 </template>
 <script>
 export default {
-    name: 'FeedItem',
-    props: ['name', 'age', 'gender', 'location', 'budget', 'subject', 'bio', 'drinking', 'smoking', 'diet', 'sleep', 'social', 'interests']
+  name: 'FeedItem',
+  props: ['name', 'age', 'gender', 'location', 'budget', 'subject', 'bio', 'drinking', 'smoking', 'diet', 'sleep', 'social', 'interests']
 }
 </script>
