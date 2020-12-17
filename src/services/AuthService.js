@@ -79,14 +79,19 @@ export default {
       .then(response => response.data)
   },
 
-  requestMatch(credentials) {
+  requestMatch (credentials) {
     return axios
       .post(url + 'requestMatch/', credentials)
       .then(response => response.data)
   },
-  reject(credentials) {
+  reject (credentials) {
     return axios
     .post(url + 'reject/', credentials)
+    .then(response => response.data)
+  },
+  getMatches () {
+    return axios
+    .post(url + 'getMatches/')
     .then(response => response.data)
   }
 }

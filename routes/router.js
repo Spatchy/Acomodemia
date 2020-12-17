@@ -520,7 +520,7 @@ router.post('/requestMatch', (req, res, next) => {
       }
     }
   )
-}),
+})
 
 router.post('/reject', (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
@@ -584,6 +584,36 @@ router.post('/reject', (req, res, next) => {
               )
             }
           }
+        )
+      }
+    }
+  )
+})
+
+router.post('/getMatches', (req, res, next) => {const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+    token,
+    'SECRETKEY'
+  );
+  db.query(
+    `SELECT u.FirstName, u.DateofBirth, u.MatchingID FROM Matches m, User u WHERE m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2 AND m.RelType = 'Matched';`,
+    (err, result) => {
+      if(err) {
+        throw err
+      }
+      else {
+        payload = []
+        result.forEach(element => {
+          payload.push(
+            {
+              name: element.FirstName,
+              age: calculateAge(element.DateOfBirth),
+              matchingid: element.MatchingID
+            }
+          )
+        });
+        res.status(200).send(
+          payload
         )
       }
     }
