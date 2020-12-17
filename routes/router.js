@@ -466,24 +466,27 @@ router.post('/requestMatch', (req, res, next) => {
         throw err
       }
       else{
+        emailToSelect = result[0].PrimaryEmail //needed as `result` is overwritten in next statement
         db.query(
-          `SELECT RelType FROM Matches WHERE Person1 = ${db.escape(result[0].PrimaryEmail)} AND Person2 = ${db.escape(decoded.email)};`,
+          `SELECT RelType FROM Matches WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
           (err, result) => {
             if(err){
               throw err
             }
-            else if(result) {
+            // there is either a requested match or a rejection in the table
+            else if(result[0] !== undefined) {
+              console.log(typeof result)
               if(result[0].RelType == "Requested"){
                 // other user has already requested, match the users
                 db.query(
-                  `UPDATE Matches SET RelType = Matched WHERE Person1 = ${db.escape(result[0].PrimaryEmail)} AND Person2 = ${db.escape(decoded.email)};`,
+                  `UPDATE Matches SET RelType = 'Matched' WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
                   (err, result) => {
                     if(err) {
                       throw err
                     }
                     else{
-                      res.status(202).send({
-                        msg: 'request accepted'
+                      res.status(200).send({
+                        msg: `Matched with ${req.body.matchingId}`
                       })
                     }
                   }
@@ -500,15 +503,15 @@ router.post('/requestMatch', (req, res, next) => {
             else {
               // not yet a match, save the request
               db.query(
-                `INSERT INTO Matches${db.escape(result[0].PrimaryEmail)}, Person2 = ${db.escape(decoded.email)}, Requested;`,
+                `INSERT INTO Matches VALUES( ${db.escape(decoded.email)}, ${db.escape(emailToSelect)}, 'Requested');`,
                 (err, result) => {
                   if(err) {
                     throw err
                   }
                   else {
-                    res.status(200).send({
-                      msg: `Matched with ${req.body.matchingId}`
-                    })
+                    res.status(202).send({
+                      msg: 'request accepted'
+                    })                    
                   }
                 }
               )
