@@ -91,9 +91,9 @@ export default {
         const credentials = {
           matchingId: this.matchID
         }
+        this.next()
         const response = await AuthService.requestMatch(credentials)
         this.matchMessage = response.msg
-        next()
       } catch(error) {
         this.matchMessage = error.response.data.msg
       }
@@ -105,9 +105,9 @@ export default {
         const credentials = {
           matchingId: this.matchID
         }
+        this.next()
         const response = await AuthService.reject(credentials)
         this.matchMessage = response.msg
-        next()
       } catch(error) {
         this.matchMessage = error.response.data.msg
       }
