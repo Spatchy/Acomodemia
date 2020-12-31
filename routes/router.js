@@ -8,6 +8,7 @@ const db = require('../db.js');
 const userMiddleware = require('../middleware/users.js');
 const multer = require('multer');
 const fs = require('fs');
+const nodemailer = require("nodemailer");
 const { resolve } = require('path');
 const { decode } = require('punycode');
 
@@ -72,6 +73,31 @@ router.post('/musicData', (req, res, next) => {
   )
 });
 
+const credentials = JSON.parse(fs.readFileSync('credentials.json'))
+async function sendVerifEmail(emailAddress, verifCode){
+
+  // create nodemailer connection to gmail
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: credentials["smtp"]["user"],
+      pass: credentials["smtp"]["password"],
+    },
+  });
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"CO600 Housematefinder" <co600housematefinder@gmail.com>', // sender address
+    to: `${emailAddress}`, // list of receivers
+    subject: "Your verification code", // Subject line
+    html: `Here is one half of your verification code: <b>${verifCode}</b><br>Please check your other email for the other half`, // plain text body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+}
+
 //signup function
 router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
   db.query(
@@ -108,14 +134,19 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
                     msg: err
                   });
                 }
+                // generate 2 4-digit codes for email verification
+                var codePt1 = Math.floor(1000 + Math.random() * 9000)
+                var codePt2 = Math.floor(1000 + Math.random() * 9000)
                 db.query(
-                  `INSERT INTO UnverifiedUsers VALUES(${db.escape(req.body.username)}, '1234', '5678', '${expiryDate}');`,
+                  `INSERT INTO UnverifiedUsers VALUES(${db.escape(req.body.username)}, '${codePt1}', '${codePt2}', '${expiryDate}');`,
                   (err, result) => {
                     if (err) {
                       throw err;
                     }
                   }
                 )
+                sendVerifEmail(req.body.username, codePt1)
+                sendVerifEmail(req.body.uniEmail, codePt2)
                 return res.status(201).send({
                   msg: 'Registered!'
                 });
