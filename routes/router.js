@@ -147,9 +147,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
                 )
                 sendVerifEmail(req.body.username, codePt1)
                 sendVerifEmail(req.body.uniEmail, codePt2)
-                return res.status(201).send({
-                  msg: 'Registered!'
-                });
+                return doLogin(req.body.username, req.body.password, res)
               }
             );
           }
@@ -211,10 +209,10 @@ router.post('/settings', (req, res, next) => {
   );
 });
 
-// login function
-router.post('/login', (req, res, next) => {
+// login moved to seperate function to be called by both login and signup API calls
+function doLogin(username, password, res) {
   db.query(
-    `SELECT * FROM User WHERE PrimaryEmail = ${db.escape(req.body.username)};`,
+    `SELECT * FROM User WHERE PrimaryEmail = ${db.escape(username)};`,
     (err, result) => {
       // user does not exists
       if (err) {
@@ -230,7 +228,7 @@ router.post('/login', (req, res, next) => {
       }
       // check password
       bcrypt.compare(
-        req.body.password+result[0]['Salt'],
+        password+result[0]['Salt'],
         result[0]['HashedPassword'],
         (bErr, bResult) => {
           // wrong password
@@ -266,6 +264,10 @@ router.post('/login', (req, res, next) => {
       );
     }
   );
+}
+
+router.post('/login', (req, res, next) => {
+  return doLogin(req.body.username, req.body.password, res)
 });
 
 router.post('/confirm', (req, res, next) => {
