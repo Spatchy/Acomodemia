@@ -51,6 +51,34 @@ module.exports = {
         msg: 'Your session is not valid!'
       });
     }
+  },
+  isVerified: (req, res, next) => {
+    const db = require('../db.js');
+    try {
+      const token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(
+        token,
+        'SECRETKEY'
+      );
+      db.query(
+        `SELECT Verified FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
+        (result, err) => {
+          if (err) {
+            return res.status(500).send({
+              msg: 'internal server error'
+            });
+          }
+          else {
+            console.log(typeof result[0]["Verified"])
+            next()
+          }
+        }
+      )
+    } catch (err) {
+      return res.status(500).send({
+        msg: 'internal server error'
+      });
+    }
   }
 
 };
