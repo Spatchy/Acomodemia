@@ -271,9 +271,13 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/confirm', (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+    token,
+    'SECRETKEY'
+  );
   db.query(
-    `SELECT UserId FROM UnverifiedUsers WHERE UserId = ${db.escape(req.body.username)} AND CodeP1 = ${db.escape(req.body.confirm1)} AND CodeP2 = ${db.escape(req.body.confirm2)} ;`,
-    
+    `SELECT UserId FROM UnverifiedUsers WHERE UserId = ${db.escape(decoded.email)} AND CodeP1 = ${db.escape(req.body.confirm1)} AND CodeP2 = ${db.escape(req.body.confirm2)} ;`,
     (err, result) => {
       if(err){
         throw err;
@@ -283,7 +287,7 @@ router.post('/confirm', (req, res, next) => {
       }
       if(result){
         db.query(
-          `UPDATE User SET Verified = true WHERE PrimaryEmail = ${db.escape(req.body.username)};`,
+          `UPDATE User SET Verified = true WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
           (err, result) => {
             if(err) {
               return res.status(400).send({
@@ -292,7 +296,7 @@ router.post('/confirm', (req, res, next) => {
             }
             else {
               db.query(
-                `DELETE FROM UnverifiedUsers WHERE UserID = ${db.escape(req.body.username)};`,
+                `DELETE FROM UnverifiedUsers WHERE UserID = ${db.escape(decoded.email)};`,
                 (err, result) => {
                   if(err) {
                     return res.status(400).send({
@@ -310,9 +314,11 @@ router.post('/confirm', (req, res, next) => {
           }
         )
       } 
-      return res.status(403).send({
-        msg: 'Incorrect Code!'
-      });
+      else {
+        return res.status(403).send({
+          msg: 'Incorrect Code!'
+        });
+      }
     }
   );
 });
