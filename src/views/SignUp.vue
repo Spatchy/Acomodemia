@@ -12,8 +12,6 @@
     <input type="password" placeholder="Password (repeat)" v-model="password_repeat" />
     <input type="button" @click="signUp" value="Sign Up" />
     <p v-if="msg">{{ msg }}</p>
-
-    <confirm v-if="showConfirm"/>
   </div>
 
 </template>
@@ -55,11 +53,12 @@ export default {
         }
         const response = await AuthService.signUp(credentials)
         this.msg = response.msg
-        // this.$router.push('/confirm');
+
         const token = response.token
         const user = response.user
-
         this.$store.dispatch('login', { token, user })
+
+        this.$router.push('/verify');
       } catch (error) {
         this.msg = error.response.data.msg
       }

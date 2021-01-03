@@ -46,6 +46,9 @@ export default {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push('/')
     }
+    if (!this.$store.getters.isVerified) {
+      this.$router.push('/verify') // redirect user to verify if not verified
+    }
     this.matchesList = await AuthService.getMatches()
     console.log(this.matchesList)
     this.matchesList.forEach(element => {
