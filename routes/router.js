@@ -282,9 +282,33 @@ router.post('/confirm', (req, res, next) => {
         });
       }
       if(result){
-        return res.status(200).send({
-          msg: 'Confirmed!'
-        });
+        db.query(
+          `UPDATE User SET Verified = true WHERE PrimaryEmail = ${db.escape(req.body.username)};`,
+          (err, result) => {
+            if(err) {
+              return res.status(400).send({
+                msg: err
+              });
+            }
+            else {
+              db.query(
+                `DELETE FROM UnverifiedUsers WHERE UserID = ${db.escape(req.body.username)};`,
+                (err, result) => {
+                  if(err) {
+                    return res.status(400).send({
+                      msg: err
+                    });
+                  }
+                  else {
+                    return res.status(200).send({
+                      msg: 'Confirmed!'
+                    });
+                  }
+                }
+              )
+            }
+          }
+        )
       } 
       return res.status(403).send({
         msg: 'Incorrect Code!'
