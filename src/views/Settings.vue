@@ -16,8 +16,8 @@ export default {
   components: {
     UserSettings
   },
-  async created() {
-    console.log("isVerified: " + this.$store.getters.isVerified)
+  async created () {
+    console.log('isVerified: ' + this.$store.getters.isVerified)
     if (!this.$store.getters.isVerified) {
       this.$router.push('/verify') // redirect user to verify if not verified
     }

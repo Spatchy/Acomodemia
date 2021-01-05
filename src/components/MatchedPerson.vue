@@ -7,8 +7,7 @@
 
 <script>
 export default {
-    name: 'MatchedPerson',
-    props: ['name', 'age']
+  name: 'MatchedPerson',
+  props: ['name', 'age']
 }
 </script>
-

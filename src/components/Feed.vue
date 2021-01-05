@@ -41,7 +41,7 @@ export default {
       matchID: '',
       currentSuggestion: -1,
       res: [],
-      matchMessage: '',
+      matchMessage: ''
     }
   },
   async created () {
@@ -85,7 +85,7 @@ export default {
       instance.$mount() // pass nothing
       this.$refs.container.appendChild(instance.$el)
     },
-    async match() {
+    async match () {
       try {
         this.res.splice(this.currentSuggestion, 1)
         const credentials = {
@@ -94,11 +94,11 @@ export default {
         this.next()
         const response = await AuthService.requestMatch(credentials)
         this.matchMessage = response.msg
-      } catch(error) {
+      } catch (error) {
         this.matchMessage = error.response.data.msg
       }
     },
-    async reject() {
+    async reject () {
       try {
         this.res.splice(this.currentSuggestion, 1)
         this.res[this.currentSuggestion]
@@ -108,7 +108,7 @@ export default {
         this.next()
         const response = await AuthService.reject(credentials)
         this.matchMessage = response.msg
-      } catch(error) {
+      } catch (error) {
         this.matchMessage = error.response.data.msg
       }
     }

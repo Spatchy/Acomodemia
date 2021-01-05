@@ -19,7 +19,7 @@ import Vue from 'vue'
 
 export default {
   name: 'Matching',
-  data() {
+  data () {
     return {
       matchesList: []
     }
@@ -52,8 +52,8 @@ export default {
     this.matchesList = await AuthService.getMatches()
     console.log(this.matchesList)
     this.matchesList.forEach(element => {
-        this.displayMatches(element)
-    });
+      this.displayMatches(element)
+    })
   }
 }
 </script>

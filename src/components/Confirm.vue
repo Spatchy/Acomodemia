@@ -29,7 +29,7 @@ export default {
         const response = await AuthService.confirm(credentials)
         this.msg = response.msg
 
-        this.$store.dispatch('verify') //store client-side that the user is verified for UX purposes
+        this.$store.dispatch('verify') // store client-side that the user is verified for UX purposes
 
         this.$router.push('/complete')
       } catch (error) {
