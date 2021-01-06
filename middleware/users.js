@@ -42,7 +42,7 @@ module.exports = {
     var currentDate = new Date(); 
     var currentYear = currentDate.getFullYear();
     var usersBirthYear = req.body.dob.substring(0, 4);
-    if((currentYear - usersBirthYear) <= 16 || (usersBirthYear > currentYear)) {
+    if((currentYear - usersBirthYear) <= 16 || (usersBirthYear >= currentYear)) {
       return res.status(400).send({
         msg: 'Please enter valid birth date.'
       });

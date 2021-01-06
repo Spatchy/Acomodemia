@@ -18,12 +18,10 @@
     <!-- <input type="text" placeholder="Gender" v-model="gender" /> -->
 
     <br>
-
     <label>Gender:</label>
       <select v-model="gender">
         <option v-for="gend in genders" :key="gend">{{gend}}</option>
       </select>
-
     <br>
 
     <label>Password:</label>
@@ -97,14 +95,19 @@ export default {
 </script>
 
 <style scoped>
-  label {
-    width:180px;
-    clear:left;
-    text-align:right;
-    padding-right:10px;
+
+html {
+  font-family: 'Jost', sans-serif;
 }
 
-input, label {
-    float:left;
+label {
+  width:180px;
+  clear:left;
+  text-align:right;
+  padding-right:10px;
+}
+
+input, label, select {
+  float:left;
 }
 </style>
