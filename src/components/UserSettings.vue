@@ -63,7 +63,7 @@
             <input type="button" @click="settings" value="Save Changes" />
         </div>
 
-        <div class="control_wrapper">
+        <!-- <div class="control_wrapper">
             <h2>Choose your Interests</h2>
             <p>Sports</p>
             <ejs-dropdownlist id='sportsData' :dataSource='sportsData' v-model="sportsSelection"></ejs-dropdownlist>
@@ -76,7 +76,17 @@
             <br>
             <br>
             <input type="button" @click="dropdown" value="Save Interests" />
+        </div> -->
+
+        <!-- Multiselect DropDown menu -->
+        <div class="" style="margin: 10% 25%">
+          <h2>Choose your Interests</h2>
+          <br />
+            <ejs-multiselect
+              :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark'>
+            </ejs-multiselect>
         </div>
+
         <div>
             <profile-pic>
             <h2>profile pic</h2>
@@ -91,35 +101,38 @@
 
 </template>
 <script>
-import AuthService from '@/services/AuthService.js'
-import FileUpload from '@/components/FileUpload.vue'
-import Logout from '@/components/Logout.vue'
-import ProfilePic from '@/components/ProfilePic.vue'
-import Vue from 'vue' // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
-import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns' // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
-Vue.use(DropDownListPlugin) // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+import AuthService from "@/services/AuthService.js";
+import FileUpload from "@/components/FileUpload.vue";
+import Logout from "@/components/Logout.vue";
+import ProfilePic from "@/components/ProfilePic.vue";
+import Vue from "vue"; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns"; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+Vue.use(DropDownListPlugin); // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+// following are for multiple select DropDown Menu
+import { MultiSelectPlugin } from "@syncfusion/ej2-vue-dropdowns";
+Vue.use(MultiSelectPlugin);
 export default Vue.extend({
-  name: 'UserSettings',
+  name: "UserSettings",
   components: {
     FileUpload,
     Logout,
-    ProfilePic
+    ProfilePic,
   },
-  data () {
+  data() {
     return {
-      newBio: '',
-      budget: '',
-      location: '',
-      movDate: '',
-      PrimaryEmail: '',
-      secretMessage: '',
-      username: '',
-      drinkingVal: '',
-      nightOwl: '',
-      extro: '',
-      smoke: '',
-      diet: '',
-      study: '',
+      newBio: "",
+      budget: "",
+      location: "",
+      movDate: "",
+      PrimaryEmail: "",
+      secretMessage: "",
+      username: "",
+      drinkingVal: "",
+      nightOwl: "",
+      extro: "",
+      smoke: "",
+      diet: "",
+      study: "",
       // array used for dropdown menu, which is getting populated using foreach loop
       sportsData: [],
       oaData: [],
@@ -130,46 +143,71 @@ export default Vue.extend({
       dataOAData: [],
       dataIndoorData: [],
       dataMusicData: [],
-      sportsSelection: '',
-      outdoorSelection: '',
-      indoorSelection: '',
-      musicSelection: '',
-      dropdownSelections: []
-    }
+      sportsSelection: "",
+      outdoorSelection: "",
+      indoorSelection: "",
+      musicSelection: "",
+      dropdownSelections: [],
+      // following are for multiple select DropDown Menu. Hardcoded
+      waterMark: "Available Options",
+      defaultMode: "Default",
+      boxMode: "Box",
+      delimiterMode: "Delimiter",
+      sportsData: [
+        "Badminton",
+        "Basketball",
+        "Cricket",
+        "Football",
+        "Golf",
+        "Gymnastics",
+        "Hockey",
+        "Rugby",
+        "Snooker",
+        "Tennis",
+      ]
+    };
   },
 
-  async created () {
+  async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push('/')
+      this.$router.push("/");
     }
-    this.username = this.$store.getters.getUser.PrimaryEmail
-    const details = await AuthService.getDetails()
-    this.newBio = details.bio
-    this.budget = details.budget
-    this.location = details.location
-    this.movDate = details.movDate.substring(0, 10)
-    this.drinkingVal = details.drinking
-    this.nightOwl = details.owl
-    this.extro = details.extro
-    this.smoke = details.smoke
-    this.diet = details.diet
-    this.study = details.study
+    this.username = this.$store.getters.getUser.PrimaryEmail;
+    const details = await AuthService.getDetails();
+    this.newBio = details.bio;
+    this.budget = details.budget;
+    this.location = details.location;
+    this.movDate = details.movDate.substring(0, 10);
+    this.drinkingVal = details.drinking;
+    this.nightOwl = details.owl;
+    this.extro = details.extro;
+    this.smoke = details.smoke;
+    this.diet = details.diet;
+    this.study = details.study;
     // retrieving and populating dropDown menu in Settings page
-    this.dataSports = await AuthService.retrieveSportsData()
-    this.dataSports.msg.forEach(element => this.sportsData.push(element.Interest))
-    this.dataOAData = await AuthService.retrieveOaData()
-    this.dataOAData.msg.forEach(element => this.oaData.push(element.Interest))
-    this.dataIndoorData = await AuthService.retrieveIndoorData()
-    this.dataIndoorData.msg.forEach(element => this.indoorData.push(element.Interest))
-    this.dataMusicData = await AuthService.retrieveMusicData()
-    this.dataMusicData.msg.forEach(element => this.musicData.push(element.Interest))
+    this.dataSports = await AuthService.retrieveSportsData();
+    this.dataSports.msg.forEach((element) =>
+      this.sportsData.push(element.Interest)
+    );
+    this.dataOAData = await AuthService.retrieveOaData();
+    this.dataOAData.msg.forEach((element) =>
+      this.oaData.push(element.Interest)
+    );
+    this.dataIndoorData = await AuthService.retrieveIndoorData();
+    this.dataIndoorData.msg.forEach((element) =>
+      this.indoorData.push(element.Interest)
+    );
+    this.dataMusicData = await AuthService.retrieveMusicData();
+    this.dataMusicData.msg.forEach((element) =>
+      this.musicData.push(element.Interest)
+    );
 
-    this.secretMessage = await AuthService.getSecretContent()
-    console.log(details)
+    this.secretMessage = await AuthService.getSecretContent();
+    console.log(details);
   },
 
   methods: {
-    async settings () {
+    async settings() {
       try {
         const info = {
           newBio: this.newBio,
@@ -182,30 +220,35 @@ export default Vue.extend({
           extro: this.extro,
           smoke: this.smoke,
           diet: this.diet,
-          study: this.study
-        }
-        const response = await AuthService.settings(info)
-        this.msg = response.msg
+          study: this.study,
+        };
+        const response = await AuthService.settings(info);
+        this.msg = response.msg;
       } catch (error) {
-        this.msg = error.response.data.msg
+        this.msg = error.response.data.msg;
       }
     },
-    async dropdown () {
+    async dropdown() {
       try {
         const info = {
           sportsSelection: this.sportsSelection,
           outdoorSelection: this.outdoorSelection,
           indoorSelection: this.indoorSelection,
           musicSelection: this.musicSelection,
-          username: this.username
-        }
-        console.log(info)
-        const response = await AuthService.dropdown(info)
-        this.msg = response.msg
+          username: this.username,
+        };
+        console.log(info);
+        const response = await AuthService.dropdown(info);
+        this.msg = response.msg;
       } catch (error) {
-        this.msg = error.response.data.msg
+        this.msg = error.response.data.msg;
       }
-    }
-  }
-})
+    },
+  },
+});
 </script>
+
+// without this styling multiple dropdown doesnt work properly
+<style>
+@import url(https://cdn.syncfusion.com/ej2/material.css);
+</style>

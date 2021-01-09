@@ -42,12 +42,18 @@ module.exports = {
     var currentDate = new Date(); 
     var currentYear = currentDate.getFullYear();
     var usersBirthYear = req.body.dob.substring(0, 4);
-    if((currentYear - usersBirthYear) <= 16 || (usersBirthYear >= currentYear)) {
+    if((currentYear - usersBirthYear) <= 17) {
       return res.status(400).send({
-        msg: 'Please enter valid birth date.'
+        msg: 'To register you need to be older than 17 years.'
+      });
+    }
+    if((usersBirthYear >= currentYear)) {
+      return res.status(400).send({
+        msg: 'You have entered future date. Are you time traveler? If not - please double check DOB input. Otherwise - contact MIB agency'
       });
     }
 
+    
     next();
   },
   isLoggedIn: (req, res, next) => {
