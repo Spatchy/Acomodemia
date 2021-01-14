@@ -9,7 +9,6 @@ const getDefaultState = () => {
   return {
     token: '',
     user: {},
-    interests: {}, // added
     verified: false // added
   }
 }
@@ -24,9 +23,6 @@ export default new Vuex.Store({
     getUser: state => {
       return state.user
     },
-    getInterests: state => { // added
-      return state.interests
-    },
     isVerified: state => { // only for UX purposes, verification still checked server side on all requests
       return state.verified
     }
@@ -37,9 +33,6 @@ export default new Vuex.Store({
     },
     SET_USER: (state, user) => {
       state.user = user
-    },
-    SET_INTERESTS: (state, interests) => { // added
-      state.interests = interests
     },
     SET_VERIFIED: state => {
       state.verified = true
@@ -52,7 +45,6 @@ export default new Vuex.Store({
     login: ({ commit, dispatch }, { token, user }) => {
       commit('SET_TOKEN', token)
       commit('SET_USER', user)
-      commit('SET_INTERESTS', interests)
       // set auth header
       Axios.defaults.headers.common.Authorization = `Bearer ${token}`
     },
