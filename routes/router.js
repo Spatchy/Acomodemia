@@ -18,7 +18,9 @@ router.post('/sportsData', (req, res, next) => {
     'SELECT Interest FROM Interests WHERE Category = "Sports";',
     (err, result) => {
       if (err){
-        throw err;
+        return res.status(500).send({
+          msg: err
+        });
       }
       //console.log(result)
       return res.status(200).send({
@@ -33,7 +35,9 @@ router.post('/oaData', (req, res, next) => {
     'SELECT Interest FROM Interests WHERE Category = "Outdoor/Adventure";',
     (err, result) => {
       if (err){
-        throw err;
+        return res.status(500).send({
+          msg: err
+        });
       }
       //console.log(result)
       return res.status(200).send({
@@ -48,7 +52,9 @@ router.post('/indoorData', (req, res, next) => {
     'SELECT Interest FROM Interests WHERE Category = "Indoor";',
     (err, result) => {
       if (err){
-        throw err;
+        return res.status(500).send({
+          msg: err
+        });
       }
       //console.log(result)
       return res.status(200).send({
@@ -63,7 +69,9 @@ router.post('/musicData', (req, res, next) => {
     'SELECT Interest FROM Interests WHERE Category = "Music";',
     (err, result) => {
       if (err){
-        throw err;
+        return res.status(500).send({
+          msg: err
+        });
       }
       //console.log(result)
       return res.status(200).send({
@@ -129,8 +137,8 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
               `INSERT INTO User (PrimaryEmail, MatchingID, FirstName, Surname, DateOfBirth, UniversityEmail, Gender, HashedPassword, Salt, PhotoUUID) VALUES (${db.escape(req.body.username)}, ${db.escape(matchingID)}, ${db.escape(req.body.firstName)}, ${db.escape(req.body.secondName)}, ${db.escape(req.body.dob)}, ${db.escape(req.body.uniEmail)}, ${db.escape(req.body.gender)}, ${db.escape(hash)}, ${db.escape(salt)}, ${db.escape(photoID)});`,
               (err, result) => {
                 if (err) {
-                  throw err;
-                  return res.status(400).send({
+                  
+                  return res.status(500).send({
                     msg: err
                   });
                 }
@@ -141,7 +149,9 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
                   `INSERT INTO UnverifiedUsers VALUES(${db.escape(req.body.username)}, '${codePt1}', '${codePt2}', '${expiryDate}');`,
                   (err, result) => {
                     if (err) {
-                      throw err;
+                      return res.status(500).send({
+                        msg: err
+                      });
                     }
                   }
                 )
@@ -197,8 +207,8 @@ router.post('/settings', (req, res, next) => {
     `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)}, DrinkingLevel = ${db.escape(req.body.drinkingVal)}, IsNightOwl = ${db.escape(req.body.nightOwl)}, IsExtrovert = ${db.escape(req.body.extro)}, SmokingLevel = ${db.escape(req.body.smoke)}, DietLevel = ${db.escape(req.body.diet)}, StudySubject = ${db.escape(req.body.study)} WHERE PrimaryEmail = ${db.escape(req.body.PrimaryEmail)};`,
     (err, result) => {
       if(err){
-        throw err;
-        return res.status(400).send({
+        
+        return res.status(500).send({
           msg: err
         });
       } 
@@ -217,7 +227,7 @@ function doLogin(username, password, res) {
       // user does not exists
       if (err) {
         //throw err;
-        return res.status(400).send({
+        return res.status(500).send({
           msg: err
         });
       }
@@ -280,8 +290,8 @@ router.post('/confirm', (req, res, next) => {
     `SELECT UserId FROM UnverifiedUsers WHERE UserId = ${db.escape(decoded.email)} AND CodeP1 = ${db.escape(req.body.confirm1)} AND CodeP2 = ${db.escape(req.body.confirm2)} ;`,
     (err, result) => {
       if(err){
-        throw err;
-        return res.status(400).send({
+        
+        return res.status(500).send({
           msg: err
         });
       }
@@ -290,7 +300,7 @@ router.post('/confirm', (req, res, next) => {
           `UPDATE User SET Verified = true WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
           (err, result) => {
             if(err) {
-              return res.status(400).send({
+              return res.status(500).send({
                 msg: err
               });
             }
@@ -299,7 +309,7 @@ router.post('/confirm', (req, res, next) => {
                 `DELETE FROM UnverifiedUsers WHERE UserID = ${db.escape(decoded.email)};`,
                 (err, result) => {
                   if(err) {
-                    return res.status(400).send({
+                    return res.status(500).send({
                       msg: err
                     });
                   }
@@ -332,7 +342,7 @@ router.post('/details', (req, res, next) => {
   db.query(`SELECT * FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
   (err, result) => {
     if(err) {
-      return res.status(400).send({
+      return res.status(500).send({
         msg:err
       });
     }
@@ -362,8 +372,7 @@ router.post('/interests', (req, res, next) => {
 
     (err, result) => {
       if(err){
-        throw err;
-        return res.status(400).send({
+        return res.status(500).send({
           msg: err
         });
       }
@@ -373,8 +382,7 @@ router.post('/interests', (req, res, next) => {
     
         (err, result) => {
           if(err){
-            throw err;
-            return res.status(400).send({
+            return res.status(500).send({
               msg: err
             });
           }
@@ -384,8 +392,8 @@ router.post('/interests', (req, res, next) => {
         
             (err, result) => {
               if(err){
-                throw err;
-                return res.status(400).send({
+                
+                return res.status(500).send({
                   msg: err
                 });
               }
@@ -395,8 +403,8 @@ router.post('/interests', (req, res, next) => {
             
                 (err, result) => {
                   if(err){
-                    throw err;
-                    return res.status(400).send({
+                    
+                    return res.status(500).send({
                       msg: err
                     });
                   }
@@ -431,7 +439,9 @@ router.get('/getProfilePic', (req, res, next) => {
   db.query(`SELECT PhotoUUID FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`, 
   (err, result) => {
     if(err) {
-      throw err
+      return res.status(500).send({
+        msg: err
+      });
     }
     else {
       payload = fs.readFileSync('./uploads/' + result[0].PhotoUUID)
@@ -455,7 +465,9 @@ function retrieveInterests (id) {
       `SELECT Interest FROM InterestsSet WHERE UserID = ${db.escape(id)}`,
       (err, result) => {
         if(err) {
-          throw err
+          return res.status(500).send({
+            msg: err
+          });
         }
         else{
           resolve(result)
@@ -475,7 +487,9 @@ router.post('/getFeed', (req, res, next) => {
     `SELECT Location FROM User Where PrimaryEmail = ${db.escape(decoded.email)};`,
     (err, result) => {
       if(err) {
-        throw err
+        return res.status(500).send({
+          msg: err
+        });
       }
       else {
         // Select everyone not yet matched with, requested or rejected from the same location as the user
@@ -484,7 +498,9 @@ router.post('/getFeed', (req, res, next) => {
           async (err, result) => {
             console.log(result)
             if(err) {
-              throw err
+              return res.status(500).send({
+                msg: err
+              });
             }
             else {
               payload = []
@@ -537,7 +553,9 @@ router.post('/requestMatch', (req, res, next) => {
     `SELECT PrimaryEmail FROM User WHERE MatchingID = ${db.escape(req.body.matchingId)};`,
     (err, result) => {
       if(err) {
-        throw err
+        return res.status(400).send({
+          msg: err
+        });
       }
       else{
         emailToSelect = result[0].PrimaryEmail //needed as `result` is overwritten in next statement
@@ -545,7 +563,9 @@ router.post('/requestMatch', (req, res, next) => {
           `SELECT RelType FROM Matches WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
           (err, result) => {
             if(err){
-              throw err
+              return res.status(400).send({
+                msg: err
+              });
             }
             // there is either a requested match or a rejection in the table
             else if(result[0] !== undefined) {
@@ -555,7 +575,9 @@ router.post('/requestMatch', (req, res, next) => {
                   `UPDATE Matches SET RelType = 'Matched' WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
                   (err, result) => {
                     if(err) {
-                      throw err
+                      return res.status(400).send({
+                        msg: err
+                      });
                     }
                     else{
                       res.status(200).send({
@@ -579,7 +601,9 @@ router.post('/requestMatch', (req, res, next) => {
                 `INSERT INTO Matches VALUES( ${db.escape(decoded.email)}, ${db.escape(emailToSelect)}, 'Requested');`,
                 (err, result) => {
                   if(err) {
-                    throw err
+                    return res.status(400).send({
+                      msg: err
+                    });
                   }
                   else {
                     res.status(202).send({
@@ -606,7 +630,9 @@ router.post('/reject', (req, res, next) => {
     `SELECT PrimaryEmail, FirstName FROM User WHERE MatchingID = ${db.escape(req.body.matchingId)};`,
     (err, result) => {
       if(err) {
-        throw err
+        return res.status(400).send({
+          msg: err
+        });
       }
       else{
         emailToSelect = result[0].PrimaryEmail // needed as `result` is overwritten in next statement
@@ -616,7 +642,9 @@ router.post('/reject', (req, res, next) => {
           (err, result) => {
             console.log(result[0])
             if(err){
-              throw err
+              return res.status(400).send({
+                msg: err
+              });
             }
             // there is either a requested match, a successful match or a rejection in the table
             else if(result[0] !== undefined) {
@@ -630,7 +658,9 @@ router.post('/reject', (req, res, next) => {
                   `UPDATE Matches SET RelType = 'Rejected' WHERE (Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)}) OR (Person2 = ${db.escape(emailToSelect)} AND Person1 = ${db.escape(decoded.email)});`,
                   (err, result) => {
                     if(err) {
-                      throw err
+                      return res.status(400).send({
+                        msg: err
+                      });
                     }
                     else{
                       res.status(200).send({
@@ -647,7 +677,9 @@ router.post('/reject', (req, res, next) => {
                 `INSERT INTO Matches VALUES( ${db.escape(decoded.email)}, ${db.escape(emailToSelect)}, 'Rejected');`,
                 (err, result) => {
                   if(err) {
-                    throw err
+                    return res.status(400).send({
+                      msg: err
+                    });
                   }
                   else {
                     res.status(200).send({
@@ -673,7 +705,9 @@ router.post('/getMatches', (req, res, next) => {const token = req.headers.author
     `SELECT u.FirstName, u.DateOfBirth, u.MatchingID FROM Matches m, User u WHERE ((m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2) OR (m.Person2 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person1)) AND m.RelType = 'Matched';`,
     (err, result) => {
       if(err) {
-        throw err
+        return res.status(400).send({
+          msg: err
+        });
       }
       else {
         payload = []
