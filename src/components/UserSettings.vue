@@ -85,6 +85,20 @@
             <ejs-multiselect
               :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark'>
             </ejs-multiselect>
+            <br />
+            <ejs-multiselect
+              :dataSource='oaData' :mode='boxMode' :placeholder='waterMark'>
+            </ejs-multiselect>
+            <br />
+            <ejs-multiselect
+              :dataSource='indoorData' :mode='boxMode' :placeholder='waterMark'>
+            </ejs-multiselect>
+            <br />
+            <ejs-multiselect
+              :dataSource='musicData' :mode='boxMode' :placeholder='waterMark'>
+            </ejs-multiselect>
+            <br />
+            <input type="button" @click="dropdown" value="Save Interests" />
         </div>
 
         <div>
@@ -152,19 +166,7 @@ export default Vue.extend({
       waterMark: "Available Options",
       defaultMode: "Default",
       boxMode: "Box",
-      delimiterMode: "Delimiter",
-      sportsData: [
-        "Badminton",
-        "Basketball",
-        "Cricket",
-        "Football",
-        "Golf",
-        "Gymnastics",
-        "Hockey",
-        "Rugby",
-        "Snooker",
-        "Tennis",
-      ]
+      delimiterMode: "Delimiter"
     };
   },
 
