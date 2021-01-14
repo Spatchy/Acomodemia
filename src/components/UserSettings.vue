@@ -83,19 +83,19 @@
           <h2>Choose your Interests</h2>
           <br />
             <ejs-multiselect
-              :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark'>
+              :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark' v-model="sportsSelection">
             </ejs-multiselect>
             <br />
             <ejs-multiselect
-              :dataSource='oaData' :mode='boxMode' :placeholder='waterMark'>
+              :dataSource='oaData' :mode='boxMode' :placeholder='waterMark' v-model="outdoorSelection">
             </ejs-multiselect>
             <br />
             <ejs-multiselect
-              :dataSource='indoorData' :mode='boxMode' :placeholder='waterMark'>
+              :dataSource='indoorData' :mode='boxMode' :placeholder='waterMark' v-model="indoorSelection">
             </ejs-multiselect>
             <br />
             <ejs-multiselect
-              :dataSource='musicData' :mode='boxMode' :placeholder='waterMark'>
+              :dataSource='musicData' :mode='boxMode' :placeholder='waterMark' v-model="musicSelection">
             </ejs-multiselect>
             <br />
             <input type="button" @click="dropdown" value="Save Interests" />
@@ -157,10 +157,10 @@ export default Vue.extend({
       dataOAData: [],
       dataIndoorData: [],
       dataMusicData: [],
-      sportsSelection: "",
-      outdoorSelection: "",
-      indoorSelection: "",
-      musicSelection: "",
+      sportsSelection: [],
+      outdoorSelection: [],
+      indoorSelection: [],
+      musicSelection: [],
       dropdownSelections: [],
       // following are for multiple select DropDown Menu. Hardcoded
       waterMark: "Available Options",

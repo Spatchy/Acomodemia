@@ -356,8 +356,9 @@ router.post('/details', (req, res, next) => {
 });
 
 router.post('/interests', (req, res, next) => {
+  req.body.sportsSelection.forEach(selection => {
   db.query(
-    `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.sportsSelection)});`,
+    `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(selection)});`,
 
     (err, result) => {
       if(err){
@@ -366,8 +367,9 @@ router.post('/interests', (req, res, next) => {
           msg: err
         });
       }
+      req.body.outdoorSelection.forEach(sel => { 
       db.query(
-        `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.outdoorSelection)});`,
+        `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(sel)});`,
     
         (err, result) => {
           if(err){
@@ -376,8 +378,9 @@ router.post('/interests', (req, res, next) => {
               msg: err
             });
           }
+          req.body.indoorSelection.forEach(se => { 
           db.query(
-            `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.indoorSelection)});`,
+            `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(se)});`,
         
             (err, result) => {
               if(err){
@@ -386,8 +389,9 @@ router.post('/interests', (req, res, next) => {
                   msg: err
                 });
               }
+              req.body.musicSelection.forEach(s => {          
               db.query(
-                `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(req.body.musicSelection)});`,
+                `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(s)});`,
             
                 (err, result) => {
                   if(err){
@@ -405,13 +409,17 @@ router.post('/interests', (req, res, next) => {
                     msg: 'Incorrect Code!'
                   });
                 }     
-              );    
+              ); 
+            });   
             }
           );
+        });
         }
       );
+    });
     }
   );
+});
 });
 
 router.get('/getProfilePic', (req, res, next) => {
