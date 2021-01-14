@@ -686,6 +686,12 @@ router.post('/getMatches', (req, res, next) => {const token = req.headers.author
   )
 })
 
+router.post('/verfication-check', userMiddleware.isVerified, (req, res) => {
+  res.status(200).send({
+    msg: 'verified'
+  })
+})
+
 router.get('/secret-route', (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });

@@ -93,5 +93,11 @@ export default {
     return axios
       .post(url + 'getMatches/')
       .then(response => response.data)
+  },
+
+  checkVerified() {
+    return axios
+      .post(url + 'verfication-check/')
+      .then(response => response.data)
   }
 }

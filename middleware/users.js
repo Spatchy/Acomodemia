@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 module.exports = {
   validateRegister: (req, res, next) => {
 
@@ -81,21 +82,30 @@ module.exports = {
       );
       db.query(
         `SELECT Verified FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
-        (result, err) => {
+        (err, result) => {
           if (err) {
+            console.log(err)
             return res.status(500).send({
-              msg: 'internal server error'
+              msg: 'query problem'
             });
           }
           else {
-            console.log(typeof result[0]["Verified"])
-            next()
+            if(result[0].Verified){
+              
+              next()
+            }
+            else{
+              return res.status(403).send({
+                msg: 'you are not verified'
+              });
+            }
           }
         }
       )
     } catch (err) {
+      console.log(err)
       return res.status(500).send({
-        msg: 'internal server error'
+        msg: 'other problem'
       });
     }
   }

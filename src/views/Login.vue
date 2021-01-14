@@ -37,12 +37,18 @@ export default {
 
         const token = response.token
         const user = response.user
-
         this.$store.dispatch('login', { token, user })
 
-        this.$router.push('/')
+        const bResponse = await AuthService.checkVerified()
+
+        this.$store.dispatch('verify')
+
+        this.msg = bResponse.msg
+
+        this.$router.push('/feed')
       } catch (error) {
-        this.msg = error.response.data.msg
+        console.log(error)
+        this.msg = error.response.msg
       }
     }
   }
