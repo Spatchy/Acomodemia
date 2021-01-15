@@ -494,7 +494,7 @@ router.post('/getFeed', (req, res, next) => {
       else {
         // Select everyone not yet matched with, requested or rejected from the same location as the user
         db.query(
-          `SELECT u.PrimaryEmail, u.MatchingID, u.Bio, u.FirstName, u.Gender, u.DateOfBirth, u.Location, u.Budget, u.DrinkingLevel, u.SmokingLevel, u.DietLevel, u.IsNightOwl, u.IsExtrovert, u.StudySubject FROM User u WHERE u.Location = ${db.escape(result[0].Location)} AND u.PrimaryEmail != ${db.escape(decoded.email)} AND ((SELECT RelType FROM Matches WHERE (Person1 = ${db.escape(decoded.email)} AND Person2 = u.PrimaryEmail) OR (Person2 = ${db.escape(decoded.email)} AND Person1 = u.PrimaryEmail)) IS NULL);`,
+          `SELECT u.PrimaryEmail, u.MatchingID, u.Bio, u.FirstName, u.Gender, u.DateOfBirth, u.Location, u.Budget, u.DrinkingLevel, u.SmokingLevel, u.DietLevel, u.IsNightOwl, u.IsExtrovert, u.StudySubject, u.PhotoUUID FROM User u WHERE u.Location = ${db.escape(result[0].Location)} AND u.PrimaryEmail != ${db.escape(decoded.email)} AND ((SELECT RelType FROM Matches WHERE (Person1 = ${db.escape(decoded.email)} AND Person2 = u.PrimaryEmail) OR (Person2 = ${db.escape(decoded.email)} AND Person1 = u.PrimaryEmail)) IS NULL);`,
           async (err, result) => {
             console.log(result)
             if(err) {
@@ -525,6 +525,7 @@ router.post('/getFeed', (req, res, next) => {
                     sleep: result[i].IsNightOwl,
                     social: result[i].IsExtrovert,
                     subject: result[i].StudySubject,
+                    photo: fs.readFileSync('./uploads/' + result[i].PhotoUUID),
                     interests: await retrieveInterests(result[i].PrimaryEmail).then(data => {
                       return data
                     }),
