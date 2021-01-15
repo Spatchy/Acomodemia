@@ -17,11 +17,9 @@ export default {
     UserSettings
   },
   async created () {
-    console.log('isLoggedIn: ' + this.$store.getters.isLoggedIn)
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/");
     }
-    console.log('isVerified: ' + this.$store.getters.isVerified)
     if (!this.$store.getters.isVerified) {
       this.$router.push('/verify') // redirect user to verify if not verified
     }

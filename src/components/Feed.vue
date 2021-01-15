@@ -47,9 +47,7 @@ export default {
   },
   async created () {
     var credentials = { page: 0 }
-    console.log('created ran')
     const result = await AuthService.getFeed(credentials)
-    console.log(result)
     this.res = result
     this.next()
   },
@@ -66,7 +64,6 @@ export default {
       this.$refs.container.innerHTML = ''
       this.matchID = this.res[this.currentSuggestion].matchingId
       var ComponentClass = Vue.extend(FeedItem)
-      console.log(this.res[this.currentSuggestion].photo)
       var instance = new ComponentClass({
         propsData: {
           name: this.res[this.currentSuggestion].name,

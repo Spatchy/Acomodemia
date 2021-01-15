@@ -205,7 +205,6 @@ export default Vue.extend({
     );
 
     this.secretMessage = await AuthService.getSecretContent();
-    console.log(details);
   },
 
   methods: {
@@ -239,7 +238,6 @@ export default Vue.extend({
           musicSelection: this.musicSelection,
           username: this.username,
         };
-        console.log(info);
         const response = await AuthService.dropdown(info);
         this.msg = response.msg;
       } catch (error) {

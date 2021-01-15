@@ -50,7 +50,6 @@ export default {
       this.$router.push('/verify') // redirect user to verify if not verified
     }
     this.matchesList = await AuthService.getMatches()
-    console.log(this.matchesList)
     this.matchesList.forEach(element => {
       this.displayMatches(element)
     })

@@ -27,11 +27,9 @@ export default {
   name: 'FeedItem',
   props: ['name', 'age', 'gender', 'location', 'budget', 'subject', 'bio', 'drinking', 'smoking', 'diet', 'sleep', 'social', 'interests', 'profilePic'],
   async created () {
-    console.log(this.profilePic.data)
     var bytes = new Uint8Array(this.profilePic.data)
     var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '')
     this.src = 'data:image/jpeg;base64,' + btoa(binary)
-    console.log('Source boi: ' + this.src)
   },
   methods: {
     getPic: function () {
