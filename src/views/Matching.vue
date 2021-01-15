@@ -42,13 +42,18 @@ export default {
       this.$refs.matchedlist.appendChild(instance.$el)
     }
   },
-  async created () {
+  async mounted () {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push('/')
     }
     if (!this.$store.getters.isVerified) {
       this.$router.push('/verify') // redirect user to verify if not verified
     }
+    if (!this.$store.getters.getUser.EssentialSettingsComplete) {
+      this.$router.push('/Complete') // redirect user to complete their essential settings
+    }
+  },
+  async created () {
     this.matchesList = await AuthService.getMatches()
     this.matchesList.forEach(element => {
       this.displayMatches(element)
