@@ -272,7 +272,7 @@ function doLogin(username, password, res) {
                 PrimaryEmail: result[0].PrimaryEmail, 
                 FirstName: result[0].FirstName, 
                 Verified: result[0].Verified,
-                essentialSettingsComplete: essentialSettingsComplete
+                EssentialSettingsComplete: essentialSettingsComplete
               }
             });
           }
