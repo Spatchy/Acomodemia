@@ -20,7 +20,7 @@ import Vue from 'vue'
 export default {
   name: 'Feed',
   components: {
-    ProfilePic,
+    
     FeedItem
   },
   data () {
@@ -41,7 +41,8 @@ export default {
       matchID: '',
       currentSuggestion: -1,
       res: [],
-      matchMessage: ''
+      matchMessage: '',
+      profilePic: ''
     }
   },
   async created () {
@@ -65,6 +66,7 @@ export default {
       this.$refs.container.innerHTML = ''
       this.matchID = this.res[this.currentSuggestion].matchingId
       var ComponentClass = Vue.extend(FeedItem)
+      console.log(this.res[this.currentSuggestion].photo)
       var instance = new ComponentClass({
         propsData: {
           name: this.res[this.currentSuggestion].name,
@@ -79,7 +81,8 @@ export default {
           diet: this.res[this.currentSuggestion].diet,
           sleep: this.res[this.currentSuggestion].sleep,
           social: this.res[this.currentSuggestion].social,
-          interests: this.res[this.currentSuggestion].interests
+          interests: this.res[this.currentSuggestion].interests,
+          profilePic: this.res[this.currentSuggestion].photo
         }
       })
       instance.$mount() // pass nothing
