@@ -261,10 +261,19 @@ function doLogin(username, password, res) {
             /* db.query(
               `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
             ); */
+            var essentialSettingsComplete = false
+            if(result[0].PhotoUUID!='00000000000000000000000000000000' && result[0].Location!=null) {
+              essentialSettingsComplete = true
+            }
             return res.status(200).send({
               msg: 'Logged in!',
               token,
-              user: result[0]
+              user: {
+                PrimaryEmail: result[0].PrimaryEmail, 
+                FirstName: result[0].FirstName, 
+                Verified: result[0].Verified,
+                essentialSettingsComplete: essentialSettingsComplete
+              }
             });
           }
           return res.status(401).send({
