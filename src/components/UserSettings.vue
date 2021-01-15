@@ -113,16 +113,12 @@
         <div>
             
         </div>
-        <div>
-            <logout>
-        </div>
     </div>
 
 </template>
 <script>
 import AuthService from "@/services/AuthService.js";
 import FileUpload from "@/components/FileUpload.vue";
-import Logout from "@/components/Logout.vue";
 import ProfilePic from "@/components/ProfilePic.vue";
 import Vue from "vue"; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
 import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns"; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
@@ -134,8 +130,7 @@ export default Vue.extend({
   name: "UserSettings",
   components: {
     FileUpload,
-    Logout,
-    ProfilePic,
+    ProfilePic
   },
   data() {
     return {

@@ -4,12 +4,28 @@
     <div class="header-right">
     <!-- <a href="#contact">Contact</a> -->
     <a href="#about">About</a>
+    <div>
+      <logout v-if="isLoggedIn">
+    </div>
   </div>
 </div>
 </template>
 
 <script>
+import Logout from "@/components/Logout.vue";
 export default {
+  data() {
+    return {
+      isLoggedIn: ''
+    }
+  },
+  components: {
+    Logout
+  },
+  async mounted () {
+    this.interval = setInterval(() => this.isLoggedIn = this.$store.getters.isLoggedIn, 100);
+    
+  }
 }
 </script>
 
