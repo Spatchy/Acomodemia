@@ -179,7 +179,12 @@ export default Vue.extend({
     this.newBio = details.bio;
     this.budget = details.budget;
     this.location = details.location;
-    this.movDate = details.movDate.substring(0, 10);
+    try {
+      this.movDate = details.movDate.substring(0, 10);
+    }
+    catch (err) {
+      this.movDate = ''
+    }
     this.drinkingVal = details.drinking;
     this.nightOwl = details.owl;
     this.extro = details.extro;
