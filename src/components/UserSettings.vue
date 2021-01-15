@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <h3>Hi {{ username }}</h3>
+            <h3>Hi {{ firstName }}</h3>
             <br>
             <p>Bio</p>
             <input type="text" :placeholder="newBio" v-model="newBio" />
@@ -9,15 +9,25 @@
             <p>Budget</p>
             <input type="number" :placeholder="budget" v-model="budget" />
             <br>
-            <p>Location</p>
-            <input type="text" :placeholder="location" v-model="location" />
-            <br>
             <p>Move in Date</p>
             <input type="date" :placeholder="movDate" v-model="movDate" />
             <br>
             <p>Course</p>
             <input type="text" :placeholder="study" v-model="study" />
             <p v-if="msg">{{ msg }}</p>
+        </div>
+         <div id="compSettings" style="border-color: red; width: 100%; border-style: solid; border-width: 3px; height 40%;">
+           <h3>Profile picture and location are compulsory</h3>
+            <h2>profile pic</h2>
+            <div>
+            <profile-pic>
+            </div>
+            <div>
+              <file-upload>
+            </div>
+            <p>Location</p>
+            <input type="text" :placeholder="location" v-model="location" />
+            <br>
         </div>
         <div>
             <h2>Set Lifestyle</h2>
@@ -100,13 +110,8 @@
             <br />
             <input type="button" @click="dropdown" value="Save Interests" />
         </div>
-
         <div>
-            <profile-pic>
-            <h2>profile pic</h2>
-        </div>
-        <div>
-            <file-upload>
+            
         </div>
         <div>
             <logout>
@@ -135,6 +140,7 @@ export default Vue.extend({
   data() {
     return {
       newBio: "",
+      firstName: "",
       budget: "",
       location: "",
       movDate: "",
@@ -175,6 +181,7 @@ export default Vue.extend({
       this.$router.push("/");
     }
     this.username = this.$store.getters.getUser.PrimaryEmail;
+    this.firstName = this.$store.getters.getUser.FirstName;
     const details = await AuthService.getDetails();
     this.newBio = details.bio;
     this.budget = details.budget;
