@@ -25,6 +25,11 @@ export default {
       msg: ''
     }
   },
+   async created () {
+      if (this.$store.getters.isLoggedIn) {
+       this.$router.push('/feed')
+      }
+  },
   methods: {
     async login () {
       try {
