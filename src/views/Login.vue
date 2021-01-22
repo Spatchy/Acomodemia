@@ -1,11 +1,9 @@
-// src/views/Login.vue
-
 <template>
 <div>
   <login-header></login-header>
   <div>
     <h1>Login</h1>
-    <input type="text" placeholder="Username" v-model="username" />
+    <input class="input" type="text" placeholder="Username" v-model="username" /> <!--class="input" is a Bulma class-->
     <input type="password" placeholder="Password" v-model="password" />
     <input type="button" @click="login" value="Login" />
     <p v-if="msg">{{ msg }}</p>
