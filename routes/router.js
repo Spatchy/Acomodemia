@@ -738,6 +738,16 @@ router.post('/getMatches', (req, res, next) => {const token = req.headers.author
   )
 })
 
+router.post('/postMessage', (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+    token,
+    'SECRETKEY'
+  );
+  messageContent = req.body.message
+  recipiant = req.body.recipiant
+})
+
 router.post('/verfication-check', userMiddleware.isVerified, (req, res) => {
   res.status(200).send({
     msg: 'verified'
