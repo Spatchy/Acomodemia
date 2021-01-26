@@ -706,7 +706,7 @@ router.post('/getMatches', (req, res, next) => {
                     payload.push({
                         name: element.FirstName,
                         age: calculateAge(element.DateOfBirth),
-                        matchingid: element.MatchingID
+                        matchingID: element.MatchingID
                     })
                 });
                 res.status(200).send(
@@ -727,7 +727,7 @@ router.post('/postMessage', (req, res, next) => {
     var recipient = req.body.recipient
     var messageUUID = uuid.v4().replace(/-/g, '')
     db.query(
-        `INSERT INTO Messages VALUES(${messageUUID}, ${db.escape(decoded.matchingID)}, ${db.escape(recipient)}, GETDATE(), ${db.escape(messageContent)});`,
+        `INSERT INTO Messages VALUES('${messageUUID}', ${db.escape(decoded.matchingID)}, ${db.escape(recipient)}, NOW(), ${db.escape(messageContent)});`,
         (err, result) => {
             if (err) {
                 return res.status(500).send({

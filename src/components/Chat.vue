@@ -10,26 +10,23 @@ import AuthService from '@/services/AuthService.js'
 
 export default {
     name: 'Chat',
-    props: ['name, picture, matchingID'],
-    data() {
-        return {
-            message: '',
-            recipient: '',
-            msg: ''
-        }
-    },
+    props: ['name', 'matchingID'],
     methods: {
         async send() {
-            const message = {
+            const payload = {
                 message: this.message,
                 recipient: this.matchingID
             }
             try {
-                const response = await AuthService.postMessage(message)
+                console.log(payload)
+                const response = await AuthService.postMessage(payload)
             } catch(error){
                 console.log(error.response.data.msg)
             }
         }
+    },
+    async created() {
+        console.log(this.name + " " + this.matchingID)
     }
 }
 </script>
