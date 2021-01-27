@@ -28,8 +28,7 @@ $input-border-color: transparent;
 $input-shadow: none;
 
 
-.centerdiv {
-    width: 100%;  
+.container {
     min-height: 75vh;
     display: -webkit-box;
     display: -webkit-flex;
@@ -69,7 +68,7 @@ h1 {
     text-align: left;
 }
 
-@media (max-width: 100em) {
+@media (max-width: 60em) {
     .pic {
         display: none;
     }

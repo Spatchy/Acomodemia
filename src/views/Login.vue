@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div class="centerdiv">
+    <div class="container">
 
       <div class="pic">
         <img id="loginpic" src="https://via.placeholder.com/700x400.png" alt="IMG">
@@ -26,7 +26,7 @@
         <hr>
 
         <div id="signupbtn">
-          <label class="label">Don't have an account?</label>
+          <label class="label">Don't have an account? test1</label>
           <button class="button is-rounded is-info" @click="$router.push('sign-up')">Sign Up</button>
         </div>
 
