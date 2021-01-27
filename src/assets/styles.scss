@@ -9,6 +9,8 @@ $pink: #FA7C91;
 $brown: #757763;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
+$white: #fff; 
+$blue: #3498db;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
@@ -20,10 +22,58 @@ $widescreen-enabled: false;
 $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
-$body-background-color: $beige-lighter;
+$body-background-color: $white;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+
+
+.centerdiv {
+    width: 100%;  
+    min-height: 75vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginpic{
+    align-content: left;
+    padding-right: 5%;
+    height: 400px;
+    width: 700px;
+}
+
+.login {
+    align-content: right;
+}
+
+.button {
+    padding-top: 5px;
+    width: 100%;
+}
+
+#signupbtn {
+    padding-top: 1%;
+}
+
+h1 {
+    text-align: left;
+}
+
+.label login{
+    text-align: left;
+}
+
+@media (max-width: 100em) {
+    .pic {
+        display: none;
+    }
+}
 
 // Import only what you need from Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";

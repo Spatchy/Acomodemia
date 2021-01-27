@@ -1,14 +1,39 @@
 <template>
-<div>
-  <login-header></login-header>
   <div>
-    <h1>Login</h1>
-    <input class="input" type="text" placeholder="Username" v-model="username" /> <!--class="input" is a Bulma class-->
-    <input type="password" placeholder="Password" v-model="password" />
-    <input type="button" @click="login" value="Login" />
-    <p v-if="msg">{{ msg }}</p>
-    <router-link to="/sign-up">Sign-up </router-link>
-  </div>
+
+    <div class="centerdiv">
+
+      <div class="pic">
+        <img id="loginpic" src="https://via.placeholder.com/700x400.png" alt="IMG">
+      </div>
+      
+      <div class="login">
+        <h1 class="title is-1">Login</h1>
+
+        <div>
+          <label class="label login">Username</label>
+          <input class="input is-rounded" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+          <label class="label login">Password</label>
+          <input class="input is-rounded" type="password" placeholder="*******" v-model="password"  />
+        </div>
+
+        <div id="loginbtn">
+          <input class="button is-rounded is-info" type="button" @click="login" value="Login" />
+          <p v-if="msg">{{ msg }}</p>
+          <a href="forgotpassword">Forgotten Password?</a>
+        </div>
+
+        <hr>
+
+        <div id="signupbtn">
+          <label class="label">Don't have an account?</label>
+          <button class="button is-rounded is-info" @click="$router.push('sign-up')">Sign Up</button>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 </template>
 
