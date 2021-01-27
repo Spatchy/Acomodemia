@@ -11,10 +11,10 @@
         <h1 class="title is-1">Login</h1>
 
         <div>
-          <label class="label login">Username</label>
-          <input class="input is-rounded" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
-          <label class="label login">Password</label>
-          <input class="input is-rounded" type="password" placeholder="*******" v-model="password"  />
+          <label class="label left">Username</label>
+          <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+          <label class="label left">Password</label>
+          <input class="input is-rounded is-info" type="password" placeholder="*******" v-model="password"  />
         </div>
 
         <div id="loginbtn">
