@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div>
-            <logout>
-        </div>
         <div ref="matchedlist" style="float:left"></div>
         <div>
             <h2>Feed</h2>
