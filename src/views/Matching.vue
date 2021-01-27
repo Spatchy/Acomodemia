@@ -32,7 +32,8 @@ export default {
       var instance = new ComponentClass({
         propsData: {
           name: match.name,
-          age: match.age
+          age: match.age,
+          matchingID: match.matchingID
         }
       })
       instance.$mount() // pass nothing
@@ -54,6 +55,7 @@ export default {
     this.matchesList = await AuthService.getMatches()
     this.matchesList.forEach(element => {
       this.displayMatches(element)
+      console.log(element.matchingID)
     })
   }
 }
