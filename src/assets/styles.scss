@@ -64,7 +64,7 @@ h1 {
     text-align: left;
 }
 
-.label login{
+.label left{
     text-align: left;
 }
 
@@ -72,7 +72,13 @@ h1 {
     .pic {
         display: none;
     }
+
+    h1 {
+        text-align: center;
+    }
 }
+
+
 
 // Import only what you need from Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
