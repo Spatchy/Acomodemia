@@ -26,7 +26,7 @@
         <hr>
 
         <div id="signupbtn">
-          <label class="label">Don't have an account? test1</label>
+          <label class="label">Don't have an account?</label>
           <button class="button is-rounded is-info" @click="$router.push('sign-up')">Sign Up</button>
         </div>
 
