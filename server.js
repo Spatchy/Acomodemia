@@ -20,9 +20,16 @@ app.route('/*')
     res.sendFile(path.join(__dirname + '/dist/index.html'))
   })
 
+// transfer control to http object for socket.io
+const http = require('http').Server(app)
+
+// set up socket.io server and pipe it to chat.js
+const io = require('socket.io')(http);
+require("./routes/chat.js").start(io)
+
 module.exports = app
 
 // Start the server
-app.listen(port, () => {
+http.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })
