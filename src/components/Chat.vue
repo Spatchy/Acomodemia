@@ -7,10 +7,16 @@
 </template>
 <script>
 import AuthService from '@/services/AuthService.js'
+import io from 'socket.io-client'
 
 export default {
     name: 'Chat',
     props: ['name', 'matchingID'],
+    data() {
+        return {
+            socket: io()
+        }
+    },
     methods: {
         async send() {
             const payload = {
@@ -26,7 +32,9 @@ export default {
         }
     },
     async created() {
-        console.log(this.name + " " + this.matchingID)
+        this.socket.on("connect", () => {
+            console.log(socket.id)
+        })
     }
 }
 </script>
