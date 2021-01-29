@@ -7,6 +7,7 @@ import Settings from '../views/Settings.vue'
 import Complete from '../views/Complete.vue'
 import Matching from '../views/Matching.vue'
 import Verify from '../views/Verify.vue'
+import Chat from '../components/Chat.vue'
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,15 @@ const routes = [
     path: '/verify',
     name: 'Verify',
     component: Verify
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: Chat,
+    props: {
+      name: "test",
+      matchingID: "testtesttesttesttesttesttesttest"
+    }
   }
 ]
 
