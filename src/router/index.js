@@ -7,7 +7,7 @@ import Settings from '../views/Settings.vue'
 import Complete from '../views/Complete.vue'
 import Matching from '../views/Matching.vue'
 import Verify from '../views/Verify.vue'
-import Chat from '../components/Chat.vue'
+import Chat from '../views/Chat.vue'
 
 Vue.use(VueRouter)
 
