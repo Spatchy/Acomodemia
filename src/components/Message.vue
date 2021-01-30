@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="{Sent: sent, recieved : !sent }" >
+    <div v-bind:class="{Sent: sent, recieved : !sent }" :messageId="messageID">
         <p> {{message}} </p>
     </div>
 </template>
