@@ -14,10 +14,15 @@
 <script>
 import AuthService from '@/services/AuthService.js'
 import io from 'socket.io-client'
+import Vue from 'vue'
+import Message from '@/components/Message.vue'
 
 export default {
   name: 'Chat',
   props: ['matchingID'],
+  components: {
+    Message
+  },
   data() {
     return {
       socket: io({
@@ -25,29 +30,35 @@ export default {
       }),
       name: '',
       age: '', 
-      photo: ''
+      photo: '',
+      message: '',
+      sentMessage: '',
     }
   },
   methods: {
     async send() {
-      const payload = {
+      console.log('start: ' + this.message)
+      var payload = {
         body: this.message,
         recipient: this.matchingID
       }
       try {
         console.log(payload)
         const response = await this.socket.emit("message", payload)
-        this.socket.on('success', (messageID) => {
-          this.displayMessage(payload.body, messageID, true)
-        })
+        this.sentMessage = payload.body
+        
+        
+        
       } catch(error){
         console.log(error)
       }
+      this.message = ''
+      console.log('end: ' + this.message)
     },
     getPic: function () {
       return this.photo
     },
-    displayMessage (message, messageID, sent) {
+    displayMessage: function (message, messageID, sent) {
       var ComponentClass = Vue.extend(Message)
       var instance = new ComponentClass({
         propsData: {
@@ -82,7 +93,11 @@ export default {
 
     this.socket.on('message', (payload) => {
       console.log(`message ${payload.id} received from ${payload.from} at ${payload.timestamp}: "${payload.content}"`)
-      displayMessage(payload.content, payload.id, false)
+      this.displayMessage(payload.content, payload.id, false)
+    })
+
+    this.socket.on('success', (messageID) => {
+      this.displayMessage(this.sentMessage, messageID, true)
     })
 
   }
