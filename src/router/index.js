@@ -47,8 +47,8 @@ const routes = [
     name: 'Chat',
     component: Chat,
     props: {
-      name: "test",
-      matchingID: "testtesttesttesttesttesttesttest"
+      name: "Harry", // hard coded for now
+      matchingID: "2d07d343a0d041c9967679905b1fa71e"
     }
   }
 ]
