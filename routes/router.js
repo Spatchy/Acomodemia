@@ -747,6 +747,28 @@ router.post('/verfication-check', userMiddleware.isVerified, (req, res) => {
     })
 })
 
+router.post('/getMatchByID', (req, res) => {
+    db.query(
+        `SELECT FirstName, DateOfBirth, PhotoUUID FROM User WHERE MatchingID = ${db.escape(req.body.matchingID)};`,
+        (err, result) => {
+            if (err) {
+                return res.status(500).send({
+                    msg: err
+                });
+            } else {
+                payload = {
+                    name: result[0].FirstName,
+                    age: calculateAge(result[0].DateOfBirth),
+                    photo: fs.readFileSync('./uploads/' + result[0].PhotoUUID)
+                }
+                return res.status(200).send(
+                    payload
+                )
+            }
+        }
+    )
+})
+
 router.get('/secret-route', (req, res, next) => {
     res.send('This is the secret content. Only logged in users can see that!');
 });
