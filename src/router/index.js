@@ -45,7 +45,7 @@ const routes = [{
         path: '/chat',
         name: 'Chat',
         component: Chat,
-        props: route => ({ matchingID: `${route.params.to}` })
+        props: route => ({ matchingID: `${route.query.to}` })
 
 
     }

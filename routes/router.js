@@ -751,6 +751,7 @@ router.post('/getMatchByID', (req, res) => {
     db.query(
         `SELECT FirstName, DateOfBirth, PhotoUUID FROM User WHERE MatchingID = ${db.escape(req.body.matchingID)};`,
         (err, result) => {
+            console.log(result)
             if (err) {
                 return res.status(500).send({
                     msg: err

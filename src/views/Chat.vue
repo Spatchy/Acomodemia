@@ -44,10 +44,14 @@ export default {
   },
   async created() {
     try {
-      const response = await AuthService.getMatchByID(this.matchingID)
+      console.log(this.matchingID)
+      var payload = {
+        matchingID: this.matchingID
+      }
+      const response = await AuthService.getMatchByID(payload)
       this.name = response.name
       this.age = response.age
-      var bytes = new Uint8Array(this.profilePic.data)
+      var bytes = new Uint8Array(response.photo.data)
       var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '')
       this.photo = 'data:image/jpeg;base64,' + btoa(binary)
     } catch (error) {
