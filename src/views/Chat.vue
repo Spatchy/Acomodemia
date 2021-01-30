@@ -22,20 +22,24 @@ export default {
   methods: {
     async send() {
       const payload = {
-        message: this.message,
+        body: this.message,
         recipient: this.matchingID
       }
       try {
         console.log(payload)
-        const response = await AuthService.postMessage(payload)
+        const response = await this.socket.emit("message", payload)
       } catch(error){
-        console.log(error.response.data.msg)
+        console.log(error)
       }
     }
   },
   async created() {
     this.socket.on("connect", () => {
       console.log(this.socket.id)
+    })
+
+    this.socket.on('message', (payload) => {
+      console.log(`message ${payload.id} received from ${payload.from} at ${payload.timestamp}: "${payload.content}"`)
     })
   }
 }
