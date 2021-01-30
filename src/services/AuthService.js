@@ -104,5 +104,10 @@ export default {
         return axios
             .post(url + 'postMessage/', credentials)
             .then(response => response.data)
+    },
+    getMatchByID(id) {
+        return axios
+            .post(url + 'getMatchByID/', id)
+            .then(response => response.data)
     }
 }

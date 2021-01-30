@@ -1,8 +1,11 @@
 <template>
   <div>
-    <h3> {{name}} </h3>
+    <h3> {{name}} </h3> <h3> {{age}} </h3>
     <input type="text" placeholder="Type your message here" v-model="message"/>
     <input type="button" value="Send" @click="send" />
+    <div id="photo">
+      <img :src="getPic()" alt="">
+    </div>
   </div>
 </template>
 <script>
@@ -11,12 +14,15 @@ import io from 'socket.io-client'
 
 export default {
   name: 'Chat',
-  props: ['name', 'matchingID'],
+  props: ['matchingID'],
   data() {
     return {
       socket: io({
         query: {token: this.$store.getters.isLoggedIn} //returns the token to socket.io
-      })
+      }),
+      name: '',
+      age: '', 
+      photo: ''
     }
   },
   methods: {
@@ -31,9 +37,23 @@ export default {
       } catch(error){
         console.log(error)
       }
+    },
+    getPic: function () {
+      return this.photo
     }
   },
   async created() {
+    try {
+      const response = await AuthService.getMatchByID(this.matchingID)
+      this.name = response.name
+      this.age = response.age
+      var bytes = new Uint8Array(this.profilePic.data)
+      var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '')
+      this.photo = 'data:image/jpeg;base64,' + btoa(binary)
+    } catch (error) {
+      console.log(error)
+    }
+
     this.socket.on("connect", () => {
       console.log(this.socket.id)
     })

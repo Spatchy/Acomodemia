@@ -11,52 +11,50 @@ import Chat from '../views/Chat.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/sign-up',
-    name: 'sign-up',
-    component: SignUp
-  },
-  {
-    path: '/settings',
-    name: 'settings',
-    component: Settings
-  },
-  {
-    path: '/complete',
-    name: 'Complete',
-    component: Complete
-  },
-  {
-    path: '/feed',
-    name: 'Matching',
-    component: Matching
-  },
-  {
-    path: '/verify',
-    name: 'Verify',
-    component: Verify
-  },
-  {
-    path: '/chat',
-    name: 'Chat',
-    component: Chat,
-    props: {
-      name: "Harry", // hard coded for now
-      matchingID: "2d07d343a0d041c9967679905b1fa71e"
+const routes = [{
+        path: '/',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/sign-up',
+        name: 'sign-up',
+        component: SignUp
+    },
+    {
+        path: '/settings',
+        name: 'settings',
+        component: Settings
+    },
+    {
+        path: '/complete',
+        name: 'Complete',
+        component: Complete
+    },
+    {
+        path: '/feed',
+        name: 'Matching',
+        component: Matching
+    },
+    {
+        path: '/verify',
+        name: 'Verify',
+        component: Verify
+    },
+    {
+        path: '/chat',
+        name: 'Chat',
+        component: Chat,
+        props: route => ({ matchingID: `${route.params.to}` })
+
+
     }
-  }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router
