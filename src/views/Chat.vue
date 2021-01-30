@@ -6,6 +6,9 @@
     <div id="photo">
       <img :src="getPic()" alt="">
     </div>
+    <div ref="messageFeed">
+
+    </div>
   </div>
 </template>
 <script>
@@ -34,12 +37,27 @@ export default {
       try {
         console.log(payload)
         const response = await this.socket.emit("message", payload)
+        this.socket.on('success', (messageID) => {
+          this.displayMessage(payload.body, messageID, true)
+        })
       } catch(error){
         console.log(error)
       }
     },
     getPic: function () {
       return this.photo
+    },
+    displayMessage (message, messageID, sent) {
+      var ComponentClass = Vue.extend(Message)
+      var instance = new ComponentClass({
+        propsData: {
+          message: message,
+          messageID: messageID,
+          sent: sent
+        }
+      })
+      instance.$mount() // pass nothing
+      this.$refs.messageFeed.appendChild(instance.$el)
     }
   },
   async created() {
@@ -64,7 +82,9 @@ export default {
 
     this.socket.on('message', (payload) => {
       console.log(`message ${payload.id} received from ${payload.from} at ${payload.timestamp}: "${payload.content}"`)
+      displayMessage(payload.content, payload.id, false)
     })
+
   }
 }
 </script>
