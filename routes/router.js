@@ -770,6 +770,46 @@ router.post('/getMatchByID', (req, res) => {
     )
 })
 
+router.post('/getChatHistory', (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(
+        token,
+        'SECRETKEY'
+    );
+    console.log(req.body.matchingID)
+    db.query(
+        `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp;`,
+        (err, result) => {
+            if(err) {
+                return res.status(500).send({
+                    msg: err
+                })
+            } else {
+                console.log(result)
+                payload = []
+                result.forEach(element => {
+                    if(element.Sender == decoded.matchingID) {
+                        payload.push({
+                            message: element.Content,
+                            id: element.MatchingID,
+                            sent: true
+                        })
+                    } else {
+                        payload.push({
+                            message: element.Content,
+                            id: element.MatchingID,
+                            sent: false
+                        })
+                    }
+                });
+                return res.status(200).send(
+                    payload
+                )
+            }
+        }
+    )
+})
+
 router.get('/secret-route', (req, res, next) => {
     res.send('This is the secret content. Only logged in users can see that!');
 });

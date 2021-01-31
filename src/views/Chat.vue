@@ -1,14 +1,14 @@
 <template>
   <div>
     <h3> {{name}} </h3> <h3> {{age}} </h3>
-    <input type="text" placeholder="Type your message here" v-model="message"/>
-    <input type="button" value="Send" @click="send" />
     <div id="photo">
       <img :src="getPic()" alt="">
     </div>
     <div ref="messageFeed">
 
     </div>
+    <input type="text" placeholder="Type your message here" v-model="message"/>
+    <input type="button" value="Send" @click="send" />
   </div>
 </template>
 <script>
@@ -85,6 +85,19 @@ export default {
       this.photo = 'data:image/jpeg;base64,' + btoa(binary)
     } catch (error) {
       console.log(error)
+    }
+    try{
+      var credentials = {
+        matchingID: this.matchingID
+      }
+      console.log(credentials)
+      const feed = await AuthService.getChatHistory(credentials)
+      console.log(feed)
+      feed.forEach(element => {
+        this.displayMessage(element.message, element.id, element.sent)
+      });
+    } catch (error) {
+      console.error(error)
     }
 
     this.socket.on("connect", () => {

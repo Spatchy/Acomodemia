@@ -109,5 +109,10 @@ export default {
         return axios
             .post(url + 'getMatchByID/', id)
             .then(response => response.data)
+    },
+    getChatHistory(id) {
+        return axios
+            .post(url + 'getChatHistory/', id)
+            .then(response => response.data)
     }
 }
