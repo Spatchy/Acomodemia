@@ -106,7 +106,9 @@ export default {
 
     this.socket.on('message', (payload) => {
       console.log(`message ${payload.id} received from ${payload.from} at ${payload.timestamp}: "${payload.content}"`)
+      if(payload.from == this.matchingID) {
       this.displayMessage(payload.content, payload.id, false)
+      }
     })
 
     this.socket.on('success', (messageID) => {

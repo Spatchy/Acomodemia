@@ -778,7 +778,7 @@ router.post('/getChatHistory', (req, res) => {
     );
     console.log(req.body.matchingID)
     db.query(
-        `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp;`,
+        `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp LIMIT 30;`,
         (err, result) => {
             if(err) {
                 return res.status(500).send({
