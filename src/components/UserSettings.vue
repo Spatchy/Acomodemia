@@ -1,36 +1,61 @@
 <template>
     <div>
-        <div>
-            <h3>Hi {{ firstName }}</h3>
+      <div class="container">
+          <div>
+            <h3 class="title is-1">Hello {{ firstName }}</h3>
             <br>
-            <p>Bio</p>
-            <input type="text" :placeholder="newBio" v-model="newBio" />
+            <p>BIO</p>
+            <input class="input is-rounded is-info" type="text" rows="10" placeholder="Biography" v-model="newBio" />
             <br>
-            <p>Budget</p>
-            <input type="number" :placeholder="budget" v-model="budget" />
-            <br>
-            <p>Move in Date</p>
-            <input type="date" :placeholder="movDate" v-model="movDate" />
-            <br>
-            <p>Course</p>
-            <input type="text" :placeholder="study" v-model="study" />
-            <p v-if="msg">{{ msg }}</p>
+            
+      <div class="field is-horizontal">
+       <div class="field-label is-normal">
+          <label class="label">Budget</label>
         </div>
-         <div id="compSettings" style="border-color: red; width: 100%; border-style: solid; border-width: 3px; height 40%;">
-           <h3>Profile picture and location are compulsory</h3>
-            <h2>profile pic</h2>
+        <div class="field-body">
+          <div class="field">
+            <p class="control is-expanded">
+              <input class="input is-rounded is-info" type="number" :placeholder="budget" v-model="budget" />
+            </p>
+          </div>
+        </div>
+
+        <div class="field-label is-normal">
+          <label class="label">Move-in-Date</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control is-expanded">
+              <input class="input is-rounded is-info" type="date" :placeholder="movDate" v-model="movDate" />
+            </p>
+          </div>
+         </div>
+            
+            
+          
+      </div>
+      <br>
+            <p>Course</p>
+            <input class="input is-rounded is-info"  type="text" :placeholder="study" v-model="study" />
+            <p v-if="msg">{{ msg }}</p>
+         </div>
+         <div id="compSettings" style="border-color: #3498db; width: 100%; border-style: solid; border-width: 3px; height 10%;">
+           <h2 class="title is-3">Profile pic</h2>
+           <h4>Profile picture and location are compulsory</h4>
+            
             <div>
-            <profile-pic>
+            <profile-pic>ç
             </div>
             <div>
               <file-upload>
             </div>
             <p>Location</p>
-            <input type="text" :placeholder="location" v-model="location" />
+            <input class="input is-rounded is-info"  type="text" :placeholder="location" v-model="location" />
             <br>
         </div>
+    </div>
         <div>
-            <h2>Set Lifestyle</h2>
+            <h2 class="title is-3">Set Lifestyle</h2>
             <p>Please select how often you like to drink alcohol</p>
             <input type="radio" id="0" value="1" v-model="drinkingVal">
             <label for="0">Not at all</label>
@@ -49,7 +74,7 @@
             <input type="radio" id="owlNo" value="0" v-model="nightOwl">
             <label for="owlNo">No</label><br>
 
-            <p>Would you describe yourself as an extrovert?</p>
+            <p>Would you describe yourself as an extrovert?</p >
             <input type="radio" id="extroYes" value="1" v-model="extro">
             <label for="owlYes">Yes</label>
             <input type="radio" id="extroNo" value="0" v-model="extro">
@@ -92,6 +117,25 @@
         <div class="" style="margin: 10% 25%">
           <h2>Choose your Interests</h2>
           <br />
+
+          <div class="field-lable is-normal">
+            <label class="label">Sports</label>
+            </div>
+           <div class="field">
+            <p class="control is-expanded">
+              <div class="select is-rounded is-info">
+                <ejs-multiselect
+              :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark' v-model="sportsSelection">
+                  </ejs-multiselect>
+                    {{sports}}
+                  
+              </div>
+            </p>
+           </div>
+           
+
+
+
             <ejs-multiselect
               :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark' v-model="sportsSelection">
             </ejs-multiselect>
