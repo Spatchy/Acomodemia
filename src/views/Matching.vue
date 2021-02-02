@@ -33,7 +33,8 @@ export default {
         propsData: {
           name: match.name,
           age: match.age,
-          matchingID: match.matchingID
+          matchingID: match.matchingID,
+          photo: match.photo
         }
       })
       instance.$mount() // pass nothing
