@@ -1,11 +1,10 @@
 <template>
-    <div class="header">
+  <div class="header" v-if="!exclude.includes($route.name)">
     <img alt="our logo" align="left" src="../assets/ourlogo.png">
     <div class="header-right">
-    <!-- <a href="#contact">Contact</a> -->
     <a href="#about">About</a>
     <div>
-      <logout v-if="isLoggedIn">
+      <logout>
     </div>
   </div>
 </div>
@@ -16,15 +15,11 @@ import Logout from "@/components/Logout.vue";
 export default {
   data() {
     return {
-      isLoggedIn: ''
+      exclude: ['Login', 'Sign-up'] // List of pages to not show the header, uses the route name as definied in router/index.js
     }
   },
   components: {
     Logout
-  },
-  async mounted () {
-    this.interval = setInterval(() => this.isLoggedIn = this.$store.getters.isLoggedIn, 100);
-    
   }
 }
 </script>
