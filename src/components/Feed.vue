@@ -5,10 +5,10 @@
         </div>
         <div id="controls">
             <p> {{matchMessage}} </p>
-            <input type="button" value="Previous" @click="prev" />
+            <input type="button" value="Previous" @click="prev" v-if="currentSuggestion" />
             <input type="button" value="Hide" @click="reject" />
             <input type="button" value="Match" @click="match" />
-            <input type="button" value="Next" @click="next" />
+            <input type="button" value="Next" @click="next" v-if="!currentSuggestion" />
         </div>
     </div>
 </template>
@@ -20,7 +20,6 @@ import Vue from 'vue'
 export default {
   name: 'Feed',
   components: {
-    
     FeedItem
   },
   data () {
