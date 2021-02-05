@@ -1,14 +1,14 @@
 <template>
-    <input type="button" value="Logout" @click="logout" />
+    <div>
+      Logging you out
+    </div>
 </template>
 <script>
 export default {
   name: 'Logout',
-  methods: {
-    logout () {
+  created () {
       this.$store.dispatch('logout')
       this.$router.push('/')
-    }
   }
 }
 </script>

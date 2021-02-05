@@ -8,6 +8,7 @@ import Complete from '../views/Complete.vue'
 import Matching from '../views/Matching.vue'
 import Verify from '../views/Verify.vue'
 import Chat from '../views/Chat.vue'
+import Logout from '../views/Logout.vue'
 
 Vue.use(VueRouter)
 
@@ -46,8 +47,11 @@ const routes = [{
         name: 'Chat',
         component: Chat,
         props: route => ({ matchingID: `${route.query.to}` })
-
-
+    },
+    {
+        path: '/logout',
+        name: 'Logout',
+        component: Logout
     }
 ]
 
