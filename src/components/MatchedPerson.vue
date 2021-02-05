@@ -1,7 +1,7 @@
 <template>
     <div @click="clickEvent">
         <h3 id="name">{{name}} </h3><h3 id="age"> {{age}} </h3>
-        <profile-pic>
+        <img style="width: 50px; height: 50px;" :src="getPic()" alt="">
     </div>
 </template>
 
@@ -9,13 +9,24 @@
 import router from '../router'
 export default {
   name: 'MatchedPerson',
-  props: ['name', 'age', 'matchingID'],
+  props: ['name', 'age', 'matchingID', 'photo'],
+  data () {
+    return {
+      pic: ''
+    }
+  },
   async created() {
     console.log(this.matchingID)
+    var bytes = new Uint8Array(this.photo.data)
+    var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '')
+    this.pic = 'data:image/jpeg;base64,' + btoa(binary)
   },
   methods: {
     clickEvent: function () {
       router.push('/chat?to=' + this.matchingID)
+    },
+    getPic: function () {
+      return this.pic
     }
   }
 }

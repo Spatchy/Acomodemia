@@ -5,20 +5,20 @@
         <h1 class="title is-1">Sign Up</h1>
 
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">First Name:</label>
-        </div>
+      <div class="field is-horizontal is-grouped is-grouped centered">
         <div class="field-body">
+          <div class="field-label is-normal">
+            <label class="label">First Name:</label>
+          </div>
           <div class="field">
             <p class="control is-expanded">
             <input class="input is-rounded is-info" type="text" placeholder="First Name" v-model="firstName" /> 
             </p>
           </div>
 
-        <div class="field-label is-normal">
-          <label class="label">Second Name:</label>
-        </div>
+          <div class="field-label is-normal">
+            <label class="label">Second Name:</label>
+          </div>
           <div class="field">
             <p class="control is-expanded">
                 <input class="input is-rounded is-info" type="text" placeholder="Second Name" v-model="secondName" />
@@ -30,26 +30,22 @@
 
       <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">University Email:</label>
+          <label class="label">Gender:</label>
         </div>
         <div class="field-body">
           <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" />
-            </p>
-          </div>
-
-        <div class="field-label is-normal">
-          <label class="label">Personal Email:</label>
-        </div>
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
-            </p>
-          </div>
+            <div class="control is-expanded">
+              <div class="select is-rounded is-info is-fullwidth">
+                <select placeholder="please select" v-model="gender">
+                  <option v-for="gend in genders" :key="gend">
+                    {{gend}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>          
         </div>
       </div>
-
 
       <div class="field is-horizontal">
         <div class="field-label is-normal">
@@ -58,22 +54,28 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded">
-            <input class="input is-rounded is-info" type="date" placeholder="Date of birth" v-model="dob" />
+              <input class="input is-rounded is-info is-fullwidth" type="date" placeholder="DD/MM/YYYY" v-model="dob" />
             </p>
           </div>
+        </div>        
+      </div>
 
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">Gender:</label>
+          <label class="label">Personal Email:</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control is-expanded">
+              <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+            </p>
+          </div>
+        <div class="field-label is-normal">
+          <label class="label">University Email:</label>
         </div>
           <div class="field">
             <p class="control is-expanded">
-              <div class="select is-rounded is-info">
-                <select v-model="gender">
-                  <option v-for="gend in genders" :key="gend">
-                    {{gend}}
-                  </option>
-                </select>
-              </div>
+              <input class="input is-rounded is-info" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" />
             </p>
           </div>
         </div>
@@ -163,7 +165,7 @@ export default {
   },
   data () {
     return {
-      genders: ['Female', 'Male', 'Secret'],
+      genders: ['Female', 'Male', 'Rather Not Say', 'I Identify As...'],
       username: '',
       firstName: '',
       secondName: '',
