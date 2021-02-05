@@ -1,44 +1,76 @@
 <template>
     <div>
-      <div class="container">
+      <div class="container is-fluid">
           <div>
             <h3 class="title is-1">Hello {{ firstName }}</h3>
             <br>
-            <p>BIO</p>
-            <input class="input is-rounded is-info" type="text" rows="10" placeholder="Biography" v-model="newBio" />
+              
+          <div class="field-label is-normal">
+              <label class="label">Bio</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded">
+                  <input class="input is-rounded is-info" type="text" rows="10" placeholder="Biography" v-model="newBio" />
+                </p>
+              </div>
+            </div>
+            
             <br>
             
-      <div class="field is-horizontal">
-       <div class="field-label is-normal">
-          <label class="label">Budget</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info" type="number" :placeholder="budget" v-model="budget" />
-            </p>
-          </div>
-        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+              <label class="label">Budget</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded">
+                  <input class="input is-rounded is-info" type="number" :placeholder="budget" v-model="budget" />
+                </p>
+              </div>
+            </div>
 
-        <div class="field-label is-normal">
-          <label class="label">Move-in-Date</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info" type="date" :placeholder="movDate" v-model="movDate" />
-            </p>
+          <div class="field-label is-normal">
+              <label class="label">Move in Date</label>
           </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded">
+                  <input class="input is-rounded is-info" type="date" :placeholder="movDate" v-model="movDate" />
+                </p>
+               </div>
+            </div>
+        </div>
+         
+        <div class="field is-horizontal">
+           <div class="field-label is-normal">
+              <label class="label">Course</label>
+           </div>
+            <div class="field-body">
+              <div class="field">
+                 <p class="control is-expanded">
+                  <input class="input is-rounded is-info" type="text" :placeholder="Course" v-model="course" />
+                 </p>
+               </div>
+          </div>
+        
+           <div class="field-label is-normal">
+              <label class="label">location</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded">
+                  <input class="input is-rounded is-info" type="text" :placeholder="Location" v-model="location" />
+                </p>
+             </div>
+            </div>
          </div>
+         
+      </span></div>
+          <br> 
             
-            
-          
-      </div>
-      <br>
-            <p>Course</p>
-            <input class="input is-rounded is-info"  type="text" :placeholder="study" v-model="study" />
             <p v-if="msg">{{ msg }}</p>
-         </div>
+        <div class="containter">
          <div id="compSettings" style="border-color: #3498db; width: 100%; border-style: solid; border-width: 3px; height 10%;">
            <h2 class="title is-3">Profile pic</h2>
            <h4>Profile picture and location are compulsory</h4>
@@ -49,54 +81,79 @@
             <div>
               <file-upload>
             </div>
-            <p>Location</p>
-            <input class="input is-rounded is-info"  type="text" :placeholder="location" v-model="location" />
+          </div> 
+        </div>
             <br>
-        </div>
-    </div>
-        <div>
+        
+           <div>
             <h2 class="title is-3">Set Lifestyle</h2>
-            <p>Please select how often you like to drink alcohol</p>
-            <input type="radio" id="0" value="1" v-model="drinkingVal">
-            <label for="0">Not at all</label>
-            <input type="radio" id="1" value="2" v-model="drinkingVal">
-            <label for="1">Once a month</label>
-            <input type="radio" id="2" value="3" v-model="drinkingVal">
-            <label for="2">Once a fortnight</label>
-            <input type="radio" id="3" value="4" v-model="drinkingVal">
-            <label for="3">Once a week</label>
-            <input type="radio" id="4" value="5" v-model="drinkingVal">
-            <label for="4">Every day</label><br>
 
-            <p>Would you describe yourself as a night owl?</p>
-            <input type="radio" id="owlYes" value="1" v-model="nightOwl">
-            <label for="owlYes">Yes</label>
-            <input type="radio" id="owlNo" value="0" v-model="nightOwl">
-            <label for="owlNo">No</label><br>
+               <h5>How often do you like to drink alcohol ?</h5>
+               <div class="control">
 
-            <p>Would you describe yourself as an extrovert?</p >
-            <input type="radio" id="extroYes" value="1" v-model="extro">
-            <label for="owlYes">Yes</label>
-            <input type="radio" id="extroNo" value="0" v-model="extro">
-            <label for="owlNo">No</label><br>
+                <label class="radio">
+                  <input type="radio" name="answer">Not At All</label>
+                <label class="radio">
+                  <input type="radio" name="answer"> Once a month </label>
+                <label class="radio" >
+                  <input type="radio" name="answer" > Once a fortnight </label>
+                <label class="radio" >
+                  <input type="radio" name="answer" > Once a week </label>
+                <label class="radio" >
+                  <input type="radio" name="answer" > Everyday</label>
+                  
+              </div>
+              <br>
+             
+               <h5>Would you desribe yourself as a night owl?</h5>
+               <div class="control">
 
-            <p>How often do you smoke?</p>
-            <input type="radio" id="smoke0" value="1" v-model="smoke">
-            <label for="smoke0">Never</label>
-            <input type="radio" id="smoke1" value="2" v-model="smoke">
-            <label for="smoke1">Rarely/Socially</label>
-            <input type="radio" id="smoke2" value="3" v-model="smoke">
-            <label for="smoke2">Every Day</label><br>
+                <label class="radio">
+                  <input type="radio" name="answer">Yes</label>
+                <label class="radio">
+                  <input type="radio" name="answer"> Sometimes </label>
+                <label class="radio" >
+                  <input type="radio" name="answer" > No </label>
+                  
+              </div>
+              <br>
 
-            <p>Are you a vegetarian, vegan or neither?</p>
-            <input type="radio" id="diet0" value="1" v-model="diet">
-            <label for="diet0">Vegan</label>
-            <input type="radio" id="diet1" value="2" v-model="diet">
-            <label for="diet1">Vegetarian</label>
-            <input type="radio" id="diet2" value="3" v-model="diet">
-            <label for="diet2">Neither</label><br>
-            <input type="button" @click="settings" value="Save Changes" />
-        </div>
+               <h5>Would you desribe yourself as an extrovert?</h5>
+               <div class="control">
+
+                <label class="radio">
+                  <input type="radio" name="answer">Yes</label>
+                <label class="radio" >
+                  <input type="radio" name="answer" > No </label>                  
+              </div>
+              <br>
+
+              <h5>How often do you smoke ?</h5>
+               <div class="control">
+
+                <label class="radio">
+                  <input type="radio" name="answer">Not At All</label>
+                <label class="radio">
+                  <input type="radio" name="answer"> Rarley/ Socially</label>
+                <label class="radio" >
+                  <input type="radio" name="answer" > Often</label>
+              </div>
+              <br>
+
+                <h5>Are you vegetarian, vegan or neither?</h5>
+               <div class="control">
+
+                <label class="radio">
+                  <input type="radio" name="answer">Vegetarian</label>
+                <label class="radio">
+                  <input type="radio" name="answer"> Vegan</label>
+                <label class="radio" >
+                  <input type="radio" name="answer" > Neither </label>
+
+                  
+              </div>
+              <br>
+           
 
         <!-- <div class="control_wrapper">
             <h2>Choose your Interests</h2>

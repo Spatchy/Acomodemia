@@ -41,6 +41,17 @@ $navbar-height: 4rem;
     justify-content: center;
     align-items: center;
 }
+.container1 {
+    min-height: 80vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
 
 #loginpic{
     align-content: left;
@@ -75,7 +86,10 @@ h4 {
 }
 h5{
     color:#3498db;
+    font-weight: bolder;
+    $size-1: 3rem;
 }
+
 
 @media (max-width: 60em) {
     .pic {
