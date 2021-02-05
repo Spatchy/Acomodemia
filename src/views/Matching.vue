@@ -9,7 +9,6 @@
 </template>
 <script>
 import Feed from '@/components/Feed.vue'
-import Logout from '@/components/Logout.vue'
 import AuthService from '@/services/AuthService.js'
 import MatchedPerson from '@/components/MatchedPerson.vue'
 import Vue from 'vue'
@@ -23,7 +22,6 @@ export default {
   },
   components: {
     Feed,
-    Logout,
     MatchedPerson
   },
   methods: {
