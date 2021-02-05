@@ -1,16 +1,16 @@
 <template>
     <div>
-        <div ref="container">
-
-        </div>
-        <div id="controls">
+      <div class="container">
+        
+          <div id="controls">
             <p> {{matchMessage}} </p>
-            <input type="button" value="Previous" @click="prev" />
-            <input type="button" value="Hide" @click="reject" />
-            <input type="button" value="Match" @click="match" />
-            <input type="button" value="Next" @click="next" />
-        </div>
-    </div>
+            <button class="button is-rounded is-info" value="Previous" @click="prev">Previous</button>
+            <button class="button is-rounded is-info" value="Hide" @click="reject" > Hide </button>
+            <button class="button is-rounded is-info" value="Match" @click="match" > Match </button>
+            <button class="button is-rounded is-info" value="Next" @click="next" > Next </button>
+          </div>
+      </div>
+   </div>
 </template>
 <script>
 import AuthService from '@/services/AuthService.js'
