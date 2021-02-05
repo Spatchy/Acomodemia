@@ -11,12 +11,13 @@ $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 $white: #fff; 
 $blue: #3498db;
+$acomodemia-blue: #313266;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$primary: $purple;
+$primary: $acomodemia-blue;
 $link: $pink;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
@@ -26,6 +27,7 @@ $body-background-color: $white;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+$navbar-height: 4rem;
 
 
 .container {
