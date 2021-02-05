@@ -1,75 +1,45 @@
 <template>
-  <div class="header" v-if="!exclude.includes($route.name)">
-    <img alt="our logo" align="left" src="../assets/ourlogo.png">
-    <div class="header-right">
-    <a href="#about">About</a>
-    <div>
-      <logout>
+  <div class="navbar is-primary" v-if="!exclude.includes($route.name)">
+
+    <div class="navbar-brand">
+      <router-link class="navbar-item" to="/feed">
+        <img src="../assets/Acomodemia Wordmark Inverted.svg" width="100%" style="max-height: 3.25rem">
+      </router-link>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" @click="burgerClick($event)">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
+
+    <div class="navbar-menu" ref="menu">
+      <div class="navbar-end">
+        <router-link class="navbar-item" to="/settings">
+          Settings
+        </router-link>
+        <router-link class="navbar-item" to="/logout">
+          Log Out
+        </router-link>
+      </div>
+    </div>
+
   </div>
-</div>
 </template>
 
 <script>
-import Logout from "@/components/Logout.vue";
+
 export default {
   data() {
     return {
       exclude: ['Login', 'Sign-up'] // List of pages to not show the header, uses the route name as definied in router/index.js
     }
   },
-  components: {
-    Logout
+  methods: {
+    burgerClick (event) {
+      event.target.classList.toggle('is-active')
+      this.$refs.menu.classList.toggle('is-active')
+    }
   }
 }
 </script>
-
-<style>
-.header {
-  overflow: hidden;
-  background-color: #ffffff;
-  /* padding: 20px 10px; */
-}
-
-/* Style the header links */
-.header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 20px;
-  text-decoration: none;
-  font-size: 15px;
-  /* dont adjust line-height  */
-  line-height: 35px;
-  border-radius: 4px;
-}
-
-/* Change the background color on mouse-over */
-.header a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Style the active/current link*/
-.header a.active {
-  background-color: dodgerblue;
-  color: white;
-}
-
-/* Float the link section to the right */
-.header-right {
-  float: right;
-}
-
-/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-@media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-  .header-right {
-    float: none;
-  }
-}
-</style>
