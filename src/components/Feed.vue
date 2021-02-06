@@ -1,17 +1,17 @@
 <template>
     <div>
-      <div class="container">
-        
-          <div id="controls">
+       
+          <div class="field is-horizontal">
             <p> {{matchMessage}} </p>
 
-            <button class="button is-rounded is-info" value="Previous" @click="prev" v-if="currentSuggestion">Previous</button>
+            <button class="button is-rounded is-info" value="Previous" @click="prev" >Previous</button>
             <button class="button is-rounded is-info" value="Hide" @click="reject" > Hide </button>
             <button class="button is-rounded is-info" value="Match" @click="match" > Match </button>
-            <button class="button is-rounded is-info" value="Next" @click="next" v-if="!currentSuggestion" > Next </button>
+            <button class="button is-rounded is-info" value="Next" @click="next"  > Next </button>
           </div>
-      </div>
-   </div>
+       
+    </div>
+  
 
          
 

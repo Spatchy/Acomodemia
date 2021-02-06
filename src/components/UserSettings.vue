@@ -66,7 +66,7 @@
             </div>
          </div>
          
-      </span></div>
+      </span ></div>
           <br> 
             
             <p v-if="msg">{{ msg }}</p>
@@ -85,75 +85,75 @@
         </div>
             <br>
         
-           <div>
-            <h2 class="title is-3">Set Lifestyle</h2>
+          <div>
+             <h2 class="title is-3">Set Lifestyle</h2>
 
                <h5>How often do you like to drink alcohol ?</h5>
                <div class="control">
 
+                <label class="radio1">
+                  <input type="radio" name="al-ans">Not At All</label>
                 <label class="radio">
-                  <input type="radio" name="answer">Not At All</label>
-                <label class="radio">
-                  <input type="radio" name="answer"> Once a month </label>
+                  <input type="radio" name="al-ans"> Once a month </label>
                 <label class="radio" >
-                  <input type="radio" name="answer" > Once a fortnight </label>
+                  <input type="radio" name="al-ans" > Once a fortnight </label>
                 <label class="radio" >
-                  <input type="radio" name="answer" > Once a week </label>
+                  <input type="radio" name="al-ans" > Once a week </label>
                 <label class="radio" >
-                  <input type="radio" name="answer" > Everyday</label>
+                  <input type="radio" name="al-ans" > Everyday</label>
                   
-              </div>
+            </div>
               <br>
              
                <h5>Would you desribe yourself as a night owl?</h5>
-               <div class="control">
+              <div class="control">
 
+                <label class="radio2">
+                  <input type="radio" name="ni-ans">Yes</label>
                 <label class="radio">
-                  <input type="radio" name="answer">Yes</label>
-                <label class="radio">
-                  <input type="radio" name="answer"> Sometimes </label>
+                  <input type="radio" name="ni-ans"> Sometimes </label>
                 <label class="radio" >
-                  <input type="radio" name="answer" > No </label>
+                  <input type="radio" name="ni-ans" > No </label>
                   
               </div>
               <br>
 
                <h5>Would you desribe yourself as an extrovert?</h5>
-               <div class="control">
+              <div class="control">
 
-                <label class="radio">
-                  <input type="radio" name="answer">Yes</label>
+                <label class="radio3">
+                  <input type="radio" name="ex-ans">Yes</label>
                 <label class="radio" >
-                  <input type="radio" name="answer" > No </label>                  
+                  <input type="radio" name="ex-ans" > No </label>                  
               </div>
               <br>
 
               <h5>How often do you smoke ?</h5>
-               <div class="control">
+              <div class="control">
 
+                <label class="radio4">
+                  <input type="radio" name="sm-ans">Not At All</label>
                 <label class="radio">
-                  <input type="radio" name="answer">Not At All</label>
-                <label class="radio">
-                  <input type="radio" name="answer"> Rarley/ Socially</label>
+                  <input type="radio" name="sm-ans"> Rarley/ Socially</label>
                 <label class="radio" >
-                  <input type="radio" name="answer" > Often</label>
+                  <input type="radio" name="sm-ans" > Often</label>
               </div>
               <br>
 
                 <h5>Are you vegetarian, vegan or neither?</h5>
-               <div class="control">
+              <div class="control">
 
+                <label class="radio5">
+                  <input type="radio" name="ve-ans">Vegetarian</label>
                 <label class="radio">
-                  <input type="radio" name="answer">Vegetarian</label>
-                <label class="radio">
-                  <input type="radio" name="answer"> Vegan</label>
+                  <input type="radio" name="ve-ans"> Vegan</label>
                 <label class="radio" >
-                  <input type="radio" name="answer" > Neither </label>
+                  <input type="radio" name="ve-ans" > Neither </label>
 
                   
               </div>
               <br>
-           
+           </div>
 
         <!-- <div class="control_wrapper">
             <h2>Choose your Interests</h2>
@@ -174,23 +174,6 @@
         <div class="" style="margin: 10% 25%">
           <h2>Choose your Interests</h2>
           <br />
-
-          <div class="field-lable is-normal">
-            <label class="label">Sports</label>
-            </div>
-           <div class="field">
-            <p class="control is-expanded">
-              <div class="select is-rounded is-info">
-                <ejs-multiselect
-              :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark' v-model="sportsSelection">
-                  </ejs-multiselect>
-                    {{sports}}
-                  
-              </div>
-            </p>
-           </div>
-           
-
 
 
             <ejs-multiselect
