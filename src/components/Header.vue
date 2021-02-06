@@ -16,10 +16,10 @@
     <div class="navbar-menu" ref="menu">
       <div class="navbar-end">
         <router-link class="navbar-item" to="/settings">
-          Settings
+          <span class="icon"><i class="fas fa-user-cog"></i></span> <span>Settings</span>
         </router-link>
         <router-link class="navbar-item" to="/logout">
-          Log Out
+          <span class="icon"><i class="fas fa-sign-out-alt"></i></span> <span>Log Out</span>
         </router-link>
       </div>
     </div>
