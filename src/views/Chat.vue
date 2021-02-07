@@ -1,15 +1,37 @@
 <template>
-  <div>
-    <h3> {{name}} </h3> <h3> {{age}} </h3>
-    <div id="photo">
-      <img :src="getPic()" alt="">
+
+  <div class="container3">
+
+    <div class="leftpane">
+      <h1>Chats</h1>
     </div>
-    <div ref="messageFeed">
+
+    <div class="rightpane">
+      <h5> {{name}}, {{age}}  </h5>
+
+      <div class="photo">
+        <img :src="getPic()" alt="" width="200" height="200">
+      </div>
+
+      <br />
+
+      <h3> {{bio}} </h3>
+
+    </div>  
+
+    <div class="middlepane">
+      <div ref="messageFeed">
+
+      <br />
+      
+      <input class="input is-rounded is-info chat" type="text" placeholder="Type your message here" v-model="message"/>
+      <input class="button is-rounded is-info chat" type="button" value="Send" @click="send" />
+      </div>
 
     </div>
-    <input type="text" placeholder="Type your message here" v-model="message"/>
-    <input type="button" value="Send" @click="send" />
+
   </div>
+
 </template>
 <script>
 import AuthService from '@/services/AuthService.js'
