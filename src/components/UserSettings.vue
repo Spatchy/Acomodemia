@@ -150,9 +150,10 @@
                 <label class="radio" >
                   <input type="radio" name="ve-ans" > Neither </label>
 
-                  
+               
               </div>
               <br>
+               <input type="button" @click="settings" value="Save Changes" />  
            </div>
 
         <!-- <div class="control_wrapper">
