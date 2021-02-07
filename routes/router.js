@@ -304,7 +304,7 @@ router.post('/confirm', (req, res, next) => {
                     msg: err
                 });
             }
-            if (result) {
+            if (result.length > 0) {
                 db.query(
                     `UPDATE User SET Verified = true WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
                     (err, result) => {
