@@ -31,7 +31,7 @@
         </div>
 
       <div>
-        <input type="button" @click="forgot" value="Forgot Password" />
+        <input class="button is-rounded is-info" type="button" @click="forgot" value="Forgot Password" />
       </div>
 
       </div>
