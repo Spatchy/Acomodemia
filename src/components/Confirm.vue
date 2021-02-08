@@ -1,10 +1,28 @@
 <template>
-    <div>
-        <h1>Confirm your email</h1>
-        <input type="text" placeholder="Confirm1" v-model="confirm1" />
-        <input type="text" placeholder="Confirm2" v-model="confirm2" />
-        <input type="button" @click="confirm" value="confim" />
+  <div class="container"><div>
+        <h1 class="title is-1">Confirm your email</h1>
+
+
+      <div class="field is-horizontal is-grouped is-grouped centered">
+        <div class="field-body">
+        
+          <div class="field">
+            <p class="control is-expanded">
+            <input class="input is-rounded is-info" type="text" placeholder="Personal Email" v-model="confirm1" />
+            </p>
+          </div>
+
+          
+          <div class="field">
+            <p class="control is-expanded">
+                <input class="input is-rounded is-info" type="text" placeholder="University Email" v-model="confirm2" />
+            </p>
+          </div>
+        </div>
+      </div>
+      <input class="button is-rounded is-info" type="button" @click="confirm" value="confim" />
     </div>
+  </div>
 </template>
 
 <script>
