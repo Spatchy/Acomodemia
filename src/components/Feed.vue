@@ -4,11 +4,12 @@
 
       <div id="controls">
             <p> {{matchMessage}} </p>
-
+          <div class="field is-horizontal">
             <button class="button is-rounded is-info" value="Previous" @click="prev" v-if="currentSuggestion">Previous</button>
             <button class="button is-rounded is-info" value="Hide" @click="reject" > Hide </button>
             <button class="button is-rounded is-info" value="Match" @click="match" > Match </button>
             <button class="button is-rounded is-info" value="Next" @click="next" v-if="!currentSuggestion" > Next </button>
+          </div>
       </div>
    </div>
 </template>
