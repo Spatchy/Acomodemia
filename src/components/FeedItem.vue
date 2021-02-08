@@ -1,20 +1,20 @@
 <template>
     <div>
         <div>
-            <h3 id="name">{{name}} </h3><h3 id="age"> {{age}} </h3>
+            <h3 class="title" id="name">{{name}} </h3><h3 class="title" id="age"> AGE: {{age}} </h3>
             <profile-pic>
         </div>
         <div id="Details">
             <br>
-            <p>GENDER: {{gender}} </p><br>
-            <p>LOCATION: {{location}} </p><br>
-            <p>BUDGET: {{budget}} </p><br>
-            <p>INTERESTS: {{interests}} </p><br>
-            <p>LIFESTYLE:  </p><br>
-            <p>SUBJECT: {{subject}} </p><br>
+            <h5 >GENDER:</h5> {{gender}} <br>
+            <h5>LOCATION: </h5>{{location}} <br>
+            <h5>BUDGET: </h5>{{budget}} <br>
+            <h5>INTERESTS: </h5> <p>{{interests}}</p><br>
+            <h5>LIFESTYLE:  </h5> {{lifestyle}} <br>
+            <h5>SUBJECT: </h5> {{subject}} <br>
         </div>
         <div id="bioDiv">
-            <h3>Bio: {{bio}} </h3>
+            <h5>Bio: </h5>{{bio}} <br>
             <p></p>
         </div>
         <div id="photo">
