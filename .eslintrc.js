@@ -20,6 +20,7 @@ module.exports = {
     'vue',
   ],
   'rules': {
-    'linebreak-style':'off'
+    'linebreak-style': 'off',
+    'max-len': 'off',
   },
 };
