@@ -1,12 +1,13 @@
 <template>
+    
     <div>
+      <h1 v-if="(currentSuggestion == arraylength) || (arraylength == 0)">No Available Matches</h1>
       <div class="container" ref="container"></div> <!--Feed items will be injected-->
-
       <div id="controls">
             <p> {{matchMessage}} </p>
             <button class="button is-rounded is-info" value="Previous" @click="prev" v-if="currentSuggestion">Previous</button>
-            <button class="button is-rounded is-info" value="Hide" @click="reject" > Hide </button>
-            <button class="button is-rounded is-info" value="Match" @click="match" > Match </button>
+            <button class="button is-rounded is-info" value="Hide" @click="reject" v-if="!((currentSuggestion == arraylength) || (arraylength == 0))"> Hide </button>
+            <button class="button is-rounded is-info" value="Match" @click="match" v-if="!((currentSuggestion == arraylength) || (arraylength == 0))"> Match </button>
             <button class="button is-rounded is-info" value="Next" @click="next" v-if="!(currentSuggestion == arraylength)"> Next </button>
       </div>
    </div>
@@ -63,7 +64,6 @@ export default {
       this.$refs.container.innerHTML = ''
       this.matchID = this.res[this.currentSuggestion].matchingId
       
-      this.nexttarget = this.res[this.currentSuggestion+1].matchingId
       this.arraylength = this.res.length
 
       var ComponentClass = Vue.extend(FeedItem)
