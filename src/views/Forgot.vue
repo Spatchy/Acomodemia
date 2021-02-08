@@ -35,6 +35,7 @@ export default {
                 if(this.newpass == this.confirm) {
                     const response = await AuthService.resetPassword(credentials)
                     this.msg = response.msg 
+                    this.$router.push('/')
                 } else {
                     this.msg = "Passwords do not match!"
                 }

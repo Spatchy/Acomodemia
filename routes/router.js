@@ -813,7 +813,6 @@ router.post('/getChatHistory', (req, res) => {
 
 router.post('/resetPassword', (req, res) => {
     if(req.body.newpass == req.body.confirm) {
-        console.log(req.body)
         var salt = uuid.v4().replace(/-/g, '')
         var password = req.body.newpass + salt
         bcrypt.hash(password, 12, (err, hash) => {
