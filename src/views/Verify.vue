@@ -5,20 +5,20 @@
 </template>
 
 <script>
-import Confirm from '../components/Confirm.vue'
+import Confirm from '../components/Confirm.vue';
 
 export default {
   name: 'Complete',
   components: {
-    Confirm
+    Confirm,
   },
-  async created () {
+  async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push('/')
+      this.$router.push('/');
     }
     if (this.$store.getters.isVerified) {
-      this.$router.push('/feed') // redirect user to feed if they're verified already
+      this.$router.push('/feed'); // redirect user to feed if they're verified already
     }
-  }
-}
+  },
+};
 </script>

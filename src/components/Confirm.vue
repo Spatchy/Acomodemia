@@ -5,14 +5,14 @@
 
       <div class="field is-horizontal is-grouped is-grouped centered">
         <div class="field-body">
-        
+
           <div class="field">
             <p class="control is-expanded">
             <input class="input is-rounded is-info" type="text" placeholder="Personal Email" v-model="confirm1" />
             </p>
           </div>
 
-          
+
           <div class="field">
             <p class="control is-expanded">
                 <input class="input is-rounded is-info" type="text" placeholder="University Email" v-model="confirm2" />
@@ -26,34 +26,34 @@
 </template>
 
 <script>
-import AuthService from '@/services/AuthService.js'
+import AuthService from '@/services/AuthService.js';
 
 export default {
   name: 'Confirm',
-  data () {
+  data() {
     return {
       confirm1: '',
       confirm2: '',
-      msg: ''
-    }
+      msg: '',
+    };
   },
   methods: {
-    async confirm () {
+    async confirm() {
       try {
         const credentials = {
           confirm1: this.confirm1,
-          confirm2: this.confirm2
-        }
-        const response = await AuthService.confirm(credentials)
-        this.msg = response.msg
+          confirm2: this.confirm2,
+        };
+        const response = await AuthService.confirm(credentials);
+        this.msg = response.msg;
 
-        this.$store.dispatch('verify') // store client-side that the user is verified for UX purposes
+        this.$store.dispatch('verify'); // store client-side that the user is verified for UX purposes
 
-        this.$router.push('/complete')
+        this.$router.push('/complete');
       } catch (error) {
-        this.msg = error.response.data.msg
+        this.msg = error.response.data.msg;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

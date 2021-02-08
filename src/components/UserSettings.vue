@@ -4,7 +4,7 @@
           <div>
             <h3 class="title is-1">Hello {{ firstName }}</h3>
             <br>
-              
+
           <div class="field-label is-normal">
               <label class="label">Bio</label>
             </div>
@@ -15,9 +15,9 @@
                 </p>
               </div>
             </div>
-            
+
             <br>
-            
+
         <div class="field is-horizontal">
           <div class="field-label is-normal">
               <label class="label">Budget</label>
@@ -41,7 +41,7 @@
                </div>
             </div>
         </div>
-         
+
         <div class="field is-horizontal">
            <div class="field-label is-normal">
               <label class="label">Course</label>
@@ -53,7 +53,7 @@
                  </p>
                </div>
           </div>
-        
+
            <div class="field-label is-normal">
               <label class="label">location</label>
             </div>
@@ -65,26 +65,26 @@
              </div>
             </div>
          </div>
-         
+
         </div>
-          <br> 
-            
+          <br>
+
             <p v-if="msg">{{ msg }}</p>
         <div class="containter">
          <div id="compSettings" style="border-color: #3498db; width: 100%; border-style: solid; border-width: 3px; height 10%;">
            <h2 class="title is-3">Profile pic</h2>
            <h4>Profile picture and location are compulsory</h4>
-            
+
             <div>
             <profile-pic>ç
             </div>
             <div>
               <file-upload>
             </div>
-          </div> 
+          </div>
         </div>
             <br>
-        
+
           <div>
              <h2 class="title is-3">Set Lifestyle</h2>
 
@@ -101,10 +101,10 @@
                   <input type="radio" name="al-ans" > Once a week </label>
                 <label class="radio" >
                   <input type="radio" name="al-ans" > Everyday</label>
-                  
+
             </div>
               <br>
-             
+
                <h5>Would you desribe yourself as a night owl?</h5>
               <div class="control">
 
@@ -114,7 +114,7 @@
                   <input type="radio" name="ni-ans"> Sometimes </label>
                 <label class="radio" >
                   <input type="radio" name="ni-ans" > No </label>
-                  
+
               </div>
               <br>
 
@@ -124,7 +124,7 @@
                 <label class="radio3">
                   <input type="radio" name="ex-ans">Yes</label>
                 <label class="radio" >
-                  <input type="radio" name="ex-ans" > No </label>                  
+                  <input type="radio" name="ex-ans" > No </label>
               </div>
               <br>
 
@@ -150,10 +150,10 @@
                 <label class="radio" >
                   <input type="radio" name="ve-ans" > Neither </label>
 
-               
+
               </div>
               <br>
-               <input type="button" @click="settings" value="Save Changes" />  
+               <input type="button" @click="settings" value="Save Changes" />
            </div>
 
         <!-- <div class="control_wrapper">
@@ -196,43 +196,43 @@
             <input type="button" @click="dropdown" value="Save Interests" />
         </div>
         <div>
-            
+
         </div>
     </div>
 
 </template>
 <script>
-import AuthService from "@/services/AuthService.js";
-import FileUpload from "@/components/FileUpload.vue";
-import ProfilePic from "@/components/ProfilePic.vue";
-import Vue from "vue"; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
-import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns"; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+import AuthService from '@/services/AuthService.js';
+import FileUpload from '@/components/FileUpload.vue';
+import ProfilePic from '@/components/ProfilePic.vue';
+import Vue from 'vue'; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+import {DropDownListPlugin} from '@syncfusion/ej2-vue-dropdowns'; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
 Vue.use(DropDownListPlugin); // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
 // following are for multiple select DropDown Menu
-import { MultiSelectPlugin } from "@syncfusion/ej2-vue-dropdowns";
+import {MultiSelectPlugin} from '@syncfusion/ej2-vue-dropdowns';
 Vue.use(MultiSelectPlugin);
 export default Vue.extend({
-  name: "UserSettings",
+  name: 'UserSettings',
   components: {
     FileUpload,
-    ProfilePic
+    ProfilePic,
   },
   data() {
     return {
-      newBio: "",
-      firstName: "",
-      budget: "",
-      location: "",
-      movDate: "",
-      PrimaryEmail: "",
-      secretMessage: "",
-      username: "",
-      drinkingVal: "",
-      nightOwl: "",
-      extro: "",
-      smoke: "",
-      diet: "",
-      study: "",
+      newBio: '',
+      firstName: '',
+      budget: '',
+      location: '',
+      movDate: '',
+      PrimaryEmail: '',
+      secretMessage: '',
+      username: '',
+      drinkingVal: '',
+      nightOwl: '',
+      extro: '',
+      smoke: '',
+      diet: '',
+      study: '',
       // array used for dropdown menu, which is getting populated using foreach loop
       sportsData: [],
       oaData: [],
@@ -249,16 +249,16 @@ export default Vue.extend({
       musicSelection: [],
       dropdownSelections: [],
       // following are for multiple select DropDown Menu. Hardcoded
-      waterMark: "Available Options",
-      defaultMode: "Default",
-      boxMode: "Box",
-      delimiterMode: "Delimiter"
+      waterMark: 'Available Options',
+      defaultMode: 'Default',
+      boxMode: 'Box',
+      delimiterMode: 'Delimiter',
     };
   },
 
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("/");
+      this.$router.push('/');
     }
     this.username = this.$store.getters.getUser.PrimaryEmail;
     this.firstName = this.$store.getters.getUser.FirstName;
@@ -268,9 +268,8 @@ export default Vue.extend({
     this.location = details.location;
     try {
       this.movDate = details.movDate.substring(0, 10);
-    }
-    catch (err) {
-      this.movDate = ''
+    } catch (err) {
+      this.movDate = '';
     }
     this.drinkingVal = details.drinking;
     this.nightOwl = details.owl;
@@ -281,19 +280,19 @@ export default Vue.extend({
     // retrieving and populating dropDown menu in Settings page
     this.dataSports = await AuthService.retrieveSportsData();
     this.dataSports.msg.forEach((element) =>
-      this.sportsData.push(element.Interest)
+      this.sportsData.push(element.Interest),
     );
     this.dataOAData = await AuthService.retrieveOaData();
     this.dataOAData.msg.forEach((element) =>
-      this.oaData.push(element.Interest)
+      this.oaData.push(element.Interest),
     );
     this.dataIndoorData = await AuthService.retrieveIndoorData();
     this.dataIndoorData.msg.forEach((element) =>
-      this.indoorData.push(element.Interest)
+      this.indoorData.push(element.Interest),
     );
     this.dataMusicData = await AuthService.retrieveMusicData();
     this.dataMusicData.msg.forEach((element) =>
-      this.musicData.push(element.Interest)
+      this.musicData.push(element.Interest),
     );
 
     this.secretMessage = await AuthService.getSecretContent();

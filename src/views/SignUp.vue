@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <div class="container">
       <div>
         <h1 class="title is-1">Sign Up</h1>
@@ -12,7 +12,7 @@
           </div>
           <div class="field">
             <p class="control is-expanded">
-            <input class="input is-rounded is-info" type="text" placeholder="First Name" v-model="firstName" /> 
+            <input class="input is-rounded is-info" type="text" placeholder="First Name" v-model="firstName" />
             </p>
           </div>
 
@@ -43,7 +43,7 @@
                 </select>
               </div>
             </div>
-          </div>          
+          </div>
         </div>
       </div>
 
@@ -57,7 +57,7 @@
               <input class="input is-rounded is-info is-fullwidth" type="date" placeholder="DD/MM/YYYY" v-model="dob" />
             </p>
           </div>
-        </div>        
+        </div>
       </div>
 
       <div class="field is-horizontal">
@@ -103,67 +103,22 @@
           </div>
         </div>
       </div>
-
-
-        <!-- 
-        <label class="label left">Personal Email Address:</label>
-        <input class="input is-rounded" type="text" placeholder="Your Personal Email" v-model="username" />
-        <br>
-
-        <label class="label left">First Name:</label>
-        <input class="input is-rounded" type="text" placeholder="First Name" v-model="firstName" />
-        <br>
-        
-        <label class="label left">Second Name:</label>
-        <input class="input is-rounded" type="text" placeholder="Second Name" v-model="secondName" />
-        <br>
-        
-        <label class="label left">Date Of Birth:</label>
-        <input class="input is-rounded" type="date" placeholder="Date of birth" v-model="dob" />
-        <br>
-        
-        <label class="label left">University Email:</label>
-        <input class="input is-rounded" type="text" placeholder="University email" v-model="uniEmail" />
-        <br>
-        
-        <label class="label left">Gender:</label>
-        <div class="select is-rounded signup">
-          <select v-model="gender">
-            <option v-for="gend in genders" :key="gend">{{gend}}</option>
-          </select>
-        </div>
-        <br>
-
-        <label class="label left">Password:</label>
-        <input class="input is-rounded" type="password" placeholder="Password" v-model="password" />
-        <br>
-        
-        <label class="label left">Repeat Password:</label>
-        <input class="input is-rounded" type="password" placeholder="Password (repeat)" v-model="password_repeat" />
-        <br>
-        -->
-       
-       
-        <input class="button is-rounded is-info" type="button" @click="signUp" value="Sign Up" />
-        <br>
-        <p v-if="msg">{{ msg }}</p>
-        <p v-if="msg.length !== 0">
-          <ul>
-            <li v-for="error in errors" v-bind:key="error"> {{error}}</li>
-          </ul>
-        </p> 
+      <input class="button is-rounded is-info" type="button" @click="signUp" value="Sign Up" />
+      <br>
+      <p v-if="msg">{{ msg }}</p>
+      <p v-if="msg.length !== 0">
+        <ul>
+          <li v-for="error in errors" v-bind:key="error"> {{error}}</li>
+        </ul>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import AuthService from '@/services/AuthService.js'
-import Confirm from '@/components/Confirm.vue'
+import AuthService from '@/services/AuthService.js';
 export default {
-  components: {
-    Confirm
-  },
-  data () {
+  data() {
     return {
       genders: ['Female', 'Male', 'Rather Not Say', 'I Identify As...'],
       username: '',
@@ -175,12 +130,10 @@ export default {
       password: '',
       password_repeat: '',
       msg: '',
-      component: 'Confirm',
-      showConfirm: false
-    }
+    };
   },
   methods: {
-    async signUp () {
+    async signUp() {
       try {
         const credentials = {
           username: this.username,
@@ -190,22 +143,22 @@ export default {
           uniEmail: this.uniEmail,
           gender: this.gender,
           password: this.password,
-          password_repeat: this.password_repeat
-        }
-        const response = await AuthService.signUp(credentials)
-        this.msg = response.msg
+          password_repeat: this.password_repeat,
+        };
+        const response = await AuthService.signUp(credentials);
+        this.msg = response.msg;
 
-        const token = response.token
-        const user = response.user
-        this.$store.dispatch('login', { token, user })
+        const token = response.token;
+        const user = response.user;
+        this.$store.dispatch('login', {token, user});
 
-        this.$router.push('/verify')
+        this.$router.push('/verify');
       } catch (error) {
-        this.msg = error.response.data.msg
+        this.msg = error.response.data.msg;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

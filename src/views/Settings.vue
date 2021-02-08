@@ -9,20 +9,20 @@
 </template>
 
 <script>
-import UserSettings from '@/components/UserSettings.vue'
+import UserSettings from '@/components/UserSettings.vue';
 
 export default {
   name: 'Settings',
   components: {
-    UserSettings
+    UserSettings,
   },
-  async created () {
+  async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("/");
+      this.$router.push('/');
     }
     if (!this.$store.getters.isVerified) {
-      this.$router.push('/verify') // redirect user to verify if not verified
+      this.$router.push('/verify'); // redirect user to verify if not verified
     }
-  }
-}
+  },
+};
 </script>

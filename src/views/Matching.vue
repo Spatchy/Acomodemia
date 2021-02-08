@@ -8,54 +8,55 @@
     </div>
 </template>
 <script>
-import Feed from '@/components/Feed.vue'
-import AuthService from '@/services/AuthService.js'
-import MatchedPerson from '@/components/MatchedPerson.vue'
-import Vue from 'vue'
+import Feed from '@/components/Feed.vue';
+import AuthService from '@/services/AuthService.js';
+import MatchedPerson from '@/components/MatchedPerson.vue';
+import Vue from 'vue';
 
 export default {
   name: 'Matching',
-  data () {
+  data() {
     return {
-      matchesList: []
-    }
+      matchesList: [],
+    };
   },
   components: {
     Feed,
-    MatchedPerson
+    // eslint-disable-next-line vue/no-unused-components
+    MatchedPerson,
   },
   methods: {
-    displayMatches (match) {
-      var ComponentClass = Vue.extend(MatchedPerson)
-      var instance = new ComponentClass({
+    displayMatches(match) {
+      const ComponentClass = Vue.extend(MatchedPerson);
+      const instance = new ComponentClass({
         propsData: {
           name: match.name,
           age: match.age,
           matchingID: match.matchingID,
-          photo: match.photo
-        }
-      })
-      instance.$mount() // pass nothing
-      this.$refs.matchedlist.appendChild(instance.$el)
-    }
+          photo: match.photo,
+        },
+      });
+      instance.$mount(); // pass nothing
+      this.$refs.matchedlist.appendChild(instance.$el);
+    },
   },
-  async mounted () {
+  async mounted() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push('/')
+      this.$router.push('/');
     }
     if (!this.$store.getters.isVerified) {
-      this.$router.push('/verify') // redirect user to verify if not verified
+      this.$router.push('/verify'); // redirect user to verify if not verified
     }
     if (!this.$store.getters.getUser.EssentialSettingsComplete) {
-      this.$router.push('/Complete') // redirect user to complete their essential settings
+      this.$router.push('/Complete'); // redirect user to complete their essential settings
     }
   },
-  async created () {
-    this.matchesList = await AuthService.getMatches()
-    this.matchesList.forEach(element => {
-      this.displayMatches(element)
-      console.log(element.matchingID)
-    })
-  }
-}
+  async created() {
+    this.matchesList = await AuthService.getMatches();
+    this.matchesList.forEach((element) => {
+      this.displayMatches(element);
+      console.log(element.matchingID);
+    });
+  },
+};
 </script>

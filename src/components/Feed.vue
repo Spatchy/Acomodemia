@@ -1,5 +1,5 @@
 <template>
-    
+
     <div>
       <h1 v-if="(currentSuggestion == arraylength) || (arraylength == 0)">No Available Matches</h1>
       <div class="container" ref="container"></div> <!--Feed items will be injected-->
@@ -13,16 +13,16 @@
    </div>
 </template>
 <script>
-import AuthService from '@/services/AuthService.js'
-import ProfilePic from '@/components/ProfilePic.vue'
-import FeedItem from '@/components/FeedItem.vue'
-import Vue from 'vue'
+import AuthService from '@/services/AuthService.js';
+import FeedItem from '@/components/FeedItem.vue';
+import Vue from 'vue';
 export default {
   name: 'Feed',
   components: {
-    FeedItem
+    // eslint-disable-next-line vue/no-unused-components
+    FeedItem,
   },
-  data () {
+  data() {
     return {
       name: '',
       age: '',
@@ -42,32 +42,32 @@ export default {
       res: [],
       matchMessage: '',
       profilePic: '',
-      arraylength: 0
-    }
+      arraylength: 0,
+    };
   },
-  async created () {
-    var credentials = { page: 0 }
-    const result = await AuthService.getFeed(credentials)
-    this.res = result
-    this.next()
+  async created() {
+    const credentials = {page: 0};
+    const result = await AuthService.getFeed(credentials);
+    this.res = result;
+    this.next();
   },
   methods: {
-    next () {
-      this.currentSuggestion = this.currentSuggestion + 1
-      this.change()
+    next() {
+      this.currentSuggestion = this.currentSuggestion + 1;
+      this.change();
     },
-    prev () {
-      this.currentSuggestion = this.currentSuggestion - 1
-      this.change()
+    prev() {
+      this.currentSuggestion = this.currentSuggestion - 1;
+      this.change();
     },
-    change () {
-      this.$refs.container.innerHTML = ''
-      this.matchID = this.res[this.currentSuggestion].matchingId
-      
-      this.arraylength = this.res.length
+    change() {
+      this.$refs.container.innerHTML = '';
+      this.matchID = this.res[this.currentSuggestion].matchingId;
 
-      var ComponentClass = Vue.extend(FeedItem)
-      var instance = new ComponentClass({
+      this.arraylength = this.res.length;
+
+      const ComponentClass = Vue.extend(FeedItem);
+      const instance = new ComponentClass({
         propsData: {
           name: this.res[this.currentSuggestion].name,
           age: this.res[this.currentSuggestion].age,
@@ -82,43 +82,43 @@ export default {
           sleep: this.res[this.currentSuggestion].sleep,
           social: this.res[this.currentSuggestion].social,
           interests: this.res[this.currentSuggestion].interests,
-          profilePic: this.res[this.currentSuggestion].photo
-        }
-      })
-      instance.$mount() // pass nothing
-      this.$refs.container.appendChild(instance.$el)
+          profilePic: this.res[this.currentSuggestion].photo,
+        },
+      });
+      instance.$mount(); // pass nothing
+      this.$refs.container.appendChild(instance.$el);
     },
-    async match () {
+    async match() {
       try {
-        this.res.splice(this.currentSuggestion, 1)
+        this.res.splice(this.currentSuggestion, 1);
         const credentials = {
-          matchingId: this.matchID
-        }
-        try{
-          this.next()
+          matchingId: this.matchID,
+        };
+        try {
+          this.next();
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
-        const response = await AuthService.requestMatch(credentials)
-        this.matchMessage = response.msg
+        const response = await AuthService.requestMatch(credentials);
+        this.matchMessage = response.msg;
       } catch (error) {
-        this.msg = error.response.msg
+        this.msg = error.response.msg;
       }
     },
-    async reject () {
+    async reject() {
       try {
-        this.res.splice(this.currentSuggestion, 1)
-        this.res[this.currentSuggestion]
+        this.res.splice(this.currentSuggestion, 1);
+        this.res[this.currentSuggestion];
         const credentials = {
-          matchingId: this.matchID
-        }
-        this.next()
-        const response = await AuthService.reject(credentials)
-        this.matchMessage = response.msg
+          matchingId: this.matchID,
+        };
+        this.next();
+        const response = await AuthService.reject(credentials);
+        this.matchMessage = response.msg;
       } catch (error) {
-        this.msg = error.response.msg
+        this.msg = error.response.msg;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
