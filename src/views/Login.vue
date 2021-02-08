@@ -30,6 +30,10 @@
           <button class="button is-rounded is-info" @click="$router.push('sign-up')">Sign Up</button>
         </div>
 
+      <div>
+        <input type="button" @click="forgot" value="Forgot Password" />
+      </div>
+
       </div>
 
     </div>
@@ -78,6 +82,9 @@ export default {
         console.log(error)
         this.msg = error.response.msg
       }
+    },
+    async forgot() {
+      this.$router.push('/forgot')
     }
   }
 }

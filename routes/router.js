@@ -811,6 +811,40 @@ router.post('/getChatHistory', (req, res) => {
     )
 })
 
+router.post('/resetPassword', (req, res) => {
+    if(req.body.newpass == req.body.confirm) {
+        console.log(req.body)
+        var salt = uuid.v4().replace(/-/g, '')
+        var password = req.body.newpass + salt
+        bcrypt.hash(password, 12, (err, hash) => {
+            if (err) {
+                return res.status(500).send({
+                    msg: err
+                });
+            } else {
+                db.query(
+                    `UPDATE User SET HashedPassword=${db.escape(hash)}, Salt=${db.escape(salt)} WHERE PrimaryEmail=${db.escape(req.body.username)};`,
+                    (err, result) => {
+                        if(err) {
+                            return res.status(500).send({
+                                msg: err
+                            })
+                        } else {
+                            return res.status(200).send({
+                                msg: "Password sucessfully reset!"
+                            })
+                        }
+                    }
+                )
+            }
+        })
+    } else {
+        return res.status(400).send({
+            msg: "passwords do not match!"
+        })
+    }
+})
+
 router.get('/secret-route', (req, res, next) => {
     res.send('This is the secret content. Only logged in users can see that!');
 });

@@ -114,5 +114,10 @@ export default {
         return axios
             .post(url + 'getChatHistory/', id)
             .then(response => response.data)
+    },
+    resetPassword(credentials) {
+        return axios
+            .post(url + 'resetPassword/', credentials)
+            .then(response => response.data)
     }
 }

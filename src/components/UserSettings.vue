@@ -66,7 +66,7 @@
             </div>
          </div>
          
-      </span ></div>
+        </div>
           <br> 
             
             <p v-if="msg">{{ msg }}</p>
