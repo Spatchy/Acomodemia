@@ -2,7 +2,7 @@
 
     <div>
       <h1 v-if="(currentSuggestion == arraylength) || (arraylength == 0)">No Available Matches</h1>
-      <div class="container" ref="container"></div> <!--Feed items will be injected-->
+      <div ref="container" id="container"></div> <!--Feed items will be injected-->
       <div id="controls">
             <p> {{matchMessage}} </p>
             <button class="button is-rounded is-info" value="Previous" @click="prev" v-if="currentSuggestion">Previous</button>
@@ -122,3 +122,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+#container{
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+</style>
