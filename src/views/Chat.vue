@@ -23,10 +23,11 @@
       <div ref="messageFeed">
 
       <br />
+      </div>
 
       <input class="input is-rounded is-info chat" type="text" placeholder="Type your message here" v-model="message"/>
       <input class="button is-rounded is-info chat" type="button" value="Send" @click="send" />
-      </div>
+
 
     </div>
 

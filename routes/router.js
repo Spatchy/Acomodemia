@@ -100,27 +100,27 @@ async function sendVerifEmail(emailAddress, verifCode) {
 }
 
 async function sendResetEmail(emailAddress, verifCode) {
-    // create nodemailer connection to gmail
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: credentials['smtp']['user'],
-        pass: credentials['smtp']['password'],
-      },
-    });
-  
-    // send mail with defined transport object
-    const info = await transporter.sendMail({
-      from: '"CO600 Housematefinder" <co600housematefinder@gmail.com>', // sender address
-      to: `${emailAddress}`, // list of receivers
-      subject: 'Your verification code', // Subject line
-      html: `Here is your password reset verification code: <b>${verifCode}</b><br>`, // plain text body
-    });
-  
-    console.log('Message sent: %s', info.messageId);
-  }
+  // create nodemailer connection to gmail
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: credentials['smtp']['user'],
+      pass: credentials['smtp']['password'],
+    },
+  });
+
+  // send mail with defined transport object
+  const info = await transporter.sendMail({
+    from: '"CO600 Housematefinder" <co600housematefinder@gmail.com>', // sender address
+    to: `${emailAddress}`, // list of receivers
+    subject: 'Your verification code', // Subject line
+    html: `Here is your password reset verification code: <b>${verifCode}</b><br>`, // plain text body
+  });
+
+  console.log('Message sent: %s', info.messageId);
+}
 
 
 // signup function
@@ -810,22 +810,22 @@ router.post('/getChatHistory', (req, res) => {
 });
 
 router.post('/forgotPassword', (req, res) => {
-    var code = Math.floor(1000 + Math.random() * 9000)
-    db.query(
-        `UPDATE User SET ResetCode=${db.escape(code)} WHERE PrimaryEmail=${db.escape(req.body.username)};`,
-        (err, result) => {
-            if (err) {
-                return res.status(500).send({
-                  msg: err,
-                });
-              } else {
-                sendResetEmail(req.body.username, code)
-                return res.status(200).send({
-                  msg: 'Email Sent! please check your emails for your unique reset code',
-                });
-            } 
+  const code = Math.floor(1000 + Math.random() * 9000);
+  db.query(
+      `UPDATE User SET ResetCode=${db.escape(code)} WHERE PrimaryEmail=${db.escape(req.body.username)};`,
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            msg: err,
+          });
+        } else {
+          sendResetEmail(req.body.username, code);
+          return res.status(200).send({
+            msg: 'Email Sent! please check your emails for your unique reset code',
+          });
         }
-    )
+      },
+  );
 });
 
 router.post('/resetPassword', (req, res) => {
@@ -841,35 +841,35 @@ router.post('/resetPassword', (req, res) => {
         db.query(
             `SELECT ResetCode FROM User WHERE PrimaryEmail=${db.escape(req.body.username)};`,
             (err, result) => {
-                if (err) {
-                    return res.status(500).send({
-                        msg: err,
-                    })
-                } else {
-                    var resetcode = result[0].ResetCode
-                    if(resetcode == req.body.code){
-                    db.query(
-                        `UPDATE User SET HashedPassword=${db.escape(hash)}, Salt=${db.escape(salt)} WHERE PrimaryEmail=${db.escape(req.body.username)};`,
-                        (err, result) => {
-                          if (err) {
-                            return res.status(500).send({
-                              msg: err,
-                            });
-                          } else {
-                            return res.status(200).send({
-                              msg: 'Password sucessfully reset!',
-                            });
-                          }
-                        },
-                    );
-                    } else {
-                        return res.status(400).send({
-                            msg: 'Code is incorrect!',
+              if (err) {
+                return res.status(500).send({
+                  msg: err,
+                });
+              } else {
+                const resetcode = result[0].ResetCode;
+                if (resetcode == req.body.code) {
+                  db.query(
+                      `UPDATE User SET HashedPassword=${db.escape(hash)}, Salt=${db.escape(salt)} WHERE PrimaryEmail=${db.escape(req.body.username)};`,
+                      (err, result) => {
+                        if (err) {
+                          return res.status(500).send({
+                            msg: err,
                           });
-                    }
+                        } else {
+                          return res.status(200).send({
+                            msg: 'Password sucessfully reset!',
+                          });
+                        }
+                      },
+                  );
+                } else {
+                  return res.status(400).send({
+                    msg: 'Code is incorrect!',
+                  });
                 }
-            }
-        )
+              }
+            },
+        );
       }
     });
   } else {

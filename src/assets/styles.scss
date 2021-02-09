@@ -12,6 +12,7 @@ $beige-lighter: #EFF0EB;
 $white: #fff; 
 $blue: #3498db;
 $acomodemia-blue: #313266;
+$background-grey: #F2F4F7;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
@@ -23,7 +24,7 @@ $widescreen-enabled: false;
 $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
-$body-background-color: $white;
+$body-background-color: $background-grey;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
@@ -165,3 +166,4 @@ p span {
 @import "../../node_modules/bulma/sass/components/navbar.sass";
 @import "../../node_modules/bulma/sass/layout/hero.sass";
 @import "../../node_modules/bulma/sass/layout/section.sass";
+@import "../../node_modules/bulma/sass/grid/columns.sass"
