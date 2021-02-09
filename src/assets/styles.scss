@@ -41,6 +41,7 @@ $navbar-height: 4rem;
   justify-content: center;
   align-items: center;
 }
+
 .container1 {
   min-height: 80vh;
   display: -webkit-box;
@@ -77,6 +78,71 @@ $navbar-height: 4rem;
   margin: -70px 0 0 -170px;
 }
 
+#container3{
+    width: 100%;
+    height: 93vh;
+}
+
+#container3:after {
+    clear: both;
+    display: block;
+    content: ' ';
+}
+
+#left_container{
+    float: left;
+    width: 30%;
+    height: 100%;
+    border:1px solid #313266;
+}
+
+#right_container {
+    float: left;
+    width: 70%;
+    height: 100%;
+    border:1px solid #313266;
+}
+
+#left_container .content {
+    
+}
+
+#right_container .chat {
+    height: 75%;
+}
+
+#right_container .chatheader {
+    height: 20%;
+}
+
+#right_container .chatinput {
+    height: 5%;
+}
+
+.leftpane {
+    width: 30%;
+    height: 100vh;
+    float: left;
+    border:1px solid #313266;
+    border-collapse: collapse;
+}
+
+.rightpane {
+    width: 70%;
+    height: 100vh;
+    float: left;
+    border:1px solid #313266;
+    border-collapse: collapse;
+    
+}
+
+#loginpic{
+    align-content: left;
+    padding-right: 5%;
+    height: 400px;
+    width: 700px;
+}
+
 // line global adjusments
 hr {
   display: block;
@@ -87,31 +153,6 @@ hr {
   border-style: inset;
   border-width: 1px;
   color: #313266;
-}
-
-.leftpane {
-  width: 25%;
-  height: 100vh;
-  float: left;
-  border: 1px solid #313266;
-  border-collapse: collapse;
-}
-
-.middlepane {
-  width: 50%;
-  height: 100vh;
-  float: left;
-  border: 1px solid #313266;
-  border-collapse: collapse;
-}
-
-.rightpane {
-  width: 25%;
-  height: 100vh;
-  position: relative;
-  float: right;
-  border: 1px solid #313266;
-  border-collapse: collapse;
 }
 
 #loginpic {
@@ -163,17 +204,6 @@ h5 {
 
 p span {
   display: block;
-}
-
-.input chat {
-  width: 75%;
-  position: sticky;
-  bottom: 10px;
-}
-.button chat {
-  width: 25%;
-  position: sticky;
-  bottom: 10px;
 }
 
 @media (max-width: 60em) {
