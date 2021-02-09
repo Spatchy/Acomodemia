@@ -5,6 +5,12 @@
           <div class="box">
             <h2 class="title is-2">Your Matches</h2>
           </div>
+          <div id="no-matches-info" v-if="matchesList.length==0">
+            <div class="icon">
+              <i class="fas fa-users title is-1"></i>
+            </div>
+            <p class="subtitle is-6 left-align">You don't have any matches yet, use the feed to find some</p>
+          </div>
         </div> <!--matches will be injected-->
         <div class="column">
             <div class="box">
@@ -75,5 +81,8 @@ export default {
 #matchedList{
   overflow-y: scroll;
   height: calc(100vh - 68px)
+}
+#no-matches-info{
+  margin: 0.25rem;
 }
 </style>
