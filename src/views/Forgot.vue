@@ -1,15 +1,20 @@
 <template>
 <div>
     <h2> Reset Password </h2>
-
-    <input type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
-    <input type="password" v-model="newpass" />
-    <input type="password" v-model="confirm" />
-    <input type="button" @click="submit" value="Reset Password" />
-
-    <br>
-    <p> {{msg}} </p>
-
+    <div>
+      <p>please enter your email to send a reset code to your email address</p>
+      <input type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+      <input type="button" @click="forgot" value="Send code" />
+      <br>
+      <p> {{msg}} </p>
+    </div>
+    <div>
+      <p>Please enter your email address, code and new password</p>
+      <input type="text" placeholder="Enter your code here" v-model="code" />
+      <input type="password" v-model="newpass" />
+      <input type="password" v-model="confirm" />
+      <input type="button" @click="submit" value="Reset Password" />
+    </div>
 </div>
 </template>
 <script>
@@ -22,6 +27,7 @@ export default {
       newpass: '',
       confirm: '',
       msg: '',
+      code: ''
     };
   },
   methods: {
@@ -31,6 +37,7 @@ export default {
           username: this.username,
           newpass: this.newpass,
           confirm: this.confirm,
+          code: this.code,
         };
         if (this.newpass == this.confirm) {
           const response = await AuthService.resetPassword(credentials);
@@ -41,6 +48,17 @@ export default {
         }
       } catch (error) {
         console.error(error);
+      }
+    },
+    async forgot() {
+      try {
+        const credentials = {
+          username: this.username
+        }
+        const response = await AuthService.forgotPassword(credentials);
+        this.msg = response.msg
+      } catch (error) {
+        console.error(error)
       }
     },
   },

@@ -120,4 +120,9 @@ export default {
         .post(url + 'resetPassword/', credentials)
         .then((response) => response.data);
   },
+  forgotPassword(credentials) {
+    return axios
+      .post(url + 'forgotPassword/', credentials)
+      .then((response) => response.data);
+  }
 };
