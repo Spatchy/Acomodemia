@@ -3,7 +3,7 @@
     <div class="container4">
       <h1 class="title is-1"> Reset Password </h1>
       <div>
-        <p class="label left">Please enter your email to receive a reset code</p>
+        <p class="label left">Please enter your email to receive reset code</p>
         <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
         <input class="button is-rounded is-info" type="button" @click="forgot" value="Send code" />
         <!-- Line is loaded but doesnt get displayed -->
