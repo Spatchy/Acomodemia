@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
+import Header from '@/components/Header';
 
 export default {
   components: {
-    'the-header': Header
-  }
-}
+    'the-header': Header,
+  },
+};
 </script>
 
 <style lang="scss">

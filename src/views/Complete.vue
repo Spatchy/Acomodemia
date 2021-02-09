@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import UserSettings from '@/components/UserSettings.vue'
+import UserSettings from '@/components/UserSettings.vue';
 
 export default {
   name: 'Complete',
   components: {
-    UserSettings
-  }
-}
+    UserSettings,
+  },
+};
 </script>

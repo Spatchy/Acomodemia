@@ -1,13 +1,13 @@
-const fs = require('fs')
-var credentials = JSON.parse(fs.readFileSync(__dirname + '/credentials.json'))
+const fs = require('fs');
+const credentials = JSON.parse(fs.readFileSync(__dirname + '/credentials.json'));
 
 // lib/db.js
-const mysql = require('mysql')
+const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: credentials.host,
   user: credentials.user,
   database: credentials.db,
-  password: credentials.password
-})
-connection.connect()
-module.exports = connection
+  password: credentials.password,
+});
+connection.connect();
+module.exports = connection;

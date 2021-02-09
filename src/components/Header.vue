@@ -32,14 +32,14 @@
 export default {
   data() {
     return {
-      exclude: ['Login', 'Sign-up'] // List of pages to not show the header, uses the route name as definied in router/index.js
-    }
+      exclude: ['Login', 'Sign-up'], // List of pages to not show the header, uses the route name as definied in router/index.js
+    };
   },
   methods: {
-    burgerClick (event) {
-      event.target.classList.toggle('is-active')
-      this.$refs.menu.classList.toggle('is-active')
-    }
-  }
-}
+    burgerClick(event) {
+      event.target.classList.toggle('is-active');
+      this.$refs.menu.classList.toggle('is-active');
+    },
+  },
+};
 </script>

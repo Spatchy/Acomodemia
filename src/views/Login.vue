@@ -6,7 +6,7 @@
       <div class="pic">
         <img id="loginpic" src="https://via.placeholder.com/700x400.png" alt="IMG">
       </div>
-      
+
       <div class="login">
         <h1 class="title is-1">Login</h1>
 
@@ -30,6 +30,10 @@
           <button class="button is-rounded is-info" @click="$router.push('sign-up')">Sign Up</button>
         </div>
 
+      <div>
+        <input class="button is-rounded is-info" type="button" @click="forgot" value="Forgot Password" />
+      </div>
+
       </div>
 
     </div>
@@ -38,47 +42,50 @@
 </template>
 
 <script>
-import AuthService from '@/services/AuthService.js'
+import AuthService from '@/services/AuthService.js';
 
 export default {
-  data () {
+  data() {
     return {
       username: '',
       password: '',
-      msg: ''
+      msg: '',
+    };
+  },
+  async created() {
+    if (this.$store.getters.isLoggedIn) {
+      this.$router.push('/feed');
     }
   },
-   async created () {
-      if (this.$store.getters.isLoggedIn) {
-       this.$router.push('/feed')
-      }
-  },
   methods: {
-    async login () {
+    async login() {
       try {
         const credentials = {
           username: this.username,
-          password: this.password
-        }
-        const response = await AuthService.login(credentials)
-        this.msg = response.msg
+          password: this.password,
+        };
+        const response = await AuthService.login(credentials);
+        this.msg = response.msg;
 
-        const token = response.token
-        const user = response.user
-        this.$store.dispatch('login', { token, user })
+        const token = response.token;
+        const user = response.user;
+        this.$store.dispatch('login', {token, user});
 
-        const bResponse = await AuthService.checkVerified()
+        const bResponse = await AuthService.checkVerified();
 
-        this.$store.dispatch('verify')
+        this.$store.dispatch('verify');
 
-        this.msg = bResponse.msg
+        this.msg = bResponse.msg;
 
-        this.$router.push('/feed')
+        this.$router.push('/feed');
       } catch (error) {
-        console.log(error)
-        this.msg = error.response.msg
+        console.log(error);
+        this.msg = error.response.msg;
       }
-    }
-  }
-}
+    },
+    async forgot() {
+      this.$router.push('/forgot');
+    },
+  },
+};
 </script>
