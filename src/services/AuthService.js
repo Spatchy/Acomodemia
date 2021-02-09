@@ -128,6 +128,6 @@ export default {
   changeEmail(credentials) {
     return axios
         .post(url + 'changeEmail/', credentials)
-        .then((response) => response.data)
+        .then((response) => response.data);
   },
 };
