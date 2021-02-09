@@ -7,7 +7,7 @@
         <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
         <input class="button is-rounded is-info" type="button" @click="forgot" value="Send code" />
         <!-- Line is loaded but doesnt get displayed -->
-        <hr> 
+        <hr>
         <p class="label left">Please re-enter your email address</p>
         <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="user" />
         <br>
