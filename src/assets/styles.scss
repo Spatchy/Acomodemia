@@ -143,6 +143,11 @@ h5 {
   margin: 2px;
 }
 
+.image.is-300x300{
+    height: 300px;
+    width: 300px;
+}
+
 p span {
   display: block;
 }
@@ -183,3 +188,7 @@ p span {
 @import "../../node_modules/bulma/sass/grid/columns.sass";
 @import "../../node_modules/bulma/sass/components/card.sass";
 @import "../../node_modules/bulma/sass/components/media.sass";
+<<<<<<< HEAD
+=======
+@import "../../node_modules/bulma/sass/elements/box.sass";
+>>>>>>> ae7d6f9a0fa01629064948916fcdfe1f831efd14
