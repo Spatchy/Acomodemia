@@ -78,7 +78,6 @@ $navbar-height: 4rem;
   margin: -70px 0 0 -170px;
 }
 
-<<<<<<< HEAD
 #container3{
     width: 100%;
     height: 93vh;
@@ -142,7 +141,8 @@ $navbar-height: 4rem;
     padding-right: 5%;
     height: 400px;
     width: 700px;
-=======
+}
+
 // line global adjusments
 hr {
   display: block;
@@ -155,37 +155,11 @@ hr {
   color: #313266;
 }
 
-.leftpane {
-  width: 25%;
-  height: 100vh;
-  float: left;
-  border: 1px solid #313266;
-  border-collapse: collapse;
-}
-
-.middlepane {
-  width: 50%;
-  height: 100vh;
-  float: left;
-  border: 1px solid #313266;
-  border-collapse: collapse;
-}
-
-.rightpane {
-  width: 25%;
-  height: 100vh;
-  position: relative;
-  float: right;
-  border: 1px solid #313266;
-  border-collapse: collapse;
-}
-
 #loginpic {
   align-content: left;
   padding-right: 5%;
   height: 400px;
   width: 700px;
->>>>>>> c3b689600a63cdb59f89d2afb5f9aabc65d0b25f
 }
 
 .login {
@@ -213,12 +187,6 @@ h4 {
   color: red;
 }
 
-<<<<<<< HEAD
-h5{
-    color:#3498db;
-    font-weight: bolder;
-    $size-1: 3rem;
-=======
 h5 {
   color: #3498db;
   font-weight: bolder;
@@ -227,7 +195,6 @@ h5 {
 
 .icon {
   margin: 2px;
->>>>>>> c3b689600a63cdb59f89d2afb5f9aabc65d0b25f
 }
 
 .image.is-300x300 {
@@ -239,20 +206,6 @@ p span {
   display: block;
 }
 
-<<<<<<< HEAD
-=======
-.input chat {
-  width: 75%;
-  position: sticky;
-  bottom: 10px;
-}
-.button chat {
-  width: 25%;
-  position: sticky;
-  bottom: 10px;
-}
-
->>>>>>> c3b689600a63cdb59f89d2afb5f9aabc65d0b25f
 @media (max-width: 60em) {
   .pic {
     display: none;
