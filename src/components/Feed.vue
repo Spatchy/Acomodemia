@@ -1,7 +1,9 @@
 <template>
 
     <div>
-      <h1 v-if="(currentSuggestion == arraylength) || (arraylength == 0)">No Available Matches</h1>
+      <div class="container5">
+        <h1 class="title is-1" v-if="(currentSuggestion == arraylength) || (arraylength == 0)">Empty "People To Match" List</h1>
+      </div>
       <div class="container" ref="container"></div> <!--Feed items will be injected-->
       <div id="controls">
             <p> {{matchMessage}} </p>

@@ -13,27 +13,27 @@ export default {
   name: 'ChangeEmail',
   data() {
     return {
-        newEmail: '',
-        newEmailConf: '',
-        password: '',
-        msg: '',
+      newEmail: '',
+      newEmailConf: '',
+      password: '',
+      msg: '',
     };
   },
   methods: {
     async submit() {
-        if (this.newEmail == this.newEmailConf) {
-            try {
-                const credentials = {
-                    newEmail: this.newEmail,
-                    newEmailConf: this.newEmailConf,
-                    password: this.password,
-                };
-                const response = AuthService.changeEmail(credentials);
-                this.msg = response.msg;
-            } catch (error) {
-                console.error(error);
-            }
+      if (this.newEmail == this.newEmailConf) {
+        try {
+          const credentials = {
+            newEmail: this.newEmail,
+            newEmailConf: this.newEmailConf,
+            password: this.password,
+          };
+          const response = AuthService.changeEmail(credentials);
+          this.msg = response.msg;
+        } catch (error) {
+          console.error(error);
         }
+      }
     },
   },
 };
