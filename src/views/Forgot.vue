@@ -2,7 +2,7 @@
 <div>
     <h2> Reset Password </h2>
     <div>
-      <p>please enter your email to send a reset code to your email address</p>
+      <p>please enter your email to send a reset code</p>
       <input type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
       <input type="button" @click="forgot" value="Send code" />
       <br>
@@ -10,6 +10,7 @@
     </div>
     <div>
       <p>Please enter your email address, code and new password</p>
+      <input type="text" placeholder="e.g. bobsmith@gmail.com" v-model="user" />
       <input type="text" placeholder="Enter your code here" v-model="code" />
       <input type="password" v-model="newpass" />
       <input type="password" v-model="confirm" />
@@ -27,14 +28,15 @@ export default {
       newpass: '',
       confirm: '',
       msg: '',
-      code: ''
+      code: '',
+      user: '',
     };
   },
   methods: {
     async submit() {
       try {
         const credentials = {
-          username: this.username,
+          username: this.user,
           newpass: this.newpass,
           confirm: this.confirm,
           code: this.code,
