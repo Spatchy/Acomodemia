@@ -13,36 +13,36 @@
 </div>
 </template>
 <script>
-import AuthService from '@/services/AuthService.js'
+import AuthService from '@/services/AuthService.js';
 
 export default {
-    data() {
-        return {
-          username: '',
-          newpass: '',
-          confirm: '',
-          msg: ''  
+  data() {
+    return {
+      username: '',
+      newpass: '',
+      confirm: '',
+      msg: '',
+    };
+  },
+  methods: {
+    async submit() {
+      try {
+        const credentials = {
+          username: this.username,
+          newpass: this.newpass,
+          confirm: this.confirm,
+        };
+        if (this.newpass == this.confirm) {
+          const response = await AuthService.resetPassword(credentials);
+          this.msg = response.msg;
+          this.$router.push('/');
+        } else {
+          this.msg = 'Passwords do not match!';
         }
+      } catch (error) {
+        console.error(error);
+      }
     },
-    methods: {
-        async submit() {
-            try{
-                const credentials = {
-                    username: this.username,
-                    newpass: this.newpass,
-                    confirm: this.confirm
-                }
-                if(this.newpass == this.confirm) {
-                    const response = await AuthService.resetPassword(credentials)
-                    this.msg = response.msg 
-                    this.$router.push('/')
-                } else {
-                    this.msg = "Passwords do not match!"
-                }
-            } catch(error){
-                console.error(error)
-            }
-        }
-    }
-}
+  },
+};
 </script>

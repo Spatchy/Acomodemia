@@ -1,14 +1,14 @@
 <template>
     <div v-bind:class="{Sent: sent, recieved : !sent }" :messageId="messageID">
-       <p> <span> {{message}} </span> </p> 
+       <p> <span> {{message}} </span> </p>
     </div>
 
 </template>
 <script>
 export default {
-    name: 'Message',
-    props: ['message', 'messageID', 'sent']
-}
+  name: 'Message',
+  props: ['message', 'messageID', 'sent'],
+};
 </script>
 <style>
 .Sent{
