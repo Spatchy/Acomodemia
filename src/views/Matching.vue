@@ -1,10 +1,12 @@
 <template>
     <div>
-        <div ref="matchedlist" style="float:left"></div>
-        <div>
+      <div class="columns">
+        <div class="column is-one-quarter" ref="matchedlist"></div> <!--matches will be injected-->
+        <div class="column">
             <h2>Feed</h2>
             <feed>
         </div>
+      </div>
     </div>
 </template>
 <script>
