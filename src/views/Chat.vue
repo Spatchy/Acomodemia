@@ -17,16 +17,17 @@
 
       <h3> {{bio}} </h3>
 
-    </div>
+    </div>  
 
     <div class="middlepane">
       <div ref="messageFeed">
 
       <br />
-
+      </div>
+      
       <input class="input is-rounded is-info chat" type="text" placeholder="Type your message here" v-model="message"/>
       <input class="button is-rounded is-info chat" type="button" value="Send" @click="send" />
-      </div>
+      
 
     </div>
 
@@ -34,106 +35,109 @@
 
 </template>
 <script>
-import AuthService from '@/services/AuthService.js';
-import io from 'socket.io-client';
-import Vue from 'vue';
-import Message from '@/components/Message.vue';
+import AuthService from '@/services/AuthService.js'
+import io from 'socket.io-client'
+import Vue from 'vue'
+import Message from '@/components/Message.vue'
 
 export default {
   name: 'Chat',
   props: ['matchingID'],
   components: {
-    // eslint-disable-next-line vue/no-unused-components
-    Message,
+    Message
   },
   data() {
     return {
       socket: io({
-        query: {token: this.$store.getters.isLoggedIn}, // returns the token to socket.io
+        query: {token: this.$store.getters.isLoggedIn} //returns the token to socket.io
       }),
       name: '',
-      age: '',
+      age: '', 
       photo: '',
       message: '',
       sentMessage: '',
-    };
+    }
   },
   methods: {
     async send() {
-      console.log('start: ' + this.message);
-      const payload = {
+      console.log('start: ' + this.message)
+      var payload = {
         body: this.message,
-        recipient: this.matchingID,
-      };
-      try {
-        console.log(payload);
-        await this.socket.emit('message', payload);
-        this.sentMessage = payload.body;
-      } catch (error) {
-        console.log(error);
+        recipient: this.matchingID
       }
-      this.message = '';
-      console.log('end: ' + this.message);
+      try {
+        console.log(payload)
+        const response = await this.socket.emit("message", payload)
+        this.sentMessage = payload.body
+        
+        
+        
+      } catch(error){
+        console.log(error)
+      }
+      this.message = ''
+      console.log('end: ' + this.message)
     },
-    getPic: function() {
-      return this.photo;
+    getPic: function () {
+      return this.photo
     },
-    displayMessage: function(message, messageID, sent) {
-      const ComponentClass = Vue.extend(Message);
-      const instance = new ComponentClass({
+    displayMessage: function (message, messageID, sent) {
+      var ComponentClass = Vue.extend(Message)
+      var instance = new ComponentClass({
         propsData: {
           message: message,
           messageID: messageID,
-          sent: sent,
-        },
-      });
-      instance.$mount(); // pass nothing
-      this.$refs.messageFeed.appendChild(instance.$el);
-    },
+          sent: sent
+        }
+      })
+      instance.$mount() // pass nothing
+      this.$refs.messageFeed.appendChild(instance.$el)
+    }
   },
   async created() {
     try {
-      console.log(this.matchingID);
-      const payload = {
-        matchingID: this.matchingID,
-      };
-      const response = await AuthService.getMatchByID(payload);
-      this.name = response.name;
-      this.age = response.age;
-      const bytes = new Uint8Array(response.photo.data);
-      const binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
-      this.photo = 'data:image/jpeg;base64,' + btoa(binary);
+      console.log(this.matchingID)
+      var payload = {
+        matchingID: this.matchingID
+      }
+      const response = await AuthService.getMatchByID(payload)
+      this.name = response.name
+      this.age = response.age
+      var bytes = new Uint8Array(response.photo.data)
+      var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '')
+      this.photo = 'data:image/jpeg;base64,' + btoa(binary)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-    try {
-      const credentials = {
-        matchingID: this.matchingID,
-      };
-      console.log(credentials);
-      const feed = await AuthService.getChatHistory(credentials);
-      console.log(feed);
-      feed.forEach((element) => {
-        this.displayMessage(element.message, element.id, element.sent);
+    try{
+      var credentials = {
+        matchingID: this.matchingID
+      }
+      console.log(credentials)
+      const feed = await AuthService.getChatHistory(credentials)
+      console.log(feed)
+      feed.forEach(element => {
+        this.displayMessage(element.message, element.id, element.sent)
       });
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
 
-    this.socket.on('connect', () => {
-      console.log(this.socket.id);
-    });
+    this.socket.on("connect", () => {
+      console.log(this.socket.id)
+    })
 
     this.socket.on('message', (payload) => {
-      console.log(`message ${payload.id} received from ${payload.from} at ${payload.timestamp}: "${payload.content}"`);
-      if (payload.from == this.matchingID) {
-        this.displayMessage(payload.content, payload.id, false);
+      console.log(`message ${payload.id} received from ${payload.from} at ${payload.timestamp}: "${payload.content}"`)
+      if(payload.from == this.matchingID) {
+      this.displayMessage(payload.content, payload.id, false)
       }
-    });
+    })
 
     this.socket.on('success', (messageID) => {
-      this.displayMessage(this.sentMessage, messageID, true);
-    });
-  },
-};
+      this.displayMessage(this.sentMessage, messageID, true)
+    })
+
+  }
+}
 </script>
