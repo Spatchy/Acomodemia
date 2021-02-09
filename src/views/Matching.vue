@@ -1,7 +1,11 @@
 <template>
     <div>
       <div class="columns">
-        <div class="column is-one-quarter" ref="matchedlist"></div> <!--matches will be injected-->
+        <div class="column is-one-quarter" ref="matchedlist" id="matchedList">
+          <div class="box">
+            <h2 class="title is-2">Your Matches</h2>
+          </div>
+        </div> <!--matches will be injected-->
         <div class="column">
             <h2>Feed</h2>
             <feed>
@@ -62,3 +66,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+.box{
+  margin: 0.25rem;
+}
+#matchedList{
+  overflow-y: scroll;
+  height: calc(100vh - 68px)
+}
+</style>
