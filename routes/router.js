@@ -879,6 +879,53 @@ router.post('/resetPassword', (req, res) => {
   }
 });
 
+router.post('/changeEmail', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+      token,
+      'SECRETKEY',
+  );
+  db.query(
+    `SELECT HashedPassword, Salt FROM User WHERE PrimaryEmail=${db.escape(decoded.email)};`,
+    (err, result) => {
+      if (err) {
+        return res.status(400).send({
+          msg: "internal server error"
+        })
+      } else {
+        bcrypt.compare(
+          req.body.password + result[0]['Salt'],
+          result[0]['HashedPassword'],
+          (bErr, bResult) => {
+            // wrong password
+            if (bErr) {
+              // throw bErr;
+              return res.status(401).send({
+                msg: 'Username or password is incorrect!',
+              });
+            }
+            if(bResult) {
+              db.query(
+                `UPDATE User SET PrimaryEmail=${db.escape(req.body.newEmail)} WHERE PrimaryEmail=${db.escape(decoded.email)};`,
+                (err, result) => {
+                  if (err) {
+                    return res.status(400).send({
+                      msg: err,
+                    })
+                  } else {
+                    return res.status(200).send({
+                      msg: 'Email successfully changed!',
+                    });
+                  }
+                }
+              )
+            }
+          })
+      }
+    }
+  )
+});
+
 router.get('/secret-route', (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });

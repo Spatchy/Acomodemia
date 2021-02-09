@@ -125,4 +125,9 @@ export default {
         .post(url + 'forgotPassword/', credentials)
         .then((response) => response.data);
   },
+  changeEmail(credentials) {
+    return axios
+        .post(url + 'changeEmail/', credentials)
+        .then((response) => response.data)
+  },
 };
