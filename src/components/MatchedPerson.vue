@@ -1,7 +1,17 @@
 <template>
-    <div @click="clickEvent">
-        <h3 id="name">{{name}} </h3><h3 id="age"> {{age}} </h3>
-        <img style="width: 50px; height: 50px;" :src="getPic()" alt="">
+    <div class="card" @click="clickEvent">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img :src="getPic()" alt="">
+            </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4 left-align">{{name}}, {{age}}</p>
+          <p class="subtitle is-6 left-align">Click to chat with {{name}}</p>
+      </div>
+      <div>
     </div>
 </template>
 
@@ -31,3 +41,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+.card{
+  cursor: pointer;
+  margin: 0.25rem;
+}
+
+.left-align{
+  text-align: left;
+}
+</style>
