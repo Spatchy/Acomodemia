@@ -122,7 +122,7 @@ export default {
   },
   forgotPassword(credentials) {
     return axios
-      .post(url + 'forgotPassword/', credentials)
-      .then((response) => response.data);
-  }
+        .post(url + 'forgotPassword/', credentials)
+        .then((response) => response.data);
+  },
 };

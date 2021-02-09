@@ -55,12 +55,12 @@ export default {
     async forgot() {
       try {
         const credentials = {
-          username: this.username
-        }
+          username: this.username,
+        };
         const response = await AuthService.forgotPassword(credentials);
-        this.msg = response.msg
+        this.msg = response.msg;
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
   },
