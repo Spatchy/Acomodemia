@@ -1,13 +1,13 @@
 <template>
-    <div>
+    <div class="container">
       <div class="container is-fluid">
           <div>
             <h3 class="title is-1">Hello {{ firstName }}</h3>
             <br>
 
           <div class="field-label is-normal">
-              <label class="label">Bio</label>
-            </div>
+            <label class="label">Bio</label>
+          </div>
             <div class="field-body">
               <div class="field">
                 <p class="control is-expanded">

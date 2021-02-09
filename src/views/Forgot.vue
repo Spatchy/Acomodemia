@@ -1,23 +1,32 @@
 <template>
-<div>
-    <h2> Reset Password </h2>
-    <div>
-      <p>please enter your email to send a reset code</p>
-      <input type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
-      <input type="button" @click="forgot" value="Send code" />
-      <br>
-      <p> {{msg}} </p>
+  <div class="container">
+    <div class="container4">
+      <h1 class="title is-1"> Reset Password </h1>
+      <div>
+        <p class="label left">Please enter your email to receive reset code</p>
+        <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+        <input class="button is-rounded is-info" type="button" @click="forgot" value="Send code" />
+        <!-- Line is loaded but doesnt get displayed -->
+        <hr>
+        <p class="label left">Please re-enter your email address</p>
+        <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="user" />
+        <br>
+        <p class="label left">Please enter the code</p>
+        <input class="input is-rounded is-info" type="text" placeholder="Enter your code here" v-model="code" />
+        <br>
+        <p class="label left">Please enter your new password</p>
+        <input class="input is-rounded is-info" type="password" v-model="newpass" />
+        <br>
+        <p class="label left">Please re-enter your new password</p>
+        <input class="input is-rounded is-info" type="password" v-model="confirm" />
+        <input class="button is-rounded is-info" type="button" @click="submit" value="Reset Password" />
+        <br>
+        <p style="color:red;"> {{msg}} </p>
+      </div>
     </div>
-    <div>
-      <p>Please enter your email address, code and new password</p>
-      <input type="text" placeholder="e.g. bobsmith@gmail.com" v-model="user" />
-      <input type="text" placeholder="Enter your code here" v-model="code" />
-      <input type="password" v-model="newpass" />
-      <input type="password" v-model="confirm" />
-      <input type="button" @click="submit" value="Reset Password" />
-    </div>
-</div>
+  </div>
 </template>
+
 <script>
 import AuthService from '@/services/AuthService.js';
 

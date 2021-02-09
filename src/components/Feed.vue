@@ -1,7 +1,12 @@
 <template>
 
     <div>
-      <h1 v-if="(currentSuggestion == arraylength) || (arraylength == 0)">No Available Matches</h1>
+      <div id="empty-feed-info" v-if="arraylength==0">
+        <div class="icon">
+          <i class="fas fa-users title is-1"></i>
+        </div>
+        <p class="subtitle is-6 left-align">Your feed is empty, check back later</p>
+      </div>
       <div ref="container" id="container"></div> <!--Feed items will be injected-->
       <div id="controls">
             <p> {{matchMessage}} </p>

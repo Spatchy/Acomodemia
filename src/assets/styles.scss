@@ -1,18 +1,18 @@
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 
 // Set your brand colors
-$purple: #8A4D76;
-$pink: #FA7C91;
+$purple: #8a4d76;
+$pink: #fa7c91;
 $brown: #757763;
-$beige-light: #D0D1CD;
-$beige-lighter: #EFF0EB;
-$white: #fff; 
+$beige-light: #d0d1cd;
+$beige-lighter: #eff0eb;
+$white: #fff;
 $blue: #3498db;
 $acomodemia-blue: #313266;
-$background-grey: #F2F4F7;
+$background-grey: #f2f4f7;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
@@ -30,49 +30,79 @@ $input-border-color: transparent;
 $input-shadow: none;
 $navbar-height: 4rem;
 
-
 .container {
-    min-height: 75vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  min-height: 75vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 .container1 {
-    min-height: 80vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  min-height: 80vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-.container3{
-    width: 100%;
-    height: 100vh;
+.container3 {
+  width: 100%;
+  height: 100vh;
+}
+
+// aligns object in the top middle possition
+.container4 {
+  margin: 0 auto;
+  width: auto;
+}
+
+// aligns object in the middle of screen
+.container5 {
+  width: auto;
+  height: 100px;
+  padding: 20px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  margin: -70px 0 0 -170px;
+}
+
+// line global adjusments
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+  color: #313266;
 }
 
 .leftpane {
-    width: 25%;
-    height: 100vh;
-    float: left;
-    border:1px solid #313266;
-    border-collapse: collapse;
+  width: 25%;
+  height: 100vh;
+  float: left;
+  border: 1px solid #313266;
+  border-collapse: collapse;
 }
 
 .middlepane {
-    width: 50%;
-    height: 100vh;
-    float: left;
-    border:1px solid #313266;
-    border-collapse: collapse;
+  width: 50%;
+  height: 100vh;
+  float: left;
+  border: 1px solid #313266;
+  border-collapse: collapse;
 }
 
 .rightpane {
@@ -80,86 +110,81 @@ $navbar-height: 4rem;
   height: 100vh;
   position: relative;
   float: right;
-  border:1px solid #313266;
+  border: 1px solid #313266;
   border-collapse: collapse;
 }
 
-
-#loginpic{
-    align-content: left;
-    padding-right: 5%;
-    height: 400px;
-    width: 700px;
+#loginpic {
+  align-content: left;
+  padding-right: 5%;
+  height: 400px;
+  width: 700px;
 }
 
 .login {
-    align-content: right;
+  align-content: right;
 }
 
 .button {
-    padding-top: 5px;
-    width: 100%;
+  padding-top: 5px;
+  width: 100%;
 }
 
 #signupbtn {
-    padding-top: 1%;
+  padding-top: 1%;
 }
 
 h1 {
-    text-align: left;
+  text-align: left;
 }
 
-.label left{
-    text-align: left;
+.label left {
+  text-align: left;
 }
 
 h4 {
-    color:red;
+  color: red;
 }
 
-
-h5{
-    color:#3498db;
-    font-weight: bolder;
-    $size-1: 3rem;
+h5 {
+  color: #3498db;
+  font-weight: bolder;
+  $size-1: 3rem;
 }
 
-.icon{
-    margin: 2px;
+.icon {
+  margin: 2px;
 }
 
-.image.is-300x300{
-    height: 300px;
-    width: 300px;
+.image.is-300x300 {
+  height: 300px;
+  width: 300px;
 }
 
 p span {
-    display: block;
+  display: block;
 }
 
-.input chat{
-    width: 75%;
-    position: sticky;
-    bottom: 10px;
+.input chat {
+  width: 75%;
+  position: sticky;
+  bottom: 10px;
 }
-.button chat{
-    width: 25%;
-    position: sticky;
-    bottom: 10px;
+.button chat {
+  width: 25%;
+  position: sticky;
+  bottom: 10px;
 }
-
 
 @media (max-width: 60em) {
-    .pic {
-        display: none;
-    }
+  .pic {
+    display: none;
+  }
 
-    h1 {
-        text-align: center;
-    }
+  h1 {
+    text-align: center;
+  }
 }
-
-
 
 // Import only what you need from Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
