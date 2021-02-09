@@ -811,6 +811,11 @@ router.post('/getChatHistory', (req, res) => {
     )
 })
 
+router.post('/forgotPassword', (req, res => {
+    var code = Math.floor(1000 + Math.random() * 9000)
+    
+}))
+
 router.post('/resetPassword', (req, res) => {
     if(req.body.newpass == req.body.confirm) {
         var salt = uuid.v4().replace(/-/g, '')
