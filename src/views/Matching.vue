@@ -7,7 +7,9 @@
           </div>
         </div> <!--matches will be injected-->
         <div class="column">
-            <h2>Feed</h2>
+            <div class="box">
+              <h2 class="title is-2">Feed</h2>
+            </div>
             <feed>
         </div>
       </div>
