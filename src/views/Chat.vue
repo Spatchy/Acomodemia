@@ -1,33 +1,37 @@
 <template>
 
-  <div class="container3">
+  <div id="container3">
 
-    <div class="leftpane">
-      <h1>Chats</h1>
+    <div id="left_container">
+      <div class="content">
+        <h1 class="title is-1" style="padding: 10px 10px 10px 10px;"> Chats </h1>
+      </div>  
     </div>
 
-    <div class="rightpane">
-      <h5> {{name}}, {{age}}  </h5>
+    
+    <div id="right_container">
 
-      <div class="photo">
-        <img :src="getPic()" alt="" width="200" height="200">
+      <div class="chatheader">
+          <h1 class="title is-1" style="padding: 10px 10px 10px 10px; float:left;"> {{name}}, {{age}}  </h1>
+          <img :src="getPic()" alt="" width="150" height="150" style="padding: 10px 10px 10px 10px; float:right;">
       </div>
 
-      <br />
-
-      <h3> {{bio}} </h3>
-
-    </div>
-
-    <div class="middlepane">
-      <div ref="messageFeed">
-
-      <br />
+      <div class="chat">
+        <div ref="messageFeed">
+          <br />
+        </div>
       </div>
 
-      <input class="input is-rounded is-info chat" type="text" placeholder="Type your message here" v-model="message"/>
-      <input class="button is-rounded is-info chat" type="button" value="Send" @click="send" />
-
+      <div class="chatinput">
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input is-rounded is-info" type="text" placeholder="Type your message here" v-model="message"/>
+          </div>
+          <div class="control">
+            <input class="button is-rounded is-info" type="button" value="Send" @click="send" />
+          </div>
+        </div>
+      </div>
 
     </div>
 
