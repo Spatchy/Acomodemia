@@ -1,43 +1,34 @@
 <template>
   <div>
-
     <div class="container">
-
       <div class="pic">
         <img id="loginpic" src="https://via.placeholder.com/700x400.png" alt="IMG">
       </div>
-
       <div class="login">
         <h1 class="title is-1">Login</h1>
-
         <div>
           <label class="label left">Username</label>
           <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
           <label class="label left">Password</label>
           <input class="input is-rounded is-info" type="password" placeholder="*******" v-model="password"  />
         </div>
-
         <div id="loginbtn">
           <input class="button is-rounded is-info" type="button" @click="login" value="Login" />
           <p v-if="msg">{{ msg }}</p>
-          <a href="forgotpassword">Forgotten Password?</a>
+          <!-- <a href="forgotpassword">Forgotten Password?</a> -->
         </div>
-
         <hr>
-
         <div id="signupbtn">
           <label class="label">Don't have an account?</label>
           <button class="button is-rounded is-info" @click="$router.push('sign-up')">Sign Up</button>
         </div>
-
-      <div>
-        <input class="button is-rounded is-info" type="button" @click="forgot" value="Forgot Password" />
+        <hr>
+        <div>
+          <label class="label">Problems with password?</label>
+          <input class="button is-rounded is-info" type="button" @click="forgot" value="Forgot Password" />
+        </div>
       </div>
-
-      </div>
-
     </div>
-
   </div>
 </template>
 
