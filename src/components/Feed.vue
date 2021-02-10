@@ -9,11 +9,28 @@
       </div>
       <div ref="container" id="container"></div> <!--Feed items will be injected-->
       <div id="controls">
-            <p> {{matchMessage}} </p>
-            <button class="button is-rounded is-info" value="Previous" @click="prev" v-if="currentSuggestion">Previous</button>
-            <button class="button is-rounded is-info" value="Hide" @click="reject" v-if="!((currentSuggestion == arraylength) || (arraylength == 0))"> Hide </button>
-            <button class="button is-rounded is-info" value="Match" @click="match" v-if="!((currentSuggestion == arraylength) || (arraylength == 0))"> Match </button>
-            <button class="button is-rounded is-info" value="Next" @click="next" v-if="!(currentSuggestion == arraylength)"> Next </button>
+        <div class="level">
+          <div class="level-item has-text-centred">
+            <button class="button is-rounded is-primary" value="Previous" ref="prevBtn" :disabled="arraylength==0 || currentSuggestion==0" @click="prev">
+              <span class="icon title is-1 has-text-white"><i class="fas fa-chevron-left"></i></span>
+            </button>
+          </div>
+          <div class="level-item has-text-centred">
+            <button class="button is-rounded is-primary" value="Hide" ref="rejBtn" :disabled="arraylength==0" @click="reject">
+              <span class="icon title is-1 has-text-white"><i class="fas fa-times"></i></span>
+            </button>
+          </div>
+          <div class="level-item has-text-centred">
+            <button class="button is-rounded is-primary" value="Match" ref="matchBtn" :disabled="arraylength==0" @click="match">
+              <span class="icon title is-1 has-text-white"><i class="fas fa-check"></i></span>
+            </button>
+          </div>
+          <div class="level-item has-text-centred">
+            <button class="button is-rounded is-primary" value="Next" ref="nextBtn" :disabled="arraylength==0 || currentSuggestion==(arraylength-1)" @click="next">
+              <span class="icon title is-1 has-text-white"><i class="fas fa-chevron-right"></i></span>
+            </button>
+          </div>
+        </div>
       </div>
    </div>
 </template>
@@ -128,6 +145,20 @@ export default {
 };
 </script>
 <style scoped>
+button{
+  width: 100%;
+  height: 100%;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+.level{
+  position: absolute;
+  bottom: 0.25rem;
+  left: calc(25% - 0.5rem);
+  right: 0px;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
 #container{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
