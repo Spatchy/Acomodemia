@@ -5,10 +5,9 @@
     <div id="left_container">
       <div class="content">
         <h1 class="title is-1" style="padding: 10px 10px 10px 10px;"> Chats </h1>
-      </div>  
+      </div>
     </div>
 
-    
     <div id="right_container">
 
       <div class="chatheader">
