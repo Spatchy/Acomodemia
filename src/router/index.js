@@ -56,7 +56,7 @@ const routes = [{
 },
 {
   path: '/forgot',
-  name: Forgot,
+  name: 'Forgot',
   component: Forgot,
 },
 ];

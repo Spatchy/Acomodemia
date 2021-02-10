@@ -32,7 +32,7 @@
 export default {
   data() {
     return {
-      exclude: ['Login', 'Sign-up'], // List of pages to not show the header, uses the route name as definied in router/index.js
+      exclude: ['Login', 'Sign-up', 'Forgot'], // List of pages to not show the header, uses the route name as definied in router/index.js
     };
   },
   methods: {
