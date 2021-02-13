@@ -578,7 +578,7 @@ router.post('/requestMatch', (req, res, next) => {
                   if (result[0].RelType == 'Requested') {
                     // other user has already requested, match the users
                     db.query(
-                        `UPDATE Matches SET RelType = 'Matched' WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
+                        `UPDATE Matches SET RelType = 'Matched', TimeStamp=NOW() WHERE Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)};`,
                         (err, result) => {
                           if (err) {
                             return res.status(400).send({
@@ -600,7 +600,7 @@ router.post('/requestMatch', (req, res, next) => {
                 } else {
                   // not yet a match, save the request
                   db.query(
-                      `INSERT INTO Matches VALUES( ${db.escape(decoded.email)}, ${db.escape(emailToSelect)}, 'Requested');`,
+                      `INSERT INTO Matches VALUES( ${db.escape(decoded.email)}, ${db.escape(emailToSelect)}, 'Requested', NOW());`,
                       (err, result) => {
                         if (err) {
                           return res.status(400).send({
@@ -651,7 +651,7 @@ router.post('/reject', (req, res, next) => {
                     });
                   } else {
                     db.query(
-                        `UPDATE Matches SET RelType = 'Rejected' WHERE (Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)}) OR (Person2 = ${db.escape(emailToSelect)} AND Person1 = ${db.escape(decoded.email)});`,
+                        `UPDATE Matches SET RelType = 'Rejected', TimeStamp=NOW() WHERE (Person1 = ${db.escape(emailToSelect)} AND Person2 = ${db.escape(decoded.email)}) OR (Person2 = ${db.escape(emailToSelect)} AND Person1 = ${db.escape(decoded.email)});`,
                         (err, result) => {
                           if (err) {
                             return res.status(400).send({
@@ -668,7 +668,7 @@ router.post('/reject', (req, res, next) => {
                 } else {
                   // not yet an entry, reject them
                   db.query(
-                      `INSERT INTO Matches VALUES( ${db.escape(decoded.email)}, ${db.escape(emailToSelect)}, 'Rejected');`,
+                      `INSERT INTO Matches VALUES( ${db.escape(decoded.email)}, ${db.escape(emailToSelect)}, 'Rejected', NOW());`,
                       (err, result) => {
                         if (err) {
                           return res.status(400).send({
