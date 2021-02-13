@@ -1,41 +1,50 @@
 <template>
-
-  <div id="container3">
-
-    <div id="left_container">
-      <div class="content">
-        <h1 class="title is-1" style="padding: 10px 10px 10px 10px;"> Chats </h1>
-      </div>
-    </div>
-
-    <div id="right_container">
-
-      <div class="chatheader">
-          <h1 class="title is-1" style="padding: 10px 10px 10px 10px; float:left;"> {{name}}, {{age}}  </h1>
-          <img :src="getPic()" alt="" width="150" height="150" style="padding: 10px 10px 10px 10px; float:right;">
-      </div>
-
-      <div class="chat">
-        <div ref="messageFeed">
-          <br />
+  <div>
+    <div class="columns">
+      <div class="column is-one-quarter" ref="matchedlist" id="matchedList">
+        <div class="box">
+          <h2 class="title is-2">Your Matches</h2>
         </div>
       </div>
+     
+      <div class="column">
 
-      <div class="chatinput">
-        <div class="field has-addons">
-          <div class="control is-expanded">
-            <input class="input is-rounded is-info" type="text" placeholder="Type your message here" v-model="message"/>
-          </div>
-          <div class="control">
-            <input class="button is-rounded is-info" type="button" value="Send" @click="send" />
+        <div class="box">
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <h2 class="title is-2"> {{name}}, {{age}}  </h2>
+              </div>
+            </div>
+
+            <div class="media-right">
+              <figure class="image is-48x48">
+                <img :src="getPic()" alt="">
+              </figure>
+            </div>
+          </article>
+        </div>
+
+        <div class="chatheader">
+          <div ref="messageFeed">
           </div>
         </div>
+
+        <div class="chatinput">
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <input class="input is-rounded is-info" type="text" placeholder="Type your message here" v-model="message"/>
+            </div>
+            <div class="control">
+              <input class="button is-rounded is-info" type="button" value="Send" @click="send" />
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
-
   </div>
-
 </template>
 <script>
 import AuthService from '@/services/AuthService.js';
@@ -141,3 +150,25 @@ export default {
   },
 };
 </script>
+<style scoped>
+.box{
+  margin: 0.25rem;
+}
+
+#matchedList{
+  overflow-y: scroll;
+  height: calc(100vh - 68px)
+}
+
+#no-matches-info{
+  margin: 0.25rem;
+}
+
+.chatheader {
+    height: 85%;
+}
+
+.chatinput {
+    height: 5%;
+}
+</style>
