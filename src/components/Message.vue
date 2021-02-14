@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
       <div :class="{'level': true, 'sent': sent, 'received': !sent}">
         <div :class="{'level-right': sent,'level-left': !sent}">
           <span :class="{
@@ -15,23 +15,23 @@
       </div>
     </div>
 </template>
+
 <script>
 export default {
   name: 'Message',
   props: ['message', 'messageID', 'sent'],
 };
 </script>
+
 <style scoped>
 .level{
-  max-width:50%;
-  width: min-content;
+  max-width:49%;
   margin: 4px;
-  margin-right: 10px;
 }
 
 .level-item{
   text-align: left;
-  overflow-wrap: break-word;
+  overflow-wrap: break-word
 }
 
 .sent, .level-right{
@@ -89,5 +89,4 @@ export default {
 	margin-top: -2.5px;
 	margin-left: -4px;
 }
-
 </style>
