@@ -3,7 +3,7 @@
         <form @submit.prevent="onSubmit" enctype="multipart/form-data">
             <label>Upload Profile Picture</label><br/>
             <input type="file" ref="file" @change="onSelect"/>
-            <button>Upload</button>
+            <button class=" button is-rounded is-primary">Upload</button>
         </form>
         <div>
             <h5>{{message}}</h5>
