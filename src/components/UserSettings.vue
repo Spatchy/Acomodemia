@@ -1,131 +1,130 @@
 <template>
-    <div> 
+    <div>
        <div class="columns">
           <div class="column">
-             
-                  
-                    <h3 class="title is-1">Hello {{ firstName }}</h3>
-                    <br>
-                    
-                  <div class="field is-horizontal">
-                      <div class="field-label is-normal">
-                        <label class="label">First Name</label>
-                      </div>
-                      <div class="field-body">
-                        <div class="field">
-                          <p class="control is-expanded">
-                            <input class="input is-rounded is-info" type="text" placeholder="First Name" v-model="firstName" />
-                          </p>
-                        </div>
-                      </div>
 
-                    <div class="field-label is-normal">
-                      <label class="label">Second Name</label>
-                    </div>
-                    <div class="field-body">
-                      <div class="field">
-                        <p class="control is-expanded">
-                          <input class="input is-rounded is-info" type="text" placeholder="Second Name" v-model="secondName" />
-                        </p>
-                      </div>
-                    </div>
+ 
+            <h3 class="title is-1">Hello {{ firstName }}</h3>
+            <br>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">First Name</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-rounded is-info" type="text" placeholder="First Name" v-model="firstName" />
+                    </p>
+                  </div>
                 </div>
 
-                 <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                      <label class="label">Email</label>
-                    </div>
-                    <div class="field-body">
-                      <div class="field">
-                        <p class="control is-expanded">
-                          <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
-                        </p>
-                       </div>      
-                    </div>
+              <div class="field-label is-normal">
+                <label class="label">Second Name</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded">
+                    <input class="input is-rounded is-info" type="text" placeholder="Second Name" v-model="secondName" />
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                    <div class="field-label is-normal">
-                      <label class="label">Uni Email</label>
-                    </div>
-                    <div class="field-body">
-                      <div class="field">
-                        <p class="control is-expanded">
-                          <input class="input is-rounded is-info" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" />
-                        </p>
-                      </div>
-                    </div>
-                 </div>
-
-                  <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Budget</label>
-                      </div>
-                      <div class="field-body">
-                        <div class="field">
-                          <p class="control is-expanded">
-                            <input class="input is-rounded is-info" type="number" :placeholder="budget" v-model="budget" />
-                          </p>
-                        </div>
-                      </div>
-
-                    <div class="field-label is-normal">
-                        <label class="label">Move in Date</label>
-                    </div>
-                      <div class="field-body">
-                        <div class="field">
-                          <p class="control is-expanded">
-                            <input class="input is-rounded is-info" type="date" :placeholder="movDate" v-model="movDate" />
-                          </p>
-                        </div>
-                      </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Email</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded">
+                    <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+                  </p>
                   </div>
+              </div>
 
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Course</label>
-                    </div>
-                      <div class="field-body">
-                        <div class="field">
-                          <p class="control is-expanded">
-                            <input class="input is-rounded is-info" type="text" :placeholder="Course" v-model="course" />
-                          </p>
-                        </div>
-                    </div>
+              <div class="field-label is-normal">
+                <label class="label">Uni Email</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded">
+                    <input class="input is-rounded is-info" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" />
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                    <div class="field-label is-normal">
-                        <label class="label">Location</label>
-                      </div>
-                      <div class="field-body">
-                        <div class="field">
-                          <p class="control is-expanded">
-                            <input class="input is-rounded is-info" type="text" :placeholder="Location" v-model="location" />
-                          </p>
-                      </div>
-                      </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                  <label class="label">Budget</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-rounded is-info" type="number" :placeholder="budget" v-model="budget" />
+                    </p>
                   </div>
-                  
-              
-                    <div class="field-label is-normal">
-                      <label class="label">Bio</label>
-                    </div>
-                      <div class="field-body">
-                        <div class="field">
-                          <p class="control is-expanded">
-                            <input class="input is-rounded is-info" type="text" rows="10" placeholder="Biography" v-model="newBio" />
-                          </p>
-                        </div>
-                      </div>
-                   
-         </div>            
+                </div>
+
+              <div class="field-label is-normal">
+                  <label class="label">Move in Date</label>
+              </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-rounded is-info" type="date" :placeholder="movDate" v-model="movDate" />
+                    </p>
+                  </div>
+                </div>
+            </div>
+
+          <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                  <label class="label">Course</label>
+              </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-rounded is-info" type="text" :placeholder="Course" v-model="course" />
+                    </p>
+                  </div>
+              </div>
+
+              <div class="field-label is-normal">
+                  <label class="label">Location</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-rounded is-info" type="text" :placeholder="Location" v-model="location" />
+                    </p>
+                </div>
+                </div>
+            </div>
+            
+        
+              <div class="field-label is-normal">
+                <label class="label">Bio</label>
+              </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-rounded is-info" type="text" rows="10" placeholder="Biography" v-model="newBio" />
+                    </p>
+                  </div>
+                </div>
+         </div>
 
              <div class="column is-one-third">
                   <br>
-            
+
                     <p v-if="msg">{{ msg }}</p>
                 <div class="containter">
                   <div id="compSettings" style="border-color: #3498db; width: 100%; border-style: solid; border-width: 3px; height 10%;">
                    <h2 class="title is-3">Profile pic</h2>
                    <h4>Profile picture and location are compulsory</h4>
-            
+
                     <div>
                     <profile-pic>
                     </div>
@@ -135,9 +134,8 @@
                   </div>
                 </div>
                     <br>
-             </div>       
-       </div>    
-            
+             </div>
+       </div>
             <div>
               <h2 class="title is-3">Set Lifestyle</h2>
 
@@ -147,13 +145,13 @@
                 <label class="radio1">
                   <input type="radio" name="al-ans">Not At All</label>
                 <label class="radio">
-                  <input type="radio" name="al-ans"> Once a month </label>
+                  <input type="radio" name="al-ans">Once a month </label>
                 <label class="radio" >
-                  <input type="radio" name="al-ans" > Once a fortnight </label>
+                  <input type="radio" name="al-ans" >Once a fortnight </label>
                 <label class="radio" >
-                  <input type="radio" name="al-ans" > Once a week </label>
+                  <input type="radio" name="al-ans" >Once a week </label>
                 <label class="radio" >
-                  <input type="radio" name="al-ans" > Everyday</label>
+                  <input type="radio" name="al-ans" >Everyday</label>
 
             </div>
               <br>
@@ -164,9 +162,9 @@
                 <label class="radio2">
                   <input type="radio" name="ni-ans">Yes</label>
                 <label class="radio">
-                  <input type="radio" name="ni-ans"> Sometimes </label>
+                  <input type="radio" name="ni-ans">Sometimes </label>
                 <label class="radio" >
-                  <input type="radio" name="ni-ans" > No </label>
+                  <input type="radio" name="ni-ans" >No </label>
 
               </div>
               <br>
@@ -177,7 +175,7 @@
                 <label class="radio3">
                   <input type="radio" name="ex-ans">Yes</label>
                 <label class="radio" >
-                  <input type="radio" name="ex-ans" > No </label>
+                  <input type="radio" name="ex-ans" >No </label>
               </div>
               <br>
 
@@ -187,9 +185,9 @@
                 <label class="radio4">
                   <input type="radio" name="sm-ans">Not At All</label>
                 <label class="radio">
-                  <input type="radio" name="sm-ans"> Rarley/ Socially</label>
+                  <input type="radio" name="sm-ans">Rarley/ Socially</label>
                 <label class="radio" >
-                  <input type="radio" name="sm-ans" > Often</label>
+                  <input type="radio" name="sm-ans" >Often</label>
               </div>
               <br>
 
@@ -199,12 +197,12 @@
                 <label class="radio5">
                   <input type="radio" name="ve-ans">Vegetarian</label>
                 <label class="radio">
-                  <input type="radio" name="ve-ans"> Vegan</label>
+                  <input type="radio" name="ve-ans">Vegan</label>
                 <label class="radio" >
-                  <input type="radio" name="ve-ans" > Neither </label>
+                  <input type="radio" name="ve-ans" >Neither </label>
               </div>
               <br>
-              
+
                <input class=" button is-rounded is-info" type="button is-small" @click="settings" value="Save Changes" />
                <div ref="changeemail">
                  <change-email>
@@ -225,10 +223,10 @@
             <br>
             <br>
             <input type="button" @click="dropdown" value="Save Interests" />
-        </div> -->
+        </div>-->
 
         <!-- Multiselect DropDown menu -->
-      
+
         <div class="" style="margin: 10% 25%">
           <h2>Choose your Interests</h2>
           <br />
@@ -252,9 +250,7 @@
             <br />
             <input type="button" @click="dropdown" value="Save Interests" />
          </div>
-        <div>
-
-        
+        <div>        
     
   </div>
 
@@ -422,6 +418,3 @@ button{
   margin-right: 0.25rem;
 }
 </style>
-
-
-
