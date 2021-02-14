@@ -1,116 +1,110 @@
 <template>
   <div>
     <div class="container">
-      <div>
-        <h1 class="title is-1">Sign Up</h1>
-
-
-      <div class="field is-horizontal is-grouped is-grouped centered">
-        <div class="field-body">
-          <div class="field-label is-normal">
-            <label class="label">First Name:</label>
-          </div>
-          <div class="field">
-            <p class="control is-expanded">
-            <input class="input is-rounded is-info" type="text" placeholder="First Name" v-model="firstName" />
-            </p>
-          </div>
-
-          <div class="field-label is-normal">
-            <label class="label">Second Name:</label>
-          </div>
-          <div class="field">
-            <p class="control is-expanded">
-                <input class="input is-rounded is-info" type="text" placeholder="Second Name" v-model="secondName" />
-            </p>
+      <div class="box">
+        <div class="level">
+          <div class="level-item">
+            <h1 class="title is-1">Sign Up</h1>
           </div>
         </div>
-      </div>
 
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Gender:</label>
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">First Name:</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="text" placeholder="First Name" v-model="firstName" />
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="field">
+              <label class="label">Second Name:</label>
+              <p class="control is-expanded">
+                <input class="input is-rounded is-primary" type="text" placeholder="Second Name" v-model="secondName" />
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control is-expanded">
-              <div class="select is-rounded is-info is-fullwidth">
-                <select placeholder="please select" v-model="gender">
-                  <option v-for="gend in genders" :key="gend">
-                    {{gend}}
-                  </option>
-                </select>
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Gender:</label>
+              <div class="control is-expanded">
+                <div class="select is-rounded is-primary is-fullwidth">
+                  <select placeholder="please select" v-model="gender">
+                    <option v-for="gend in genders" :key="gend">
+                      {{gend}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="field">
+              <label class="label">Date of Birth:</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary is-fullwidth" type="date" placeholder="DD/MM/YYYY" v-model="dob" />
               </div>
             </div>
           </div>
         </div>
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Personal Email:</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="field">
+              <label class="label">University Email:</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Password:</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password" />
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="field">
+              <label class="label">Confirm Password:</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="password" placeholder="Password (repeat)" v-model="password_repeat" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <input class="button is-rounded is-primary" type="button" @click="signUp" value="Sign Up" />
+        <p v-if="msg">{{ msg }}</p>
+        <p v-if="msg.length !== 0">
+          <ul>
+            <li v-for="error in errors" v-bind:key="error"> {{error}}</li>
+          </ul>
+        </p>
       </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Date of Birth:</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info is-fullwidth" type="date" placeholder="DD/MM/YYYY" v-model="dob" />
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Personal Email:</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
-            </p>
-          </div>
-        <div class="field-label is-normal">
-          <label class="label">University Email:</label>
-        </div>
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" />
-            </p>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Password:</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info" type="password" placeholder="Password" v-model="password" />
-            </p>
-          </div>
-
-        <div class="field-label is-normal">
-          <label class="label">Confirm Password:</label>
-        </div>
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input is-rounded is-info" type="password" placeholder="Password (repeat)" v-model="password_repeat" />
-            </p>
-          </div>
-        </div>
-      </div>
-      <input class="button is-rounded is-info" type="button" @click="signUp" value="Sign Up" />
-      <br>
-      <p v-if="msg">{{ msg }}</p>
-      <p v-if="msg.length !== 0">
-        <ul>
-          <li v-for="error in errors" v-bind:key="error"> {{error}}</li>
-        </ul>
-      </p>
     </div>
   </div>
 </template>
@@ -162,19 +156,7 @@ export default {
 </script>
 
 <style scoped>
-
-html {
-  font-family: 'Jost', sans-serif;
-}
-
-label {
-  width:180px;
-  clear:left;
-  text-align:right;
-  padding-right:10px;
-}
-
-input, label, select {
-  float:left;
+.box{
+  width: 80%;
 }
 </style>
