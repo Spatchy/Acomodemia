@@ -6,7 +6,7 @@
           <h2 class="title is-2">Your Matches</h2>
         </div>
       </div>
-     
+
       <div class="column">
 
         <div class="box">
