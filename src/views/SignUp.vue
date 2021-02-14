@@ -108,7 +108,7 @@
 
 
         <input class="button is-rounded is-primary" type="button" @click="signUp" value="Sign Up" />
-        <p class="has-text-error" v-if="msg">{{ msg }}</p>
+        <p class="has-text-danger" v-if="msg">{{ msg }}</p>
         <p v-if="msg.length !== 0">
           <ul>
             <li v-for="error in errors" v-bind:key="error" class="has-text-error"> {{error}}</li>
