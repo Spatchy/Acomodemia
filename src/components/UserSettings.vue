@@ -3,7 +3,7 @@
        <div class="columns">
           <div class="column">
 
- 
+
             <h3 class="title is-1">Hello {{ firstName }}</h3>
             <br>
 
@@ -102,8 +102,8 @@
                 </div>
                 </div>
             </div>
-            
-        
+
+
               <div class="field-label is-normal">
                 <label class="label">Bio</label>
               </div>
@@ -250,8 +250,8 @@
             <br />
             <input type="button" @click="dropdown" value="Save Interests" />
          </div>
-        <div>        
-    
+        <div>
+
   </div>
 
 </template>
