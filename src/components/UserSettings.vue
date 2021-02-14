@@ -400,7 +400,7 @@ export default Vue.extend({
 </script>
 
 // without this styling multiple dropdown doesnt work properly
-<style>
+<style scoped>
 @import url(https://cdn.syncfusion.com/ej2/material.css);
 
 button{
