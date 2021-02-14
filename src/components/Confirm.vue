@@ -1,26 +1,37 @@
 <template>
-  <div class="container"><div>
-        <h1 class="title is-1">Confirm your email</h1>
+  <div class="container">
+    <div class="box">
+      <div class="level">
+        <div class="level-item">
+          <h1 class="title is-1">Verify your email</h1>
+        </div>
+      </div>
 
+      <div class="section">
+        <p>We have sent verification codes to both your personal and university emails</p>
+      </div>
 
-      <div class="field is-horizontal is-grouped is-grouped centered">
-        <div class="field-body">
-
+      <div class="columns">
+        <div class="column">
           <div class="field">
-            <p class="control is-expanded">
-            <input class="input is-rounded is-info" type="text" placeholder="Personal Email" v-model="confirm1" />
-            </p>
+            <label class="label">Personal Email Code</label>
+            <div class="control is-expanded">
+              <input class="input is-rounded is-primary" type="text" placeholder="Personal Email" v-model="confirm1" />
+            </div>
           </div>
-
-
+        </div>
+        <div class="column">
           <div class="field">
-            <p class="control is-expanded">
-                <input class="input is-rounded is-info" type="text" placeholder="University Email" v-model="confirm2" />
-            </p>
+            <label class="label">University Email Code</label>
+            <div class="control is-expanded">
+              <input class="input is-rounded is-primary" type="text" placeholder="University Email" v-model="confirm2" />
+            </div>
           </div>
         </div>
       </div>
-      <input class="button is-rounded is-info" type="button" @click="confirm" value="confim" />
+
+      <input class="button is-rounded is-primary" type="button" @click="confirm" value="Confim" />
+      <p class="has-text-danger" v-if="msg">{{ msg }}</p>
     </div>
   </div>
 </template>
