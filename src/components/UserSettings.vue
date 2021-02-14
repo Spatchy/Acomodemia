@@ -1,22 +1,59 @@
 <template>
-    <div class="container">
+    
       <div class="container is-fluid">
           <div>
             <h3 class="title is-1">Hello {{ firstName }}</h3>
             <br>
 
-          <div class="field-label is-normal">
-            <label class="label">Bio</label>
-          </div>
+         
+
+            <br>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">First Name</label>
+            </div>
             <div class="field-body">
               <div class="field">
                 <p class="control is-expanded">
-                  <input class="input is-rounded is-info" type="text" rows="10" placeholder="Biography" v-model="newBio" />
+                  <input class="input is-rounded is-info" type="text" placeholder="First Name" v-model="firstName" />
                 </p>
               </div>
             </div>
 
-            <br>
+            <div class="field-label is-normal">
+              <label class="label">Second Name</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded">
+                  <input class="input is-rounded is-info" type="text" placeholder="Second Name" v-model="secondName" />
+                </p>
+              </div>
+            </div>
+         </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Email</label>
+        </div>
+         <div class="field-body">
+           <div class="field">
+             <p class="control is-expanded">
+              <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+             </p>
+           </div>
+        
+
+        <div class="field-label is-normal">
+          <label class="label">Uni Email</label>
+        </div>
+          <div class="field">
+            <p class="control is-expanded">
+              <input class="input is-rounded is-info" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" />
+            </p>
+          </div>
+        </div>
+      </div>
 
         <div class="field is-horizontal">
           <div class="field-label is-normal">
@@ -42,7 +79,7 @@
             </div>
         </div>
 
-        <div class="field is-horizontal">
+         <div class="field is-horizontal">
            <div class="field-label is-normal">
               <label class="label">Course</label>
            </div>
@@ -52,10 +89,10 @@
                   <input class="input is-rounded is-info" type="text" :placeholder="Course" v-model="course" />
                  </p>
                </div>
-          </div>
+           </div>
 
            <div class="field-label is-normal">
-              <label class="label">location</label>
+              <label class="label">Location</label>
             </div>
             <div class="field-body">
               <div class="field">
@@ -64,17 +101,32 @@
                 </p>
              </div>
             </div>
-         </div>
+        </div>
+        <br>
+
+          <div class="field-label is-normal">
+            <label class="label centre-align">Bio</label>
+          </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded">
+                  <input class="input is-rounded is-info" type="text" rows="10" placeholder="Biography" v-model="newBio" />
+                </p>
+              </div>
+            </div>
+
+         
+         
 
         </div>
           <br>
-
+    
             <p v-if="msg">{{ msg }}</p>
         <div class="containter">
          <div id="compSettings" style="border-color: #3498db; width: 100%; border-style: solid; border-width: 3px; height 10%;">
            <h2 class="title is-3">Profile pic</h2>
            <h4>Profile picture and location are compulsory</h4>
-
+    
             <div>
             <profile-pic>
             </div>
@@ -84,7 +136,7 @@
           </div>
         </div>
             <br>
-
+    
           <div>
              <h2 class="title is-3">Set Lifestyle</h2>
 
@@ -153,11 +205,12 @@
 
               </div>
               <br>
-               <input type="button" @click="settings" value="Save Changes" />
+               <input class=" button is-rounded is-info" type="button is-small" @click="settings" value="Save Changes" />
                <div ref="changeemail">
                  <change-email>
                </div>
            </div>
+           <br>
 
         <!-- <div class="control_wrapper">
             <h2>Choose your Interests</h2>

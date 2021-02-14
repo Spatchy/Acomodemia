@@ -53,6 +53,13 @@ $navbar-height: 4rem;
   justify-content: center;
   align-items: center;
 }
+.container2 {
+  min-height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: left;
+}
 
 .container3 {
   width: 100%;
