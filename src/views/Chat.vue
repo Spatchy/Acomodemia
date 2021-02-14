@@ -25,7 +25,7 @@
           </article>
         </div>
 
-        <div class="chatheader">
+        <div class="chat">
           <div ref="messageFeed">
           </div>
         </div>
@@ -33,10 +33,10 @@
         <div class="chatinput">
           <div class="field has-addons">
             <div class="control is-expanded">
-              <input class="input is-rounded is-info" type="text" placeholder="Type your message here" v-model="message"/>
+              <input class="input is-rounded is-primary" type="text" placeholder="Type your message here" v-model="message"/>
             </div>
             <div class="control">
-              <input class="button is-rounded is-info" type="button" value="Send" @click="send" />
+              <input class="button is-rounded is-primary" type="button" value="Send" @click="send" />
             </div>
           </div>
         </div>
@@ -164,11 +164,12 @@ export default {
   margin: 0.25rem;
 }
 
-.chatheader {
-    height: 85%;
+.chat {
+  overflow-y: scroll;
+  height: 85%;
 }
 
 .chatinput {
-    height: 5%;
+  height: 5%;
 }
 </style>
