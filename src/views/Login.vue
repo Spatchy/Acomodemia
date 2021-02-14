@@ -1,32 +1,59 @@
 <template>
   <div>
     <div class="container">
-      <div class="pic">
-        <img id="loginpic" src="https://via.placeholder.com/700x400.png" alt="IMG">
-      </div>
-      <div class="login">
-        <h1 class="title is-1">Login</h1>
-        <div>
-          <label class="label left">Username</label>
-          <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
-          <label class="label left">Password</label>
-          <input class="input is-rounded is-info" type="password" placeholder="*******" v-model="password"  />
+      <div class="box">
+        <div class="level">
+          <div class="level-item">
+            <h1 class="title is-1">Login</h1>
+          </div>
         </div>
-        <div id="loginbtn">
-          <input class="button is-rounded is-info" type="button" @click="login" value="Login" />
-          <p v-if="msg">{{ msg }}</p>
-          <!-- <a href="forgotpassword">Forgotten Password?</a> -->
+        <div class="columns">
+          <div class="column">
+            <div class="level">
+              <div class="level-item">
+                <div class="image is-300x300">
+                  <img id="loginpic" src="../assets/Acomodemia Logo.svg" alt="Acomodemia Logo">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="login">
+              <div class="field">
+                <label class="label">Personal Email</label>
+                <div class="control">
+                  <input class="input is-rounded is-primary" type="text" placeholder="Personal Email" v-model="username" />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                  <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password"  />
+                </div>
+              </div>
+              <div class="field">
+                <div class="control" id="loginbtn">
+                  <input class="button is-rounded is-primary" type="button" @click="login" value="Login" />
+                </div>
+              </div>
+              <hr>
+              <div class="field">
+                <label class="label">Don't have an account?</label>
+                <div class="control">
+                  <button class="button is-rounded is-primary" @click="$router.push('sign-up')">Sign Up</button>
+                </div>
+              </div>
+              <hr>
+              <div class="field">
+                <label class="label">Problems with password?</label>
+                <div class="control">
+                  <input class="button is-rounded is-primary" type="button" @click="forgot" value="Forgot Password" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <hr>
-        <div id="signupbtn">
-          <label class="label">Don't have an account?</label>
-          <button class="button is-rounded is-info" @click="$router.push('sign-up')">Sign Up</button>
-        </div>
-        <hr>
-        <div>
-          <label class="label">Problems with password?</label>
-          <input class="button is-rounded is-info" type="button" @click="forgot" value="Forgot Password" />
-        </div>
+        <p v-if="msg">{{ msg }}</p> <!--here for now, best to move to notifiaction-->
       </div>
     </div>
   </div>
@@ -80,3 +107,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.box{
+  width: 80%;
+  margin: 0.25rem;
+}
+</style>
