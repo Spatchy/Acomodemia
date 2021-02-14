@@ -42,24 +42,7 @@ $navbar-height: 4rem;
   align-items: center;
 }
 
-.container1 {
-  min-height: 80vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.container3 {
-  width: 100%;
-  height: 100vh;
-}
-
-// aligns object in the top middle possition
+// aligns object in the top middle position
 .container4 {
   margin: 0 auto;
   width: auto;
@@ -78,43 +61,6 @@ $navbar-height: 4rem;
   margin: -70px 0 0 -170px;
 }
 
-//
-#container3{
-    width: 100%;
-    height: 93vh;
-}
-
-#container3:after {
-    clear: both;
-    display: block;
-    content: ' ';
-}
-
-#left_container{
-    float: left;
-    width: 30%;
-    height: 100%;
-    border:1px solid #313266;
-}
-
-#right_container {
-    float: left;
-    width: 70%;
-    height: 100%;
-    border:1px solid #313266;
-}
-
-#right_container .chat {
-    height: 75%;
-}
-
-#right_container .chatheader {
-    height: 20%;
-}
-
-#right_container .chatinput {
-    height: 5%;
-}
 
 #loginpic{
     align-content: left;
