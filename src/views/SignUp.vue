@@ -22,18 +22,18 @@
           <div class="column">
             <div class="field">
               <label class="label">Second Name:</label>
-              <p class="control is-expanded">
+              <div class="control is-expanded">
                 <input class="input is-rounded is-primary" type="text" placeholder="Second Name" v-model="secondName" />
-              </p>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
-            <div class="field">
-              <label class="label">Gender:</label>
-              <div class="control is-expanded">
+            <label class="label"><span v-if="gender=='I Identify As...'">Custom </span>Gender:</label>
+            <div :class="['field', {'has-addons': gender=='I Identify As...'}]">
+              <div class="control is-expanded" v-if="gender!=='I Identify As...'">
                 <div class="select is-rounded is-primary is-fullwidth">
                   <select placeholder="please select" v-model="gender">
                     <option v-for="gend in genders" :key="gend">
@@ -41,6 +41,16 @@
                     </option>
                   </select>
                 </div>
+              </div>
+              <div class="control" v-if="gender=='I Identify As...'">
+                <button class="button is-primary is-rounded is-addon" @click="clearGender()">
+                  <span class="icon">
+                    <i class="fas fa-arrow-left"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="control is-expanded" v-if="gender=='I Identify As...'">
+                <input class="input is-rounded is-primary" type="text" placeholder="I Identify As..." v-model="customGender" />
               </div>
             </div>
           </div>
@@ -98,10 +108,10 @@
 
 
         <input class="button is-rounded is-primary" type="button" @click="signUp" value="Sign Up" />
-        <p v-if="msg">{{ msg }}</p>
+        <p class="has-text-error" v-if="msg">{{ msg }}</p>
         <p v-if="msg.length !== 0">
           <ul>
-            <li v-for="error in errors" v-bind:key="error"> {{error}}</li>
+            <li v-for="error in errors" v-bind:key="error" class="has-text-error"> {{error}}</li>
           </ul>
         </p>
       </div>
@@ -121,6 +131,8 @@ export default {
       dob: '',
       uniEmail: '',
       gender: '',
+      customGender: '',
+      genderToSend: '',
       password: '',
       password_repeat: '',
       msg: '',
@@ -129,13 +141,18 @@ export default {
   methods: {
     async signUp() {
       try {
+        if (this.gender == 'I Identify As...') {
+          this.genderToSend = this.customGender;
+        } else {
+          this.genderToSend = this.gender;
+        }
         const credentials = {
           username: this.username,
           firstName: this.firstName,
           secondName: this.secondName,
           dob: this.dob,
           uniEmail: this.uniEmail,
-          gender: this.gender,
+          gender: this.genderToSend,
           password: this.password,
           password_repeat: this.password_repeat,
         };
@@ -151,6 +168,9 @@ export default {
         this.msg = error.response.data.msg;
       }
     },
+    async clearGender() { // used for back button in custom gender input
+      this.gender = '';
+    },
   },
 };
 </script>
@@ -158,5 +178,8 @@ export default {
 <style scoped>
 .box{
   width: 80%;
+}
+.button.is-addon{
+  width: auto;
 }
 </style>
