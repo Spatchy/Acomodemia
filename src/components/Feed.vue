@@ -32,6 +32,41 @@
           </div>
         </div>
       </div>
+      <div :class="['modal', {'is-active':matchMessage.startsWith('Matched with')}]">
+        <div class="modal-background" @click="clearMatchMessage()"></div>
+        <div class="modal-content">
+          <div class="box">
+            <h2 class="title is-2">You Got a Match!</h2>
+            <div class="section">
+              <span class="icon is-huge has-text-primary">
+                <i class="fas fa-handshake"></i>
+              </span>
+              <p>You matched with {{ requestSentToName }}! Why not say hi?</p>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <div class="control is-expended">
+                    <button class="button is-primary is-rounded" @click="pushToChat()">
+                      Go to Chat
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <div class="control is-expanded">
+                    <button class="button is-rounded is-light" @click="clearMatchMessage()">
+                      Keep Browsing
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"  @click="clearMatchMessage()"></button>
+      </div>
    </div>
 </template>
 <script>
@@ -65,6 +100,7 @@ export default {
       matchMessage: '',
       profilePic: '',
       arraylength: 0,
+      requestSentToName: '',
     };
   },
   async created() {
@@ -112,6 +148,7 @@ export default {
     },
     async match() {
       try {
+        this.requestSentToName = this.res[this.currentSuggestion].name;
         this.res.splice(this.currentSuggestion, 1);
         const credentials = {
           matchingId: this.matchID,
@@ -124,7 +161,7 @@ export default {
         const response = await AuthService.requestMatch(credentials);
         this.matchMessage = response.msg;
       } catch (error) {
-        this.msg = error.response.msg;
+        this.matchMessage = error.response.data.msg;
       }
     },
     async reject() {
@@ -138,8 +175,14 @@ export default {
         const response = await AuthService.reject(credentials);
         this.matchMessage = response.msg;
       } catch (error) {
-        this.msg = error.response.msg;
+        this.matchMessage = error.response.data.msg;
       }
+    },
+    async clearMatchMessage() {
+      this.matchMessage = '';
+    },
+    async pushToChat() {
+      this.$router.push('/chat?to='+this.matchMessage.split(' ')[2]);
     },
   },
 };
@@ -162,5 +205,8 @@ button{
 #container{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+}
+.icon.is-huge{
+  font-size: 10rem;
 }
 </style>
