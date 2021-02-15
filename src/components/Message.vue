@@ -48,45 +48,45 @@ export default {
   margin-left: auto;
   margin-right: 0.25rem;
   position: relative;
-	background: #313266;
-	border-radius: .4em;
+  background: #313266;
+  border-radius: .4em;
 }
 
 .level.sent:after{
   content: '';
-	position: absolute;
-	right: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 5px solid transparent;
-	border-left-color: #313266;
-	border-right: 0;
-	border-top: 0;
-	margin-top: -2.5px;
-	margin-right: -4px;  
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-left-color: #313266;
+  border-right: 0;
+  border-top: 0;
+  margin-top: -2.5px;
+  margin-right: -4px;
 }
 
 .level.received{
   margin-right: auto;
   margin-left: 0.25rem;
   position: relative;
-	background: white;
-	border-radius: .4em;
+  background: white;
+  border-radius: .4em;
 }
 
 .level.received:after{
   content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 5px solid transparent;
-	border-right-color: white;
-	border-left: 0;
-	border-top: 0;
-	margin-top: -2.5px;
-	margin-left: -4px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-right-color: white;
+  border-left: 0;
+  border-top: 0;
+  margin-top: -2.5px;
+  margin-left: -4px;
 }
 </style>
