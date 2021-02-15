@@ -1,28 +1,61 @@
 <template>
   <div class="container">
-    <div class="container4">
-      <h1 class="title is-1"> Reset Password </h1>
-      <div>
-        <p class="label left">Please enter your email to receive reset code</p>
-        <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
-        <input class="button is-rounded is-info" type="button" @click="forgot" value="Send code" />
-        <!-- Line is loaded but doesnt get displayed -->
-        <hr>
-        <p class="label left">Please re-enter your email address</p>
-        <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="user" />
-        <br>
-        <p class="label left">Please enter the code</p>
-        <input class="input is-rounded is-info" type="text" placeholder="Enter your code here" v-model="code" />
-        <br>
-        <p class="label left">Please enter your new password</p>
-        <input class="input is-rounded is-info" type="password" v-model="newpass" />
-        <br>
-        <p class="label left">Please re-enter your new password</p>
-        <input class="input is-rounded is-info" type="password" v-model="confirm" />
-        <input class="button is-rounded is-info" type="button" @click="submit" value="Reset Password" />
-        <br>
-        <p style="color:red;"> {{msg}} </p>
+    <div class="box">
+      <div class="level">
+        <div class="level-item">
+          <h1 class="title is-1"> Reset Password </h1>
+        </div>
       </div>
+      <div class="section">
+        <p>Please fill out this form to reset your password</p>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <fieldset :disabled="codeSent">
+            <div class="field">
+              <label class="label">Personal Email</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="control is-expanded">
+                <input class="button is-rounded is-primary" type="button" @click="forgot" value="Send Code" />
+              </div>
+            </div>
+          </fieldset>
+          <hr>
+          <fieldset :disabled="!codeSent">
+            <div class="field">
+              <label class="label">Code</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="text" placeholder="Enter your code here" v-model="code" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">New password</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="password" v-model="newpass" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Re-enter New password</label>
+              <div class="control is-expanded">
+                <input class="input is-rounded is-primary" type="password" v-model="confirm" />
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control is-expanded">
+                <input class="button is-rounded is-primary" type="button" @click="submit" value="Reset Password" />
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <p :class="msg.startsWith('Reset code sent!') ? 'has-text-success' : 'has-text-danger'">{{ msg }}</p>
     </div>
   </div>
 </template>
@@ -34,18 +67,18 @@ export default {
   data() {
     return {
       username: '',
+      codeSent: false,
       newpass: '',
       confirm: '',
       msg: '',
       code: '',
-      user: '',
     };
   },
   methods: {
     async submit() {
       try {
         const credentials = {
-          username: this.user,
+          username: this.username,
           newpass: this.newpass,
           confirm: this.confirm,
           code: this.code,
@@ -58,6 +91,8 @@ export default {
           this.msg = 'Passwords do not match!';
         }
       } catch (error) {
+        console.log(error.response);
+        this.msg = error.response.data.msg;
         console.error(error);
       }
     },
@@ -68,7 +103,9 @@ export default {
         };
         const response = await AuthService.forgotPassword(credentials);
         this.msg = response.msg;
+        this.codeSent = true;
       } catch (error) {
+        this.msg = error.response.data.msg;
         console.error(error);
       }
     },
