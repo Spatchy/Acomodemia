@@ -505,8 +505,10 @@ router.post('/getFeed', (req, res, next) => {
           });
         } else {
           // Select everyone not yet matched with, requested or rejected from the same location as the user
+          var usersNotInMatchingTable = `(SELECT RelType FROM Matches WHERE (Person1 = ${db.escape(decoded.email)} AND Person2 = u.PrimaryEmail) OR (Person2 = ${db.escape(decoded.email)} AND Person1 = u.PrimaryEmail))`;
+          var usersThatHaveRequested = `(SELECT RelType FROM Matches WHERE (Person2 = ${db.escape(decoded.email)} AND Person1 = u.PrimaryEmail))`
           db.query(
-              `SELECT u.PrimaryEmail, u.MatchingID, u.Bio, u.FirstName, u.Gender, u.DateOfBirth, u.Location, u.Budget, u.DrinkingLevel, u.SmokingLevel, u.DietLevel, u.IsNightOwl, u.IsExtrovert, u.StudySubject, u.PhotoUUID FROM User u WHERE u.Location = ${db.escape(result[0].Location)} AND u.PhotoUUID != "00000000000000000000000000000000" AND u.PrimaryEmail != ${db.escape(decoded.email)} AND ((SELECT RelType FROM Matches WHERE (Person1 = ${db.escape(decoded.email)} AND Person2 = u.PrimaryEmail) OR (Person2 = ${db.escape(decoded.email)} AND Person1 = u.PrimaryEmail)) IS NULL);`,
+              `SELECT u.PrimaryEmail, u.MatchingID, u.Bio, u.FirstName, u.Gender, u.DateOfBirth, u.Location, u.Budget, u.DrinkingLevel, u.SmokingLevel, u.DietLevel, u.IsNightOwl, u.IsExtrovert, u.StudySubject, u.PhotoUUID FROM User u WHERE u.Location = ${db.escape(result[0].Location)} AND u.PhotoUUID != "00000000000000000000000000000000" AND u.PrimaryEmail != ${db.escape(decoded.email)} AND (${usersNotInMatchingTable} IS NULL OR ${usersThatHaveRequested} = 'Requested');`,
               async (err, result) => {
                 if (err) {
                   return res.status(500).send({
