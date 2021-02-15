@@ -146,6 +146,21 @@ export default {
       instance.$mount(); // pass nothing
       this.$refs.container.appendChild(instance.$el);
     },
+    changer() {
+      // case when match is performed "inside of middle" of an array and there are more feed
+      if (this.arraylength > (this.currentSuggestion+1)) {
+        this.change();
+        // case when match is done at the end of an array
+      } else if ((this.arraylength == (this.currentSuggestion+1)) && (this.arraylength > 1)) {
+        this.currentSuggestion = this.currentSuggestion - 1;
+        this.change();
+      } else if (this.arraylength == 1) {
+        this.arraylength = 0;
+        this.change();
+      } else {
+        console.log('Error in feed');
+      }
+    },
     async match() {
       try {
         this.res.splice(this.currentSuggestion, 1);
@@ -153,17 +168,7 @@ export default {
           matchingId: this.matchID,
         };
         try {
-          // case when match is performed "inside of middle" of an array and there are more feed
-          if (this.arraylength > (this.currentSuggestion+1)) {
-            this.change();
-          // case when match is done at the end of an array
-          } else if ((this.arraylength == (this.currentSuggestion+1)) && (this.arraylength > 1)) {
-            this.currentSuggestion = this.currentSuggestion - 1;
-            this.change();
-          } else if (this.arraylength == 1) {
-            this.arraylength = 0;
-            this.change();
-          }
+          this.changer();
         } catch (error) {
           console.log(error);
         }
@@ -176,11 +181,14 @@ export default {
     async reject() {
       try {
         this.res.splice(this.currentSuggestion, 1);
-        this.res[this.currentSuggestion];
         const credentials = {
           matchingId: this.matchID,
         };
-        this.next();
+        try {
+          this.changer();
+        } catch (error) {
+          console.log(error);
+        }
         const response = await AuthService.reject(credentials);
         this.matchMessage = response.msg;
       } catch (error) {
