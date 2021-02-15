@@ -2,7 +2,9 @@
   <div>
     <settings-header></settings-header>
     <div>
+      <div class="box">
         <h1 style="text-align: center;" class="title is-1">Account Settings</h1>
+      </diV> 
         <br>
         <user-settings>
     </div>
