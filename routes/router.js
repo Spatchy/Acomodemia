@@ -821,7 +821,7 @@ router.post('/forgotPassword', (req, res) => {
         } else {
           sendResetEmail(req.body.username, code);
           return res.status(200).send({
-            msg: 'Email Sent! please check your emails for your unique reset code',
+            msg: 'Reset code sent! Check your email.',
           });
         }
       },
