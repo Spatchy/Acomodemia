@@ -7,7 +7,7 @@
         </div>
         <p class="subtitle is-6 left-align">Your feed is empty, check back later</p>
       </div>
-      <div ref="container" id="container"></div> <!--Feed items will be injected-->
+      <div ref="container" id="container" v-show="arraylength !=0"></div> <!--Feed items will be injected-->
       <div id="controls">
         <div class="level">
           <div class="level-item has-text-centred">
@@ -119,32 +119,36 @@ export default {
       this.change();
     },
     change() {
-      this.$refs.container.innerHTML = '';
-      this.matchID = this.res[this.currentSuggestion].matchingId;
+      if (this.res.length == 0) {
+        return;
+      } else {
+        this.$refs.container.innerHTML = '';
+        this.matchID = this.res[this.currentSuggestion].matchingId;
 
-      this.arraylength = this.res.length;
+        this.arraylength = this.res.length;
 
-      const ComponentClass = Vue.extend(FeedItem);
-      const instance = new ComponentClass({
-        propsData: {
-          name: this.res[this.currentSuggestion].name,
-          age: this.res[this.currentSuggestion].age,
-          gender: this.res[this.currentSuggestion].gender,
-          location: this.res[this.currentSuggestion].location,
-          budget: this.res[this.currentSuggestion].budget,
-          subject: this.res[this.currentSuggestion].subject,
-          bio: this.res[this.currentSuggestion].bio,
-          drinking: this.drinking = this.res[this.currentSuggestion].drinking,
-          smoking: this.res[this.currentSuggestion].smoking,
-          diet: this.res[this.currentSuggestion].diet,
-          sleep: this.res[this.currentSuggestion].sleep,
-          social: this.res[this.currentSuggestion].social,
-          interests: this.res[this.currentSuggestion].interests,
-          profilePic: this.res[this.currentSuggestion].photo,
-        },
-      });
-      instance.$mount(); // pass nothing
-      this.$refs.container.appendChild(instance.$el);
+        const ComponentClass = Vue.extend(FeedItem);
+        const instance = new ComponentClass({
+          propsData: {
+            name: this.res[this.currentSuggestion].name,
+            age: this.res[this.currentSuggestion].age,
+            gender: this.res[this.currentSuggestion].gender,
+            location: this.res[this.currentSuggestion].location,
+            budget: this.res[this.currentSuggestion].budget,
+            subject: this.res[this.currentSuggestion].subject,
+            bio: this.res[this.currentSuggestion].bio,
+            drinking: this.drinking = this.res[this.currentSuggestion].drinking,
+            smoking: this.res[this.currentSuggestion].smoking,
+            diet: this.res[this.currentSuggestion].diet,
+            sleep: this.res[this.currentSuggestion].sleep,
+            social: this.res[this.currentSuggestion].social,
+            interests: this.res[this.currentSuggestion].interests,
+            profilePic: this.res[this.currentSuggestion].photo,
+          },
+        });
+        instance.$mount(); // pass nothing
+        this.$refs.container.appendChild(instance.$el);
+      }
     },
     changer() {
       // case when match is performed "inside of middle" of an array and there are more feed
