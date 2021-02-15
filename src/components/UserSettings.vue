@@ -1,7 +1,7 @@
 <template>
-    <div>
-       <div class="columns">
-          <div class="column">
+  <div>
+      <div class="columns">
+        <div class="column">
 
 
             <h3 class="title is-1">Hello {{ firstName }}</h3>
@@ -79,7 +79,7 @@
                 </div>
             </div>
 
-          <div class="field is-horizontal">
+            <div class="field is-horizontal">
               <div class="field-label is-normal">
                   <label class="label">Course</label>
               </div>
@@ -105,7 +105,7 @@
 
 
               <div class="field-label is-normal">
-                <label class="label">Bio</label>
+                <label class="label align-centre">Bio</label>
               </div>
                 <div class="field-body">
                   <div class="field">
@@ -114,7 +114,7 @@
                     </p>
                   </div>
                 </div>
-         </div>
+        </div>
 
              <div class="column is-one-third">
                   <br>
@@ -126,7 +126,7 @@
                    <h4>Profile picture and location are compulsory</h4>
 
                     <div>
-                    <profile-pic>
+                     <profile-pic>
                     </div>
                     <div>
                       <file-upload>
@@ -140,7 +140,7 @@
               <h2 class="title is-3">Set Lifestyle</h2>
 
                <h5>How often do you like to drink alcohol ?</h5>
-               <div class="control">
+              <div class="control">
 
                 <label class="radio1">
                   <input type="radio" name="al-ans">Not At All</label>
@@ -153,7 +153,7 @@
                 <label class="radio" >
                   <input type="radio" name="al-ans" >Everyday</label>
 
-            </div>
+              </div>
               <br>
 
                <h5>Would you desribe yourself as a night owl?</h5>
@@ -202,14 +202,12 @@
                   <input type="radio" name="ve-ans" >Neither </label>
               </div>
               <br>
-
-               <input class=" button is-rounded is-info" type="button is-small" @click="settings" value="Save Changes" />
-               <div ref="changeemail">
-                 <change-email>
-               </div>
-           </div>
+              <div class="column is-three-fifths is-offset-one-fifth">
+                <input class=" button is-rounded is-primary" type="button" @click="settings" value="Save Changes" />
+              </div>   
+            </div>
            <br>
-
+      
         <!-- <div class="control_wrapper">
             <h2>Choose your Interests</h2>
             <p>Sports</p>
@@ -227,11 +225,9 @@
 
         <!-- Multiselect DropDown menu -->
 
-        <div class="" style="margin: 10% 25%">
-          <h2>Choose your Interests</h2>
-          <br />
-
-
+         <div class="" style="margin: 10% 25%">
+            <h2 class="title is-3">Choose your Interests</h2>
+            <br />
             <ejs-multiselect
               :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark' v-model="sportsSelection">
             </ejs-multiselect>
@@ -250,10 +246,12 @@
             <br />
             <input type="button" @click="dropdown" value="Save Interests" />
          </div>
-        <div>
-
-  </div>
-
+         <br>
+      
+        <div ref="changeemail">
+         <change-email>
+        </div>
+  </div>     
 </template>
 <script>
 import AuthService from '@/services/AuthService.js';
@@ -400,10 +398,7 @@ export default Vue.extend({
 @import url(https://cdn.syncfusion.com/ej2/material.css);
 
 button{
-  width: 100%;
-  height: 100%;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+  width: auto;
 }
 .level{
   position: absolute;
@@ -413,8 +408,15 @@ button{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
-#container{
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+.container1{
+  min-height: 60vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: left;
 }
 </style>
