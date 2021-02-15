@@ -148,20 +148,29 @@ export default {
     },
     async match() {
       try {
-        this.requestSentToName = this.res[this.currentSuggestion].name;
         this.res.splice(this.currentSuggestion, 1);
         const credentials = {
           matchingId: this.matchID,
         };
         try {
-          this.next();
+          // case when match is performed "inside of middle" of an array and there are more feed
+          if (this.arraylength > (this.currentSuggestion+1)) {
+            this.change();
+          // case when match is done at the end of an array
+          } else if ((this.arraylength == (this.currentSuggestion+1)) && (this.arraylength > 1)) {
+            this.currentSuggestion = this.currentSuggestion - 1;
+            this.change();
+          } else if (this.arraylength == 1) {
+            this.arraylength = 0;
+            this.change();
+          }
         } catch (error) {
           console.log(error);
         }
         const response = await AuthService.requestMatch(credentials);
         this.matchMessage = response.msg;
       } catch (error) {
-        this.matchMessage = error.response.data.msg;
+        this.msg = error.response.msg;
       }
     },
     async reject() {
@@ -175,14 +184,8 @@ export default {
         const response = await AuthService.reject(credentials);
         this.matchMessage = response.msg;
       } catch (error) {
-        this.matchMessage = error.response.data.msg;
+        this.msg = error.response.msg;
       }
-    },
-    async clearMatchMessage() {
-      this.matchMessage = '';
-    },
-    async pushToChat() {
-      this.$router.push('/chat?to='+this.matchMessage.split(' ')[2]);
     },
   },
 };
@@ -205,8 +208,5 @@ button{
 #container{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-}
-.icon.is-huge{
-  font-size: 10rem;
 }
 </style>
