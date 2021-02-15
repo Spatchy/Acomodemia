@@ -3,7 +3,7 @@
     <div class="box">
       <div class="level">
         <div class="level-item">
-          <h1 class="title is-1">Verify your email</h1>
+          <h1 class="title is-1">Verify Your Emails</h1>
         </div>
       </div>
 
