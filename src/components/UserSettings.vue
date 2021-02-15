@@ -204,10 +204,10 @@
               <br>
               <div class="column is-three-fifths is-offset-one-fifth">
                 <input class=" button is-rounded is-primary" type="button" @click="settings" value="Save Changes" />
-              </div>   
+              </div>
             </div>
            <br>
-      
+
         <!-- <div class="control_wrapper">
             <h2>Choose your Interests</h2>
             <p>Sports</p>
@@ -247,11 +247,11 @@
             <input type="button" @click="dropdown" value="Save Interests" />
          </div>
          <br>
-      
+
         <div ref="changeemail">
          <change-email>
         </div>
-  </div>     
+  </div>
 </template>
 <script>
 import AuthService from '@/services/AuthService.js';

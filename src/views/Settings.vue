@@ -4,7 +4,7 @@
     <div>
       <div class="box">
         <h1 style="text-align: center;" class="title is-1">Account Settings</h1>
-      </diV> 
+      </diV>
         <br>
         <user-settings>
     </div>
