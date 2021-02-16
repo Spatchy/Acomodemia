@@ -58,6 +58,7 @@ export default {
   position: relative;
   background: #313266;
   border-radius: .4em;
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.3);
 }
 
 .level.sent:after{
@@ -81,6 +82,7 @@ export default {
   position: relative;
   background: white;
   border-radius: .4em;
+  box-shadow: 3px 4px 10px 0 rgba(0,0,0,0.3);
 }
 
 .level.received:after{
