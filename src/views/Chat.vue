@@ -25,10 +25,15 @@
           </article>
         </div>
 
-        <div class="chat">
-          <div ref="messageFeed">
-          </div>
+        <div class="chat" ref="chat" @scroll="onScroll">
+          <div ref="messageFeed"></div> <!--messages will be injected-->
         </div>
+
+        <button id="scroll-to-bottom-btn" class="button is-primary" v-if="scrolled" @click="updateScroll(true)">
+          <div class="icon">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </button>
 
         <div class="chatinput">
           <div class="field has-addons">
@@ -69,6 +74,7 @@ export default {
       photo: '',
       message: '',
       sentMessage: '',
+      scrolled: false,
     };
   },
   methods: {
@@ -103,6 +109,21 @@ export default {
       instance.$mount(); // pass nothing
       this.$refs.messageFeed.appendChild(instance.$el);
     },
+    updateScroll(override = false) { // snaps scroll to bottom
+      if (!this.scrolled || override) { // will not activate if user has manually scrolled up
+        this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
+      }
+    },
+    onScroll(event) { // fired whenever the user scrolls the bound element (chat)
+      if (event.target.scrollHeight - event.target.scrollTop - event.target.clientHeight < 1) {
+        this.scrolled = false;
+      } else {
+        this.scrolled = true;
+        if (event.target.scrollTop === 0) {
+          alert('At top'); // TODO: replace this with call to retrieve older messages
+        }
+      }
+    },
   },
   async created() {
     try {
@@ -128,6 +149,7 @@ export default {
       console.log(feed);
       feed.forEach((element) => {
         this.displayMessage(element.message, element.id, element.sent);
+        this.updateScroll();
       });
     } catch (error) {
       console.error(error);
@@ -141,11 +163,13 @@ export default {
       console.log(`message ${payload.id} received from ${payload.from} at ${payload.timestamp}: "${payload.content}"`);
       if (payload.from == this.matchingID) {
         this.displayMessage(payload.content, payload.id, false);
+        this.updateScroll();
       }
     });
 
     this.socket.on('success', (messageID) => {
       this.displayMessage(this.sentMessage, messageID, true);
+      this.updateScroll();
     });
   },
 };
@@ -177,8 +201,22 @@ export default {
   margin: 0.25rem;
 }
 
+#scroll-to-bottom-btn{
+  position: absolute;
+  bottom: 5rem;
+  right: 2rem;
+  z-index: 1;
+  width: fit-content;
+  border-radius: 50%;
+  box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3);
+  width: 4rem;
+  height: 4rem;
+
+}
+
 .chat {
   overflow-y: scroll;
   flex-shrink: 1;
+  position: relative;
 }
 </style>
