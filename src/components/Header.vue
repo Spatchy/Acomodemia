@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar is-primary" v-if="!exclude.includes($route.name)">
+  <div class="navbar is-primary" v-if="!exclude.includes($route.name) && !$isMobile()">
 
     <div class="navbar-brand">
       <router-link class="navbar-item" to="/feed">
