@@ -25,13 +25,21 @@ export default {
 
 <style scoped>
 .level{
-  max-width:49%;
+  max-width:75%;
   margin: 4px;
+  width: fit-content;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 .level-item{
   text-align: left;
-  overflow-wrap: break-word
+  overflow-wrap: break-word;
+  width: 100%;
+}
+
+.level-left, .level-right{
+  width: 100%;
 }
 
 .sent, .level-right{
