@@ -15,7 +15,7 @@
             <div class="field">
               <label class="label">Personal Email</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" v-on:keyup.enter="forgot" />
               </div>
             </div>
             <div class="field">
@@ -29,21 +29,21 @@
             <div class="field">
               <label class="label">Code</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="text" placeholder="Enter your code here" v-model="code" />
+                <input class="input is-rounded is-primary" type="text" placeholder="Enter your code here" v-model="code" v-on:keyup.enter="submit" />
               </div>
             </div>
 
             <div class="field">
               <label class="label">New password</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="password" v-model="newpass" />
+                <input class="input is-rounded is-primary" type="password" v-model="newpass" v-on:keyup.enter="submit" />
               </div>
             </div>
 
             <div class="field">
               <label class="label">Re-enter New password</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="password" v-model="confirm" />
+                <input class="input is-rounded is-primary" type="password" v-model="confirm" v-on:keyup.enter="submit" />
               </div>
             </div>
 

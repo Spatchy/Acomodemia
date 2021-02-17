@@ -14,7 +14,7 @@
             <div class="field">
               <label class="label">First Name:</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="text" placeholder="First Name" v-model="firstName" />
+                <input class="input is-rounded is-primary" type="text" placeholder="First Name" v-model="firstName" v-on:keyup.enter="signUp" />
               </div>
             </div>
           </div>
@@ -23,7 +23,7 @@
             <div class="field">
               <label class="label">Second Name:</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="text" placeholder="Second Name" v-model="secondName" />
+                <input class="input is-rounded is-primary" type="text" placeholder="Second Name" v-model="secondName" v-on:keyup.enter="signUp" />
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@
             <div class="field">
               <label class="label">Date of Birth:</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary is-fullwidth" type="date" placeholder="DD/MM/YYYY" v-model="dob" />
+                <input class="input is-rounded is-primary is-fullwidth" type="date" placeholder="DD/MM/YYYY" v-model="dob" v-on:keyup.enter="signUp" />
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@
             <div class="field">
               <label class="label">Personal Email:</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" />
+                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" v-on:keyup.enter="signUp" />
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@
             <div class="field">
               <label class="label">University Email:</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" />
+                <input class="input is-rounded is-primary" type="text" placeholder="e.g. bs234@kent.ac.uk" v-model="uniEmail" v-on:keyup.enter="signUp" />
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@
             <div class="field">
               <label class="label">Password:</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password" />
+                <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password" v-on:keyup.enter="signUp" />
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@
             <div class="field">
               <label class="label">Confirm Password:</label>
               <div class="control is-expanded">
-                <input class="input is-rounded is-primary" type="password" placeholder="Password (repeat)" v-model="password_repeat" />
+                <input class="input is-rounded is-primary" type="password" placeholder="Password (repeat)" v-model="password_repeat" v-on:keyup.enter="signUp" />
               </div>
             </div>
           </div>

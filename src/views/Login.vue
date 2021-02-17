@@ -28,7 +28,7 @@
               <div class="field">
                 <label class="label">Password</label>
                 <div class="control">
-                  <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password"  />
+                  <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password" v-on:keyup.enter="login"/>
                 </div>
               </div>
               <div class="field">
