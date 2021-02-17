@@ -217,6 +217,7 @@ export default {
 .chat {
   overflow-y: scroll;
   flex-shrink: 1;
+  flex-grow: inherit;
   position: relative;
 }
 </style>
