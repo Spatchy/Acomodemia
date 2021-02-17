@@ -813,20 +813,26 @@ router.post('/getChatHistory', (req, res) => {
 
 router.post('/forgotPassword', (req, res) => {
   const code = Math.floor(1000 + Math.random() * 9000);
+  const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   db.query(
       `UPDATE User SET ResetCode=${db.escape(code)} WHERE PrimaryEmail=${db.escape(req.body.username)};`,
       (err, result) => {
         if (err) {
-          return res.status(500).send({
+            return res.status(500).send({
             msg: err,
           });
         } else {
-          sendResetEmail(req.body.username, code);
-          return res.status(200).send({
-            msg: 'Reset code sent! Check your email.',
-          });
-        }
-      },
+          if (regex.test(req.body.username)) {
+            sendResetEmail(req.body.username, code);
+            return res.status(200).send({
+              msg: 'Reset code sent! Check your email.'
+            });
+          } else {
+            return res.status(500).send({
+              msg: 'Incorrect details!'
+            })}
+      }
+    }  
   );
 });
 
