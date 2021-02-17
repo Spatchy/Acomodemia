@@ -179,7 +179,7 @@ export default {
         const response = await AuthService.requestMatch(credentials);
         this.matchMessage = response.msg;
       } catch (error) {
-        this.msg = error.response.msg;
+        this.msg = error.response.data.msg;
       }
     },
     async reject() {
@@ -196,8 +196,14 @@ export default {
         const response = await AuthService.reject(credentials);
         this.matchMessage = response.msg;
       } catch (error) {
-        this.msg = error.response.msg;
+        this.msg = error.response.data.msg;
       }
+    },
+    async clearMatchMessage() {
+      this.matchMessage = '';
+    },
+    async pushToChat() {
+      this.$router.push('/chat?to='+this.matchMessage.split(' ')[2]);
     },
   },
 };
@@ -221,4 +227,8 @@ button{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
+.icon.is-huge{
+  font-size: 10rem;
+}
+
 </style>
