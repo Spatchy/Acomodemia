@@ -773,6 +773,44 @@ router.post('/getMatchByID', (req, res) => {
   );
 });
 
+router.post('/getChatMostRecent', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+      token,
+      'SECRETKEY',
+  );
+  db.query(
+    `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp DESC LIMIT 30;`,
+    (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          msg: err,
+        });
+      } else {
+        payload = [];
+        result.forEach((element) => {
+          if (element.Sender == decoded.matchingID) {
+            payload.push({
+              message: element.Content,
+              id: element.MatchingID,
+              sent: true,
+            });
+          } else {
+            payload.push({
+              message: element.Content,
+              id: element.MatchingID,
+              sent: false,
+            });
+          }
+        });
+        return res.status(200).send(
+          payload,
+        );
+      }
+    }
+  )
+});
+
 router.post('/getChatHistory', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
@@ -788,28 +826,21 @@ router.post('/getChatHistory', (req, res) => {
           });
         } else {
           payload = [];
-          pageSize = 30;
-          console.log(result);
-          console.log(req.body.page);
-          firstIndex = pageSize * req.body.page;
-          lastIndex = firstIndex + pageSize;
-          for (i=firstIndex; i < lastIndex; i++) {
-            if (result[i]) {
-              if (result[i].Sender == decoded.matchingID) {
-                payload.push({
-                  message: result[i].Content,
-                  id: result[i].MatchingID,
-                  sent: true,
+          result.foreach( (element) => {
+            if (element.Sender == decoded.matchingID) {
+              payload.push({
+                message: element.Content,
+                id: element.MatchingID,
+                sent: true,
+            });
+            } else {
+              payload.push({
+                message: element.Content,
+                id: element.MatchingID,
+                sent: false,
               });
-              } else {
-                payload.push({
-                  message: result[i].Content,
-                  id: result[i].MatchingID,
-                  sent: false,
-                });
-              }
             }
-          };
+          });
           return res.status(200).send(
               payload,
           );

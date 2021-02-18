@@ -75,7 +75,7 @@ export default {
       message: '',
       sentMessage: '',
       scrolled: false,
-      page: 0,
+      oldestMessageId: '',
     };
   },
   methods: {
@@ -128,7 +128,7 @@ export default {
           this.page ++;
           const payload = {
             matchingID: this.matchingID,
-            page: this.page,
+            oldestMessageId: this.oldestMessageId
           };
           const feed = await AuthService.getChatHistory(payload);
           console.log(feed);
@@ -136,7 +136,7 @@ export default {
             this.displayMessage(element.message, element.id, element.sent, true);
             this.updateScroll();
           });
-          console.log('At top'); // TODO: replace this with call to retrieve older messages
+          this.oldestMessageId = feed[feed.length - 1].id;
         }
       }
     },
@@ -159,15 +159,15 @@ export default {
     try {
       const credentials = {
         matchingID: this.matchingID,
-        page: this.page,
       };
       console.log(credentials);
-      const feed = await AuthService.getChatHistory(credentials);
+      const feed = await AuthService.getChatMostRecent(credentials);
       console.log(feed);
       feed.forEach((element) => {
         this.displayMessage(element.message, element.id, element.sent, true);
         this.updateScroll();
       });
+      this.oldestMessageId = feed[feed.length - 1].id;
     } catch (error) {
       console.error(error);
     }

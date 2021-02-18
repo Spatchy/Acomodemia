@@ -115,6 +115,11 @@ export default {
         .post(url + 'getChatHistory/', id)
         .then((response) => response.data);
   },
+  getChatMostRecent(id){
+    return axios
+        .post(url + 'getChatMostRecent/', id)
+        .then((response) => response.data);
+  },
   resetPassword(credentials) {
     return axios
         .post(url + 'resetPassword/', credentials)
