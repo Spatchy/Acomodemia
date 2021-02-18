@@ -75,6 +75,7 @@ export default {
       message: '',
       sentMessage: '',
       scrolled: false,
+      page: 0,
     };
   },
   methods: {
@@ -109,18 +110,41 @@ export default {
       instance.$mount(); // pass nothing
       this.$refs.messageFeed.appendChild(instance.$el);
     },
+    prependMessage: function(message, messageID, sent) {
+      const ComponentClass = Vue.extend(Message);
+      const instance = new ComponentClass({
+        propsData: {
+          message: message,
+          messageID: messageID,
+          sent: sent,
+        },
+      });
+      instance.$mount(); // pass nothing
+      this.$refs.messageFeed.prepend(instance.$el);
+    },
     updateScroll(override = false) { // snaps scroll to bottom
       if (!this.scrolled || override) { // will not activate if user has manually scrolled up
         this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
       }
     },
-    onScroll(event) { // fired whenever the user scrolls the bound element (chat)
+    async onScroll(event) { // fired whenever the user scrolls the bound element (chat)
       if (event.target.scrollHeight - event.target.scrollTop - event.target.clientHeight < 1) {
         this.scrolled = false;
       } else {
         this.scrolled = true;
         if (event.target.scrollTop === 0) {
-          alert('At top'); // TODO: replace this with call to retrieve older messages
+          this.page ++;
+          const payload = {
+            matchingID: this.matchingID,
+            page: this.page,
+          };
+          const feed = await AuthService.getChatHistory(payload);
+          console.log(feed);
+          feed.forEach((element) => {
+            this.prependMessage(element.message, element.id, element.sent);
+            this.updateScroll();
+          });
+          console.log('At top'); // TODO: replace this with call to retrieve older messages
         }
       }
     },
@@ -143,6 +167,7 @@ export default {
     try {
       const credentials = {
         matchingID: this.matchingID,
+        page: this.page,
       };
       console.log(credentials);
       const feed = await AuthService.getChatHistory(credentials);

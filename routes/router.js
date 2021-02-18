@@ -780,7 +780,7 @@ router.post('/getChatHistory', (req, res) => {
       'SECRETKEY',
   );
   db.query(
-      `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp LIMIT 30;`,
+      `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp DESC;`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
@@ -788,21 +788,28 @@ router.post('/getChatHistory', (req, res) => {
           });
         } else {
           payload = [];
-          result.forEach((element) => {
-            if (element.Sender == decoded.matchingID) {
-              payload.push({
-                message: element.Content,
-                id: element.MatchingID,
-                sent: true,
+          pageSize = 30;
+          console.log(result);
+          console.log(req.body.page);
+          firstIndex = pageSize * req.body.page;
+          lastIndex = firstIndex + pageSize;
+          for (i=firstIndex; i < lastIndex; i++) {
+            if (result[i]) {
+              if (result[i].Sender == decoded.matchingID) {
+                payload.push({
+                  message: result[i].Content,
+                  id: result[i].MatchingID,
+                  sent: true,
               });
-            } else {
-              payload.push({
-                message: element.Content,
-                id: element.MatchingID,
-                sent: false,
-              });
+              } else {
+                payload.push({
+                  message: result[i].Content,
+                  id: result[i].MatchingID,
+                  sent: false,
+                });
+              }
             }
-          });
+          };
           return res.status(200).send(
               payload,
           );
