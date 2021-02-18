@@ -98,7 +98,7 @@ export default {
     getPic: function() {
       return this.photo;
     },
-    displayMessage: function(message, messageID, sent) {
+    displayMessage: function(message, messageID, sent, doPrepend = false) {
       const ComponentClass = Vue.extend(Message);
       const instance = new ComponentClass({
         propsData: {
@@ -108,19 +108,11 @@ export default {
         },
       });
       instance.$mount(); // pass nothing
-      this.$refs.messageFeed.appendChild(instance.$el);
-    },
-    prependMessage: function(message, messageID, sent) {
-      const ComponentClass = Vue.extend(Message);
-      const instance = new ComponentClass({
-        propsData: {
-          message: message,
-          messageID: messageID,
-          sent: sent,
-        },
-      });
-      instance.$mount(); // pass nothing
-      this.$refs.messageFeed.prepend(instance.$el);
+      if (doPrepend) {
+        this.$refs.messageFeed.prepend(instance.$el);
+      } else{
+        this.$refs.messageFeed.appendChild(instance.$el);
+      }
     },
     updateScroll(override = false) { // snaps scroll to bottom
       if (!this.scrolled || override) { // will not activate if user has manually scrolled up
@@ -141,7 +133,7 @@ export default {
           const feed = await AuthService.getChatHistory(payload);
           console.log(feed);
           feed.forEach((element) => {
-            this.prependMessage(element.message, element.id, element.sent);
+            this.displayMessage(element.message, element.id, element.sent, true);
             this.updateScroll();
           });
           console.log('At top'); // TODO: replace this with call to retrieve older messages
