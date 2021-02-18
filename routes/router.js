@@ -732,7 +732,7 @@ router.post('/postMessage', (req, res, next) => {
   const recipient = req.body.recipient;
   const messageUUID = uuid.v4().replace(/-/g, '');
   db.query(
-      `INSERT INTO Messages VALUES('${messageUUID}', ${db.escape(decoded.matchingID)}, ${db.escape(recipient)}, NOW(), ${db.escape(messageContent)});`,
+      `INSERT INTO Messages (TrackNum, MessageID, Sender, Recipient, TimeStamp, Content) VALUES(default, '${messageUUID}', ${db.escape(decoded.matchingID)}, ${db.escape(recipient)}, NOW(), ${db.escape(messageContent)});`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
@@ -780,7 +780,7 @@ router.post('/getChatMostRecent', (req, res) => {
       'SECRETKEY',
   );
   db.query(
-    `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp DESC LIMIT 30;`,
+    `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp DESC;`,
     (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -818,7 +818,7 @@ router.post('/getChatHistory', (req, res) => {
       'SECRETKEY',
   );
   db.query(
-      `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp DESC;`,
+      `SELECT * FROM Messages WHERE MessageID = ${db.escape(req.body.oldestMessageId)} union all (SELECT * FROM Messages WHERE TrackNum < (SELECT TrackNum FROM Messages where MessageID = ${db.escape(req.body.oldestMessageId)}) ORDER BY TrackNum DESC LIMIT 30) ORDER BY TrackNum;`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
@@ -826,7 +826,7 @@ router.post('/getChatHistory', (req, res) => {
           });
         } else {
           payload = [];
-          result.foreach( (element) => {
+          result.forEach( (element) => {
             if (element.Sender == decoded.matchingID) {
               payload.push({
                 message: element.Content,

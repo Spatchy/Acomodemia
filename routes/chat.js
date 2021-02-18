@@ -39,7 +39,7 @@ module.exports = {
                 sender = result[0].MatchingID; // needed as scope of result changes
                 const messageId = uuid.v4().replace(/-/g, ''); // clients should keep message IDs for future implementations (deleting, reporting, read receipts etc)
                 db.query(
-                    `INSERT INTO Messages VALUES('${messageId}', '${sender}', ${db.escape(payload.recipient)}, NOW(), ${db.escape(payload.body)});`,
+                    `INSERT INTO Messages VALUES(default, '${messageId}', '${sender}', ${db.escape(payload.recipient)}, NOW(), ${db.escape(payload.body)});`,
                     (err, result) => {
                       if (err) {
                         console.log(err);

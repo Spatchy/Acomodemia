@@ -115,7 +115,7 @@ export default {
         .post(url + 'getChatHistory/', id)
         .then((response) => response.data);
   },
-  getChatMostRecent(id){
+  getChatMostRecent(id) {
     return axios
         .post(url + 'getChatMostRecent/', id)
         .then((response) => response.data);

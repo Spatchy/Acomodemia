@@ -128,7 +128,7 @@ export default {
           this.page ++;
           const payload = {
             matchingID: this.matchingID,
-            oldestMessageId: this.oldestMessageId
+            oldestMessageId: this.oldestMessageId,
           };
           const feed = await AuthService.getChatHistory(payload);
           console.log(feed);
