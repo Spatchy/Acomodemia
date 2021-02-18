@@ -165,7 +165,7 @@ export default {
       const feed = await AuthService.getChatHistory(credentials);
       console.log(feed);
       feed.forEach((element) => {
-        this.displayMessage(element.message, element.id, element.sent);
+        this.displayMessage(element.message, element.id, element.sent, true);
         this.updateScroll();
       });
     } catch (error) {
