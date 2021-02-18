@@ -780,7 +780,7 @@ router.post('/getChatMostRecent', (req, res) => {
       'SECRETKEY',
   );
   db.query(
-    `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp DESC;`,
+    `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp DESC LIMIT 30;`,
     (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -789,16 +789,17 @@ router.post('/getChatMostRecent', (req, res) => {
       } else {
         payload = [];
         result.forEach((element) => {
+          console.log(element);
           if (element.Sender == decoded.matchingID) {
             payload.push({
               message: element.Content,
-              id: element.MatchingID,
+              id: element.MessageID,
               sent: true,
             });
           } else {
             payload.push({
               message: element.Content,
-              id: element.MatchingID,
+              id: element.MessageID,
               sent: false,
             });
           }
@@ -818,25 +819,27 @@ router.post('/getChatHistory', (req, res) => {
       'SECRETKEY',
   );
   db.query(
-      `SELECT * FROM Messages WHERE MessageID = ${db.escape(req.body.oldestMessageId)} union all (SELECT * FROM Messages WHERE TrackNum < (SELECT TrackNum FROM Messages where MessageID = ${db.escape(req.body.oldestMessageId)}) ORDER BY TrackNum DESC LIMIT 30) ORDER BY TrackNum;`,
+      `SELECT * FROM (SELECT * FROM Messages WHERE MessageID = ${db.escape(req.body.oldestMessageId)} union all (SELECT * FROM Messages WHERE TrackNum < (SELECT TrackNum FROM Messages where MessageID = ${db.escape(req.body.oldestMessageId)}) AND ((Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)})) ORDER BY TrackNum DESC LIMIT 30) ORDER BY TrackNum DESC) temp WHERE MessageID != ${db.escape(req.body.oldestMessageId)};`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
             msg: err,
           });
         } else {
+          console.log(req.body)
+          console.log(result);
           payload = [];
           result.forEach( (element) => {
             if (element.Sender == decoded.matchingID) {
               payload.push({
                 message: element.Content,
-                id: element.MatchingID,
+                id: element.MessageID,
                 sent: true,
             });
             } else {
               payload.push({
                 message: element.Content,
-                id: element.MatchingID,
+                id: element.MessageID,
                 sent: false,
               });
             }
