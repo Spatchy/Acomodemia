@@ -110,7 +110,7 @@ export default {
       instance.$mount(); // pass nothing
       if (doPrepend) {
         this.$refs.messageFeed.prepend(instance.$el);
-      } else{
+      } else {
         this.$refs.messageFeed.appendChild(instance.$el);
       }
     },
