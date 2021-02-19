@@ -125,16 +125,18 @@ export default {
       } else {
         this.scrolled = true;
         if (event.target.scrollTop === 0) {
-          this.page ++;
+          const scrollLockTarget = document.getElementById(this.oldestMessageId);
+          console.log(scrollLockTarget);
           const payload = {
             matchingID: this.matchingID,
             oldestMessageId: this.oldestMessageId,
           };
           const feed = await AuthService.getChatHistory(payload);
           console.log(feed);
+          this.$refs.chat.scrollTop = 1; // set the scrollbar down an unnoticable amount to stop it jumping to top of prepended content
           feed.forEach((element) => {
             this.displayMessage(element.message, element.id, element.sent, true);
-            this.updateScroll();
+            console.log(scrollLockTarget.clientHeight);
           });
           this.oldestMessageId = feed[feed.length - 1].id;
         }

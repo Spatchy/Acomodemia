@@ -8,7 +8,9 @@
             'received': !sent,
             'has-text-white': sent,
             'has-text-primary': !sent
-          }" :messageId="messageID">
+          }" 
+          :messageId="messageID"
+          :id="messageID">
             {{message}}
           </span>
         </div>
