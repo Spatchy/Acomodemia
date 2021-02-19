@@ -42,57 +42,6 @@ $navbar-height: 4rem;
   align-items: center;
 }
 
-.container1 {
-  min-height: 80vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-.container2 {
-  min-height: 80vh;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: left;
-}
-
-.container3 {
-  width: 100%;
-  height: 100vh;
-}
-
-// aligns object in the top middle possition
-.container4 {
-  margin: 0 auto;
-  width: auto;
-}
-
-// aligns object in the middle of screen
-.container5 {
-  width: auto;
-  height: 100px;
-  padding: 20px;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  margin: -70px 0 0 -170px;
-}
-
-
-#loginpic{
-    align-content: left;
-    padding-right: 5%;
-    height: 400px;
-    width: 700px;
-}
-
 // line global adjusments
 hr {
   display: block;
@@ -102,7 +51,7 @@ hr {
   margin-right: auto;
   border-style: inset;
   border-width: 1px;
-  color: #313266;
+  color: $primary;
 }
 
 .button {
@@ -114,20 +63,6 @@ label{
   text-align: left;
 }
 
-h1 {
-  text-align: left;
-}
-
-h4 {
-  color: red;
-}
-
-h5 {
-  color: #3498db;
-  font-weight: bolder;
-  $size-1: 3rem;
-}
-
 .icon {
   margin: 2px;
 }
@@ -135,6 +70,10 @@ h5 {
 .image.is-300x300 {
   height: 300px;
   width: 300px;
+}
+
+p.help{
+  text-align: left;
 }
 
 p span {
