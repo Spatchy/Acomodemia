@@ -8,7 +8,7 @@
           <div class="columns">
             <div class="column">
               <div class="field">
-                <label class="label">Location you're looking for housemates</label>
+                <label class="label">Location</label>
                 <div class="control is-expanded">
                   <input class="input is-rounded is-primary" type="text" :placeholder="Location" v-model="location" />
                   <p class="help is-danger">Location is compulsory</p>
@@ -45,10 +45,132 @@
           </div>
 
           <div class="field">
-            <label class="label align-centre">Bio</label>
+            <label class="label">Bio</label>
             <div class="control is-expanded">
               <textarea class="textarea is-rounded is-primary" type="text" rows="6" placeholder="Tell people something about yourself" v-model="newBio" />
             </div>
+          </div>
+
+          <div class="column is-one-third is-offset-one-third">
+            <input class=" button is-rounded is-primary" type="button" @click="settings" value="Save Changes">
+          </div>
+
+        </div>
+
+        <div class="box">
+          <h2 class="title is-3">Lifestyle Choices</h2>
+
+          <div class="field">
+            <label class="label">How often do you drink alcohol?</label>
+            <div class="control is-radio-left">
+              <label class="radio">
+                <input type="radio" name="al-ans" value="1" v-model="drinkingVal">
+                Not At All
+              </label>
+              <label class="radio">
+                <input type="radio" name="al-ans" value="2" v-model="drinkingVal">
+                Occasionally
+              </label>
+              <label class="radio">
+                <input type="radio" name="al-ans" value="3" v-model="drinkingVal">
+                Somewhat frequently
+              </label>
+              <label class="radio">
+                <input type="radio" name="al-ans" value="4" v-model="drinkingVal">
+                Frequently
+              </label>
+              <label class="radio">
+                <input type="radio" name="al-ans" value="5" v-model="drinkingVal">
+                Very Frequently
+              </label>
+              <label class="radio">
+                <button class="delete" @click="drinkingVal=0"></button>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Which of these best describes your sleep habits?</label>
+            <div class="control is-radio-left">
+              <label class="radio">
+                <input type="radio" name="ni-ans" value="1" v-model="nightOwl">
+                Night Owl
+              </label>
+              <label class="radio">
+                <input type="radio" name="ni-ans" value="2" v-model="nightOwl">
+                Flexible
+              </label>
+              <label class="radio">
+                <input type="radio" name="ni-ans" value="3" v-model="nightOwl">
+                Morning Lark
+              </label>
+              <label class="radio">
+                <button class="delete" @click="nightOwl=0"></button>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Which of these best describes you?</label>
+            <div class="control is-radio-left">
+              <label class="radio">
+                <input type="radio" name="ex-ans" value="1" v-model="extro">
+                Extrovert
+              </label>
+              <label class="radio">
+                <input type="radio" name="ex-ans" value="2" v-model="extro">
+                Introvert
+              </label>
+              <label class="radio">
+                <button class="delete" @click="extro=0"></button>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">How often do you smoke?</label>
+            <div class="control is-radio-left">
+              <label class="radio">
+                <input type="radio" name="sm-ans" value="1" v-model="smoke">
+                Not At All
+              </label>
+              <label class="radio">
+                <input type="radio" name="sm-ans" value="2" v-model="smoke">
+                Rarley/Socially
+              </label>
+              <label class="radio">
+                <input type="radio" name="sm-ans" value="3" v-model="smoke">
+                Often
+              </label>
+              <label class="radio">
+                <button class="delete" @click="smoke=0"></button>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Do you follow any of these dietary plans?</label>
+            <div class="control is-radio-left">
+              <label class="radio">
+                <input type="radio" name="ve-ans" value="1" v-model="diet">
+                Vegetarian
+              </label>
+              <label class="radio">
+                <input type="radio" name="ve-ans" value="2" v-model="diet">
+                Vegan
+              </label>
+              <label class="radio">
+                <input type="radio" name="ve-ans" value="3" v-model="diet">
+                Neither
+              </label>
+              <label class="radio">
+                <button class="delete" @click="diet=0"></button>
+              </label>
+            </div>
+          </div>
+
+          <div class="column is-one-third is-offset-one-third">
+            <input class=" button is-rounded is-primary" type="button" @click="settings" value="Save Changes">
           </div>
         </div>
 
@@ -76,92 +198,7 @@
 
 
     <div>
-          <div>
-            <h2 class="title is-3">Set Lifestyle</h2>
 
-              <h5>How often do you like to drink alcohol ?</h5>
-            <div class="control">
-
-              <label class="radio1">
-                <input type="radio" name="al-ans">Not At All</label>
-              <label class="radio">
-                <input type="radio" name="al-ans">Once a month </label>
-              <label class="radio" >
-                <input type="radio" name="al-ans" >Once a fortnight </label>
-              <label class="radio" >
-                <input type="radio" name="al-ans" >Once a week </label>
-              <label class="radio" >
-                <input type="radio" name="al-ans" >Everyday</label>
-
-            </div>
-            <br>
-
-              <h5>Would you desribe yourself as a night owl?</h5>
-              <div class="control">
-
-              <label class="radio2">
-                <input type="radio" name="ni-ans">Yes</label>
-              <label class="radio">
-                <input type="radio" name="ni-ans">Sometimes </label>
-              <label class="radio" >
-                <input type="radio" name="ni-ans" >No </label>
-
-            </div>
-            <br>
-
-              <h5>Would you desribe yourself as an extrovert?</h5>
-            <div class="control">
-
-              <label class="radio3">
-                <input type="radio" name="ex-ans">Yes</label>
-              <label class="radio" >
-                <input type="radio" name="ex-ans" >No </label>
-            </div>
-            <br>
-
-            <h5>How often do you smoke ?</h5>
-            <div class="control">
-
-              <label class="radio4">
-                <input type="radio" name="sm-ans">Not At All</label>
-              <label class="radio">
-                <input type="radio" name="sm-ans">Rarley/ Socially</label>
-              <label class="radio" >
-                <input type="radio" name="sm-ans" >Often</label>
-            </div>
-            <br>
-
-              <h5>Are you vegetarian, vegan or neither?</h5>
-            <div class="control">
-
-              <label class="radio5">
-                <input type="radio" name="ve-ans">Vegetarian</label>
-              <label class="radio">
-                <input type="radio" name="ve-ans">Vegan</label>
-              <label class="radio" >
-                <input type="radio" name="ve-ans" >Neither </label>
-            </div>
-            <br>
-            <div class="column is-three-fifths is-offset-one-fifth">
-              <input class=" button is-rounded is-primary" type="button" @click="settings" value="Save Changes" />
-            </div>
-          </div>
-          <br>
-
-      <!-- <div class="control_wrapper">
-          <h2>Choose your Interests</h2>
-          <p>Sports</p>
-          <ejs-dropdownlist id='sportsData' :dataSource='sportsData' v-model="sportsSelection"></ejs-dropdownlist>
-          <p>Outdoor/Adventure</p>
-          <ejs-dropdownlist id='oaData' :dataSource='oaData' v-model="outdoorSelection"></ejs-dropdownlist>
-          <p>Indoor</p>
-          <ejs-dropdownlist id='indoorData' :dataSource='indoorData' v-model="indoorSelection"></ejs-dropdownlist>
-          <p>Music</p>
-          <ejs-dropdownlist id='musicData' :dataSource='musicData' v-model="musicSelection"></ejs-dropdownlist>
-          <br>
-          <br>
-          <input type="button" @click="dropdown" value="Save Interests" />
-      </div>-->
 
       <!-- Multiselect DropDown menu -->
 
@@ -213,20 +250,19 @@ export default Vue.extend({
   },
   data() {
     return {
-      newBio: '',
       firstName: '',
+      // variables for basic settings
       budget: '',
       location: '',
       movDate: '',
-      PrimaryEmail: '',
-      secretMessage: '',
-      username: '',
-      drinkingVal: '',
-      nightOwl: '',
-      extro: '',
-      smoke: '',
-      diet: '',
       study: '',
+      newBio: '',
+      // variables for lifestyle choices
+      drinkingVal: 0,
+      nightOwl: 0,
+      extro: 0,
+      smoke: 0,
+      diet: 0,
       // array used for dropdown menu, which is getting populated using foreach loop
       sportsData: [],
       oaData: [],
@@ -254,7 +290,6 @@ export default Vue.extend({
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push('/');
     }
-    this.username = this.$store.getters.getUser.PrimaryEmail;
     this.firstName = this.$store.getters.getUser.FirstName;
     const details = await AuthService.getDetails();
     this.newBio = details.bio;
@@ -288,10 +323,7 @@ export default Vue.extend({
     this.dataMusicData.msg.forEach((element) =>
       this.musicData.push(element.Interest),
     );
-
-    this.secretMessage = await AuthService.getSecretContent();
   },
-
   methods: {
     async settings() {
       try {
@@ -300,14 +332,14 @@ export default Vue.extend({
           budget: this.budget,
           location: this.location,
           movDate: this.movDate,
-          PrimaryEmail: this.username,
+          study: this.study,
           drinkingVal: this.drinkingVal,
           nightOwl: this.nightOwl,
           extro: this.extro,
           smoke: this.smoke,
           diet: this.diet,
-          study: this.study,
         };
+        console.log(info);
         const response = await AuthService.settings(info);
         this.msg = response.msg;
       } catch (error) {
@@ -339,6 +371,14 @@ export default Vue.extend({
 
 .image{
   overflow: hidden;
+}
+
+.box{
+  margin: 0.25rem;
+}
+
+.control.is-radio-left{
+  text-align: left;
 }
 
 </style>
