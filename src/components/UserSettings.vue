@@ -298,7 +298,7 @@ export default Vue.extend({
     try {
       this.movDate = details.movDate.substring(0, 10);
     } catch (err) {
-      this.movDate = '';
+      this.movDate = null;
     }
     this.drinkingVal = details.drinking;
     this.nightOwl = details.owl;
