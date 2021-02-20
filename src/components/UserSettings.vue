@@ -10,7 +10,7 @@
               <div class="field">
                 <label class="label">Location</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="text" :placeholder="Location" v-model="location" />
+                  <input class="input is-rounded is-primary" type="text" placeholder="Town or city you want to live" v-model="location">
                   <p class="help is-danger">Location is compulsory</p>
                 </div>
               </div>
@@ -19,7 +19,7 @@
               <div class="field">
                 <label class="label">Budget</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="number" :placeholder="budget" v-model="budget" />
+                  <input class="input is-rounded is-primary" type="number" placeholder="£ per person per month" v-model="budget">
                 </div>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <div class="field">
                 <label class="label">Move in Date</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="date" :placeholder="movDate" v-model="movDate" />
+                  <input class="input is-rounded is-primary" type="date" placeholder="dd/mm/yyyy" v-model="movDate">
                 </div>
               </div>
             </div>
@@ -38,7 +38,7 @@
               <div class="field">
                 <label class="label">Course</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="text" :placeholder="Course" v-model="course" />
+                  <input class="input is-rounded is-primary" type="text" placeholder="What you're studying" v-model="course">
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@
           <div class="field">
             <label class="label">Bio</label>
             <div class="control is-expanded">
-              <textarea class="textarea is-rounded is-primary" type="text" rows="6" placeholder="Tell people something about yourself" v-model="newBio" />
+              <textarea class="textarea is-rounded is-primary" type="text" rows="6" placeholder="Tell people something about yourself" v-model="newBio"></textarea>
             </div>
           </div>
 
@@ -192,6 +192,11 @@
           </div>
           <p class="help is-danger">A profile pic is compulsory</p>
         </div>
+
+        <div class="box" ref="changeemail">
+          <h3 class="title is-3">Change Email</h3>
+          <change-email>
+        </div>
       </div>
 
     </div>
@@ -223,11 +228,6 @@
           <br />
           <input type="button" @click="dropdown" value="Save Interests" />
         </div>
-        <br>
-
-      <div ref="changeemail">
-        <change-email>
-      </div>
     </div>
 </template>
 <script>
