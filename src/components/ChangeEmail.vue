@@ -1,14 +1,28 @@
 <template>
     <div>
-        <div class="columns">
-          <div class="column is-three-fifths is-offset-one-fifth">
-            <h2>Please enter and confirm the email address you wish to change to, and your password</h2>
-            <input class="input is-rounded is-info" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="newEmail" />
-            <input class="input is-rounded is-info" type="text" placeholder="Confirm your new email" v-model="newEmailConf" />
-            <input class="input is-rounded is-info" type="password" placeholder="*******" v-model="password"  />
-            <input class="button is-rounded is-info" type="button" @click="submit" value="Change Email" />
-          </div>
+      <div class="field">
+        <label class="label">New Email</label>
+        <div class="control is-expanded">
+          <input class="input is-rounded is-primary" type="text" placeholder="New personal email" v-model="newEmail">
         </div>
+      </div>
+      <div class="field">
+        <label class="label">Confirm New Email</label>
+        <div class="control is-expanded">
+          <input class="input is-rounded is-primary" type="text" placeholder="Confirm your new email" v-model="newEmailConf">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control is-expanded">
+          <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password">
+        </div>
+      </div>
+      <div class="field">
+        <div class="control is-expanded">
+          <input class="button is-rounded is-primary" type="button" @click="submit" value="Change Email">
+        </div>
+      </div>
     </div>
 </template>
 <script>
