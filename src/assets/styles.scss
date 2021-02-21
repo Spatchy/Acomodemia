@@ -76,18 +76,13 @@ p.help{
   text-align: left;
 }
 
-p span {
-  display: block;
+/* apply global consistancy to multiselect dropdowns */
+.e-chips-close.e-close-hooker{
+  display: none;
 }
 
-@media (max-width: 60em) {
-  .pic {
-    display: none;
-  }
-
-  h1 {
-    text-align: center;
-  }
+.e-dropdownbase{
+  font-family: $family-sans-serif
 }
 
 // Import only what you need from Bulma
