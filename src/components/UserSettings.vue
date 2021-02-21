@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="columns">
-      <div class="column">
+      <div class="column is-flex">
 
-        <div class="box">
+        <div class="box is-full-height">
           <h3 class="title is-3">Basic Settings</h3>
           <div class="columns">
             <div class="column">
@@ -56,9 +56,32 @@
           </div>
 
         </div>
+      </div>
 
+      <div class="column is-one-third is-flex">
+        <div class="box is-full-height">
+          <h3 class="title is-3">Profile Picture</h3>
+          <div class="level">
+            <div class="level-item">
+              <div class="image is-300x300">
+                <profile-pic>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div>
+            <file-upload>
+          </div>
+          <p class="help is-danger">A profile pic is compulsory</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="columns">
+      <div class="column">
         <div class="box">
-          <h2 class="title is-3">Lifestyle Choices</h2>
+          <h3 class="title is-3">Lifestyle Choices</h3>
 
           <div class="field">
             <label class="label">How often do you drink alcohol?</label>
@@ -174,25 +197,79 @@
           </div>
         </div>
 
-      </div>
-
-      <div class="column is-one-third">
         <div class="box">
-          <h3 class="title is-3">Profile Picture</h3>
-          <div class="level">
-            <div class="level-item">
-              <div class="image is-300x300">
-                <profile-pic>
+
+          <h3 class="title is-3">Choose your Interests</h3>
+
+          <div class="field">
+            <label class="label">Sports</label>
+            <div class="control is-expanded">
+              <div class="input is-primary is-rounded multiselect-wrapper has-icons-right">
+                <ejs-multiselect
+                  :dataSource='sportsData' mode='Box' placeholder='Sports' v-model="sportsSelection">
+                </ejs-multiselect>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-angle-down"></i>
+                </span>
               </div>
             </div>
           </div>
-          <hr>
-          <div>
-            <file-upload>
+
+          <div class="field">
+            <label class="label">Outdoor and Adventure Activities</label>
+            <div class="control is-expanded">
+              <div class="input is-primary is-rounded multiselect-wrapper has-icons-right">
+                <ejs-multiselect
+                  :dataSource='oaData' mode='Box' placeholder='Outdoor Activities' v-model="outdoorSelection">
+                </ejs-multiselect>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </div>
+            </div>
           </div>
-          <p class="help is-danger">A profile pic is compulsory</p>
+
+          <div class="field">
+            <label class="label">Indoor Activities</label>
+            <div class="control is-expanded">
+              <div class="input is-primary is-rounded multiselect-wrapper has-icons-right">
+                <ejs-multiselect
+                  :dataSource='indoorData' mode='Box' placeholder='Indoor Activities' v-model="indoorSelection">
+                </ejs-multiselect>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Music Genres</label>
+            <div class="control is-expanded">
+              <div class="input is-primary is-rounded multiselect-wrapper has-icons-right">
+                <ejs-multiselect
+                  :musicSource='indoorData' mode='Box' placeholder='Music' v-model="musicSelection">
+                </ejs-multiselect>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-one-third is-offset-one-third">
+            <div class="field">
+              <div class="control is-expanded">
+                <button class="button is-primary is-rounded" @click="dropdown">Save Interests</button>
+              </div>
+            </div>
+          </div>
+
         </div>
 
+      </div>
+
+      <div class="column is-one-third">
         <div class="box" ref="changeemail">
           <h3 class="title is-3">Change Email</h3>
           <change-email>
@@ -200,44 +277,17 @@
       </div>
 
     </div>
-
-
-    <div>
-
-
-      <!-- Multiselect DropDown menu -->
-
-        <div class="" style="margin: 10% 25%">
-          <h2 class="title is-3">Choose your Interests</h2>
-          <br />
-          <ejs-multiselect
-            :dataSource='sportsData' :mode='boxMode' :placeholder='waterMark' v-model="sportsSelection">
-          </ejs-multiselect>
-          <br />
-          <ejs-multiselect
-            :dataSource='oaData' :mode='boxMode' :placeholder='waterMark' v-model="outdoorSelection">
-          </ejs-multiselect>
-          <br />
-          <ejs-multiselect
-            :dataSource='indoorData' :mode='boxMode' :placeholder='waterMark' v-model="indoorSelection">
-          </ejs-multiselect>
-          <br />
-          <ejs-multiselect
-            :dataSource='musicData' :mode='boxMode' :placeholder='waterMark' v-model="musicSelection">
-          </ejs-multiselect>
-          <br />
-          <input type="button" @click="dropdown" value="Save Interests" />
-        </div>
-    </div>
+  </div>
 </template>
 <script>
 import AuthService from '@/services/AuthService.js';
 import FileUpload from '@/components/FileUpload.vue';
 import ProfilePic from '@/components/ProfilePic.vue';
 import ChangeEmail from '@/components/ChangeEmail.vue';
-import Vue from 'vue'; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
-import {DropDownListPlugin} from '@syncfusion/ej2-vue-dropdowns'; // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
-Vue.use(DropDownListPlugin); // https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+import Vue from 'vue';
+// https://ej2.syncfusion.com/vue/documentation/drop-down-list/getting-started/
+import {DropDownListPlugin} from '@syncfusion/ej2-vue-dropdowns';
+Vue.use(DropDownListPlugin);
 // following are for multiple select DropDown Menu
 import {MultiSelectPlugin} from '@syncfusion/ej2-vue-dropdowns';
 Vue.use(MultiSelectPlugin);
@@ -278,11 +328,6 @@ export default Vue.extend({
       indoorSelection: [],
       musicSelection: [],
       dropdownSelections: [],
-      // following are for multiple select DropDown Menu. Hardcoded
-      waterMark: 'Available Options',
-      defaultMode: 'Default',
-      boxMode: 'Box',
-      delimiterMode: 'Delimiter',
     };
   },
 
@@ -365,9 +410,12 @@ export default Vue.extend({
 });
 </script>
 
-// without this styling multiple dropdown doesnt work properly
 <style scoped>
-@import url(https://cdn.syncfusion.com/ej2/material.css);
+/* without this styling multiple dropdown doesnt work properly */
+@import "../../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+
 
 .image{
   overflow: hidden;
@@ -377,8 +425,11 @@ export default Vue.extend({
   margin: 0.25rem;
 }
 
+.box.is-full-height{
+  height: 100%;
+}
+
 .control.is-radio-left{
   text-align: left;
 }
-
 </style>
