@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="columns">
-        <div class="column is-one-quarter" id="matchedList">
+        <div class="column is-one-quarter" id="matchedList" v-if="!$isMobile()">
           <div class="box">
             <h2 class="title is-2">Your Matches</h2>
           </div>
