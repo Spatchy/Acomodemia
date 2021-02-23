@@ -38,7 +38,7 @@
         <div class="chatinput">
           <div class="field has-addons">
             <div class="control is-expanded">
-              <input class="input is-rounded is-primary" type="text" placeholder="Type your message here" v-model="message"/>
+              <input class="input is-rounded is-primary" type="text" placeholder="Type your message here" v-model="message" v-on:keyup.enter="send"/>
             </div>
             <div class="control">
               <input class="button is-rounded is-primary" type="button" value="Send" @click="send" />
@@ -80,20 +80,25 @@ export default {
   },
   methods: {
     async send() {
-      console.log('start: ' + this.message);
-      const payload = {
-        body: this.message,
-        recipient: this.matchingID,
-      };
-      try {
-        console.log(payload);
-        await this.socket.emit('message', payload);
-        this.sentMessage = payload.body;
-      } catch (error) {
-        console.log(error);
+      // checking if message is not empty string
+      if (this.message.length > 0) {
+        // console.log('start: ' + this.message);
+        const payload = {
+          body: this.message,
+          recipient: this.matchingID,
+        };
+        try {
+        // console.log(payload);
+          await this.socket.emit('message', payload);
+          this.sentMessage = payload.body;
+        } catch (error) {
+          console.log(error);
+        }
+        this.message = '';
+      // console.log('end: ' + this.message);
+      } else {
+        return;
       }
-      this.message = '';
-      console.log('end: ' + this.message);
     },
     getPic: function() {
       return this.photo;
