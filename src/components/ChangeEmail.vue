@@ -3,19 +3,19 @@
       <div class="field">
         <label class="label">New Email</label>
         <div class="control is-expanded">
-          <input class="input is-rounded is-primary" type="text" placeholder="New personal email" v-model="newEmail">
+          <input class="input is-rounded is-primary" type="text" placeholder="New personal email" v-model="newEmail" v-on:keyup.enter="submit">
         </div>
       </div>
       <div class="field">
         <label class="label">Confirm New Email</label>
         <div class="control is-expanded">
-          <input class="input is-rounded is-primary" type="text" placeholder="Confirm your new email" v-model="newEmailConf">
+          <input class="input is-rounded is-primary" type="text" placeholder="Confirm your new email" v-model="newEmailConf" v-on:keyup.enter="submit">
         </div>
       </div>
       <div class="field">
         <label class="label">Password</label>
         <div class="control is-expanded">
-          <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password">
+          <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password" v-on:keyup.enter="submit">
         </div>
       </div>
       <div class="field">

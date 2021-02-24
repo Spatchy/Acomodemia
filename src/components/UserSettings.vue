@@ -10,7 +10,7 @@
               <div class="field">
                 <label class="label">Location</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="text" placeholder="Town or city you want to live" v-model="location">
+                  <input class="input is-rounded is-primary" type="text" placeholder="Town or city you want to live" v-model="location" v-on:keyup.enter="settings">
                   <p class="help is-danger">Location is compulsory</p>
                 </div>
               </div>
@@ -19,7 +19,7 @@
               <div class="field">
                 <label class="label">Budget</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="number" placeholder="£ per person per month" v-model="budget">
+                  <input class="input is-rounded is-primary" type="number" placeholder="£ per person per month" v-model="budget" v-on:keyup.enter="settings">
                 </div>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <div class="field">
                 <label class="label">Move in Date</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="date" placeholder="dd/mm/yyyy" v-model="movDate">
+                  <input class="input is-rounded is-primary" type="date" placeholder="dd/mm/yyyy" v-model="movDate" v-on:keyup.enter="settings">
                 </div>
               </div>
             </div>
@@ -38,7 +38,7 @@
               <div class="field">
                 <label class="label">Course</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="text" placeholder="What you're studying" v-model="course">
+                  <input class="input is-rounded is-primary" type="text" placeholder="What you're studying" v-model="course" v-on:keyup.enter="settings">
                 </div>
               </div>
             </div>
