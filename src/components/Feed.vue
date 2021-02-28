@@ -1,73 +1,75 @@
 <template>
+  <div class="outer-boundary">
+    <div id="empty-feed-info" v-if="arraylength==0">
+      <div class="icon">
+        <i class="fas fa-users title is-1"></i>
+      </div>
+      <p class="subtitle is-6 left-align">Your feed is empty, check back later</p>
+    </div>
 
-    <div>
-      <div id="empty-feed-info" v-if="arraylength==0">
-        <div class="icon">
-          <i class="fas fa-users title is-1"></i>
+    <div ref="container" id="container" v-show="arraylength !=0"></div> <!--Feed items will be injected-->
+
+    <div id="controls">
+      <div class="level is-mobile">
+        <div class="level-item has-text-centred">
+          <button class="button is-rounded is-primary" value="Previous" ref="prevBtn" :disabled="arraylength==0 || currentSuggestion==0" @click="prev">
+            <span class="icon title is-1 has-text-white"><i class="fas fa-chevron-left"></i></span>
+          </button>
         </div>
-        <p class="subtitle is-6 left-align">Your feed is empty, check back later</p>
-      </div>
-      <div ref="container" id="container" v-show="arraylength !=0"></div> <!--Feed items will be injected-->
-      <div id="controls">
-        <div class="level">
-          <div class="level-item has-text-centred">
-            <button class="button is-rounded is-primary" value="Previous" ref="prevBtn" :disabled="arraylength==0 || currentSuggestion==0" @click="prev">
-              <span class="icon title is-1 has-text-white"><i class="fas fa-chevron-left"></i></span>
-            </button>
-          </div>
-          <div class="level-item has-text-centred">
-            <button class="button is-rounded is-primary" value="Hide" ref="rejBtn" :disabled="arraylength==0" @click="reject">
-              <span class="icon title is-1 has-text-white"><i class="fas fa-times"></i></span>
-            </button>
-          </div>
-          <div class="level-item has-text-centred">
-            <button class="button is-rounded is-primary" value="Match" ref="matchBtn" :disabled="arraylength==0" @click="match">
-              <span class="icon title is-1 has-text-white"><i class="fas fa-check"></i></span>
-            </button>
-          </div>
-          <div class="level-item has-text-centred">
-            <button class="button is-rounded is-primary" value="Next" ref="nextBtn" :disabled="arraylength==0 || currentSuggestion==(arraylength-1)" @click="next">
-              <span class="icon title is-1 has-text-white"><i class="fas fa-chevron-right"></i></span>
-            </button>
-          </div>
+        <div class="level-item has-text-centred">
+          <button class="button is-rounded is-primary" value="Hide" ref="rejBtn" :disabled="arraylength==0" @click="reject">
+            <span class="icon title is-1 has-text-white"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="level-item has-text-centred">
+          <button class="button is-rounded is-primary" value="Match" ref="matchBtn" :disabled="arraylength==0" @click="match">
+            <span class="icon title is-1 has-text-white"><i class="fas fa-check"></i></span>
+          </button>
+        </div>
+        <div class="level-item has-text-centred">
+          <button class="button is-rounded is-primary" value="Next" ref="nextBtn" :disabled="arraylength==0 || currentSuggestion==(arraylength-1)" @click="next">
+            <span class="icon title is-1 has-text-white"><i class="fas fa-chevron-right"></i></span>
+          </button>
         </div>
       </div>
-      <div :class="['modal', {'is-active':matchMessage.startsWith('Matched with')}]">
-        <div class="modal-background" @click="clearMatchMessage()"></div>
-        <div class="modal-content">
-          <div class="box">
-            <h2 class="title is-2">You Got a Match!</h2>
-            <div class="section">
-              <span class="icon is-huge has-text-primary">
-                <i class="fas fa-handshake"></i>
-              </span>
-              <p>You matched with {{ requestSentToName }}! Why not say hi?</p>
-            </div>
-            <div class="columns">
-              <div class="column">
-                <div class="field">
-                  <div class="control is-expended">
-                    <button class="button is-primary is-rounded" @click="pushToChat()">
-                      Go to Chat
-                    </button>
-                  </div>
+    </div>
+
+    <div :class="['modal', {'is-active':matchMessage.startsWith('Matched with')}]">
+      <div class="modal-background" @click="clearMatchMessage()"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title is-2">You Got a Match!</h2>
+          <div class="section">
+            <span class="icon is-huge has-text-primary">
+              <i class="fas fa-handshake"></i>
+            </span>
+            <p>You matched with {{ requestSentToName }}! Why not say hi?</p>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <div class="control is-expended">
+                  <button class="button is-primary is-rounded" @click="pushToChat()">
+                    Go to Chat
+                  </button>
                 </div>
               </div>
-              <div class="column">
-                <div class="field">
-                  <div class="control is-expanded">
-                    <button class="button is-rounded is-light" @click="clearMatchMessage()">
-                      Keep Browsing
-                    </button>
-                  </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <div class="control is-expanded">
+                  <button class="button is-rounded is-light" @click="clearMatchMessage()">
+                    Keep Browsing
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <button class="modal-close is-large" aria-label="close"  @click="clearMatchMessage()"></button>
       </div>
-   </div>
+      <button class="modal-close is-large" aria-label="close"  @click="clearMatchMessage()"></button>
+    </div>
+  </div>
 </template>
 <script>
 import AuthService from '@/services/AuthService.js';
@@ -215,17 +217,21 @@ button{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
+.outer-boundary{
+  display: contents;
+  flex-grow: 1;
+}
 .level{
-  position: absolute;
-  bottom: 0.25rem;
-  left: calc(25% - 0.5rem);
-  right: 0px;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+  width: 100%;
+  margin: 0.25rem;
 }
 #container{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+  overflow-y: auto;
+  flex-shrink: 1;
+  flex-grow: inherit;
+  position: relative;
 }
 .icon.is-huge{
   font-size: 10rem;

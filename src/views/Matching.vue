@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="outer-boundary">
       <div class="columns">
         <div class="column is-one-quarter" id="matchedList" v-if="!$isMobile()">
           <div class="box">
@@ -41,8 +41,18 @@ export default {
 };
 </script>
 <style scoped>
+.outer-boundary{
+  height: calc(100vh - 68px);
+}
 .box{
   margin: 0.25rem;
+}
+.columns{
+  height: 100%;
+}
+.column{
+  display: flex;
+  flex-direction: column;
 }
 #matchedList{
   overflow-y: scroll;
