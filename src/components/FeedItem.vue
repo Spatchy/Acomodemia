@@ -1,26 +1,31 @@
 <template>
     <div class="card">
+      <div class="card-image" v-if="$isMobile()"> <!--Render profile image on top of card on mobile-->
+        <figure class="image is-square">
+          <img :src="getPic()" :alt="'Picture of ' + name">
+        </figure>
+      </div>
       <div class="card-content">
         <div class="media">
-          <div class="media-left">
+          <div class="media-left" v-if="!$isMobile()"> <!--Render profile image on left on desktop-->
             <figure class="image is-300x300" id="photo">
-              <img :src="getPic()" alt="">
+              <img :src="getPic()" :alt="'Picture of ' + name">
             </figure>
           </div>
           <div class="media-content">
             <div>
               <h3 class="title is-3 left-align">{{name}}, {{age}}</h3>
-              <h5 class="subtitle is-5 left-align has-bottom-divider">{{gender}}</h5>
+              <h5 class="subtitle is-5 left-align has-bottom-divider" v-if="gender != 'Rather Not Say'">{{gender}}</h5>
             </div>
             <div class="tags has-addons left-align">
               <div class="tag is-primary is-rounded"><span class="icon has-text-white"><i class="fas fa-map-marker-alt"></i></span></div>
               <div class="tag is-rounded"><span>{{location}}</span></div>
             </div>
-            <div class="tags has-addons left-align">
+            <div class="tags has-addons left-align" v-if="budget">
               <div class="tag is-primary is-rounded"><span class="icon has-text-white"><i class="fas fa-money-bill-alt"></i></span></div>
               <div class="tag is-rounded"><span>£{{budget}} pppm</span></div>
             </div>
-            <div class="tags has-addons left-align">
+            <div class="tags has-addons left-align" v-if="subject">
               <div class="tag is-primary is-rounded"><span class="icon has-text-white"><i class="fas fa-user-graduate"></i></span></div>
               <div class="tag is-rounded"><span>{{subject}}</span></div>
             </div>
@@ -156,5 +161,10 @@ img{
 }
 .tags:not(:last-child){
   margin-bottom: auto;
+}
+
+.card-image{
+  position: sticky;
+  top: 0;
 }
 </style>
