@@ -8,7 +8,7 @@
           <matches>
         </div> <!--matches will be injected-->
         <div class="column">
-            <div class="box">
+            <div class="box" v-if="!$isMobile()">
               <h2 class="title is-2">Feed</h2>
             </div>
             <feed>
@@ -53,6 +53,7 @@ export default {
 .column{
   display: flex;
   flex-direction: column;
+  max-height: 100%;
 }
 #matchedList{
   overflow-y: scroll;
