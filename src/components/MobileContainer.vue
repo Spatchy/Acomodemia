@@ -36,8 +36,7 @@
       LEFT & RIGHT TOUCH AREAS
       Non-visible divs over left & right sides of screen that can be tapped to change slide
     -->
-    <div class="touch-tap-left" role="button" aria-label="Previous" tabindex="0" @click="previous"
-      @keyup.enter="previous" @keyup.space="previous">
+    <div class="touch-tap-left" role="button" aria-label="Previous" tabindex="0">
 
       <!--
         LEFT EDGE SHAPE
@@ -51,8 +50,7 @@
 
     </div>
 
-    <div class="touch-tap-right" role="button" aria-label="Next" tabindex="0" @click="next" @keyup.enter="next"
-      @keyup.space="next">
+    <div class="touch-tap-right" role="button" aria-label="Next" tabindex="0">
 
       <!-- RIGHT EDGE SHAPE-->
       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 10 100" height="100%" width="40px"
