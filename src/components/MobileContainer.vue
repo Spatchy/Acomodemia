@@ -1,5 +1,5 @@
 <template>
-<div id="app">
+<div>
 
   <!--
       TOUCH CONTAINER
@@ -430,35 +430,5 @@ body {
 .right-edge-shape {
   right: 0;
   transform-origin: right;
-}
-
-.red {
-  background: rgb(255,6,25);
-  background: linear-gradient(145deg, rgba(255,6,25,1) 40%, rgba(255,4,159,1) 100%);
-}
-
-.orange {
-  background: rgb(255,100,6);
-  background: linear-gradient(145deg, rgba(255,100,6,1) 40%, rgba(255,183,4,1) 100%);
-}
-
-.yellow {
-  background: rgb(255,241,0);
-  background: linear-gradient(145deg, rgba(255,241,0,1) 40%, rgba(239,255,6,1) 100%);
-}
-
-.green {
-  background: rgb(1,159,127);
-  background: linear-gradient(145deg, rgba(1,159,127,1) 40%, rgba(161,230,0,1) 100%);
-}
-
-.blue {
-  background: rgb(34,29,233);
-  background: linear-gradient(145deg, rgba(34,29,233,1) 40%, rgba(0,206,230,1) 100%);
-}
-
-.purple {
- background: rgb(114,27,250);
- background: linear-gradient(145deg, rgba(114,27,250,1) 40%, rgba(171,84,250,1) 100%);
 }
 </style>
