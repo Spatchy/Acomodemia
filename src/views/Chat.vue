@@ -1,10 +1,11 @@
 <template>
   <div class="outer-boundary">
     <div class="columns">
-      <div class="column is-one-quarter" ref="matchedlist" id="matchedList">
+      <div class="column is-one-quarter" ref="matchedlist" id="matchedList" v-if="!$isMobile()">
         <div class="box">
           <h2 class="title is-2">Your Matches</h2>
         </div>
+        <matches>
       </div>
 
       <div class="column">
@@ -56,6 +57,7 @@ import AuthService from '@/services/AuthService.js';
 import io from 'socket.io-client';
 import Vue from 'vue';
 import Message from '@/components/Message.vue';
+import Matches from '@/components/Matches.vue';
 
 export default {
   name: 'Chat',
@@ -63,6 +65,7 @@ export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
     Message,
+    Matches,
   },
   data() {
     return {
@@ -214,6 +217,7 @@ export default {
 .column{
   display: flex;
   flex-direction: column;
+  max-height: 100%;
 }
 
 #matchedList{
