@@ -15,6 +15,7 @@ import Vue from 'vue';
 export default {
   name: 'Matches',
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     MatchedPerson,
   },
   data() {
@@ -31,6 +32,7 @@ export default {
           age: match.age,
           matchingID: match.matchingID,
           photo: match.photo,
+          currentlyChatting: this.$route.query.to == match.matchingID,
         },
       });
       instance.$mount(); // pass nothing

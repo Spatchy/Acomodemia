@@ -9,7 +9,8 @@
         </div>
         <div class="media-content">
           <p class="title is-4 left-align">{{name}}, {{age}}</p>
-          <p class="subtitle is-6 left-align">Click to chat with {{name}}</p>
+          <p class="subtitle is-6 left-align" v-if="!currentlyChatting">Click to chat with {{name}}</p>
+          <p class="subtitle is-6 left-align has-text-primary" v-if="currentlyChatting">Chatting with {{name}}</p>
       </div>
       <div>
     </div>
@@ -19,7 +20,7 @@
 import router from '../router';
 export default {
   name: 'MatchedPerson',
-  props: ['name', 'age', 'matchingID', 'photo'],
+  props: ['name', 'age', 'matchingID', 'photo', 'currentlyChatting'],
   data() {
     return {
       pic: '',
