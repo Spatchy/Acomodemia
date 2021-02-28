@@ -26,6 +26,7 @@
           Whatever content or component you're displaying
         -->
         <div class="item-content" :class="item.id">
+          <component :is="views[item.index]">
         </div>
       </div>
 
@@ -70,12 +71,13 @@ import Matches from '@/components/Matches.vue';
 import Matching from '@/views/Matching.vue';
 import Settings from '@/views/Settings.vue';
 import _ from 'lodash';
-import Hammer from 'hammerjs'
+import Hammer from 'hammerjs';
 export default {
   name: 'MobileContainer',
   data() {
     return {
-      items: ['red', 'orange', 'yellow', 'green', 'blue', 'purple'], // IDs for all items
+      items: ['Matches', 'Matching', 'Settings'], // IDs for all items
+      views: [Matches, Matching, Settings],
       isInfiniteLoop: false, // Whether to loop back to start of item array when reaching the end
       prefersReducedMotion: false,
       currentIndex: 0,
@@ -99,10 +101,13 @@ export default {
         arr = [...arr, ...arr];
       }
 
-      return arr.map((id, index) => ({
+      const infoMap = arr.map((id, index) => ({
         id,
+        index,
         key: `${id}-${index}`,
       }));
+      console.log(infoMap);
+      return infoMap;
     },
 
     // Return array of objects for the 3 items to be rendered in the DOM at the moment
