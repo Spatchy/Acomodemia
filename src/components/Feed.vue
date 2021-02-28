@@ -223,7 +223,8 @@ button{
 }
 .level{
   width: 100%;
-  margin: 0.25rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 #container{
   margin-left: 0.25rem;
