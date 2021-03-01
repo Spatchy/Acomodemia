@@ -377,7 +377,7 @@ router.post('/details', (req, res, next) => {
             location: result[0].Location,
             budget: result[0].Budget,
             movDate: result[0].MoveDate,
-            drinking: result[0].drinkingVal,
+            drinking: result[0].DrinkingLevel,
             owl: result[0].IsNightOwl,
             extro: result[0].IsExtrovert,
             smoke: result[0].SmokingLevel,
