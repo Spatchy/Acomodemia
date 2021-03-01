@@ -398,54 +398,55 @@ router.post('/interests', (req, res, next) => {
             return res.status(500).send({
               msg: err,
             });
-          }
-          req.body.outdoorSelection.forEach((sel) => {
-            db.query(
-                `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(sel)});`,
+          } else {
+            req.body.outdoorSelection.forEach((sel) => {
+              db.query(
+                  `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(sel)});`,
 
-                (err, result) => {
-                  if (err) {
-                    return res.status(500).send({
-                      msg: err,
-                    });
-                  }
-                  req.body.indoorSelection.forEach((se) => {
-                    db.query(
-                        `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(se)});`,
+                  (err, result) => {
+                    if (err) {
+                      return res.status(500).send({
+                        msg: err,
+                      });
+                    }
+                    req.body.indoorSelection.forEach((se) => {
+                      db.query(
+                          `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(se)});`,
 
-                        (err, result) => {
-                          if (err) {
-                            return res.status(500).send({
-                              msg: err,
+                          (err, result) => {
+                            if (err) {
+                              return res.status(500).send({
+                                msg: err,
+                              });
+                            }
+                            req.body.musicSelection.forEach((s) => {
+                              db.query(
+                                  `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(s)});`,
+
+                                  (err, result) => {
+                                    if (err) {
+                                      return res.status(500).send({
+                                        msg: err,
+                                      });
+                                    }
+                                    if (result) {
+                                      return res.status(200).send({
+                                        msg: 'Confirmed!',
+                                      });
+                                    }
+                                    return res.status(403).send({
+                                      msg: 'Incorrect Code!',
+                                    });
+                                  },
+                              );
                             });
-                          }
-                          req.body.musicSelection.forEach((s) => {
-                            db.query(
-                                `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(s)});`,
-
-                                (err, result) => {
-                                  if (err) {
-                                    return res.status(500).send({
-                                      msg: err,
-                                    });
-                                  }
-                                  if (result) {
-                                    return res.status(200).send({
-                                      msg: 'Confirmed!',
-                                    });
-                                  }
-                                  return res.status(403).send({
-                                    msg: 'Incorrect Code!',
-                                  });
-                                },
-                            );
-                          });
-                        },
-                    );
-                  });
-                },
-            );
-          });
+                          },
+                      );
+                    });
+                  },
+              );
+            });
+          }
         },
     );
   });
