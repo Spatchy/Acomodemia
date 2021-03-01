@@ -248,7 +248,7 @@
             <div class="control is-expanded">
               <div class="input is-primary is-rounded multiselect-wrapper has-icons-right">
                 <ejs-multiselect
-                  :musicSource='indoorData' mode='Box' placeholder='Music' v-model="musicSelection">
+                  :dataSource='musicData' mode='Box' placeholder='Music' v-model="musicSelection">
                 </ejs-multiselect>
                 <span class="icon is-small is-right">
                   <i class="fas fa-angle-down"></i>
