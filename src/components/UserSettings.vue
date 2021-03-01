@@ -38,7 +38,7 @@
               <div class="field">
                 <label class="label">Course</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="text" placeholder="What you're studying" v-model="course" v-on:keyup.enter="settings">
+                  <input class="input is-rounded is-primary" type="text" placeholder="What you're studying" v-model="study" v-on:keyup.enter="settings">
                 </div>
               </div>
             </div>
