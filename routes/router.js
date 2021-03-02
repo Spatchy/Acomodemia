@@ -389,65 +389,68 @@ router.post('/details', (req, res, next) => {
 });
 
 router.post('/interests', (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+      token,
+      'SECRETKEY',
+  );
   req.body.sportsSelection.forEach((selection) => {
     db.query(
-        `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(selection)});`,
+      `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(selection)});`,
 
-        (err, result) => {
-          if (err) {
-            return res.status(500).send({
-              msg: err,
-            });
-          } else {
-            req.body.outdoorSelection.forEach((sel) => {
-              db.query(
-                  `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(sel)});`,
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            msg: err,
+          });
+        } else {
+          req.body.outdoorSelection.forEach((sel) => {
+            db.query(
+              `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(sel)});`,
 
-                  (err, result) => {
-                    if (err) {
-                      return res.status(500).send({
-                        msg: err,
-                      });
-                    }
-                    req.body.indoorSelection.forEach((se) => {
-                      db.query(
-                          `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(se)});`,
+              (err, result) => {
+                if (err) {
+                  return res.status(500).send({
+                    msg: err,
+                  });
+                } else {
+                  req.body.indoorSelection.forEach((se) => {
+                    db.query(
+                      `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(se)});`,
 
-                          (err, result) => {
-                            if (err) {
-                              return res.status(500).send({
-                                msg: err,
-                              });
-                            }
-                            req.body.musicSelection.forEach((s) => {
-                              db.query(
-                                  `INSERT INTO InterestsSet VALUES(${db.escape(req.body.username)}, ${db.escape(s)});`,
+                      (err, result) => {
+                        if (err) {
+                          return res.status(500).send({
+                            msg: err,
+                          });
+                        } else {
+                          req.body.musicSelection.forEach((s) => {
+                            db.query(
+                              `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(s)});`,
 
-                                  (err, result) => {
-                                    if (err) {
-                                      return res.status(500).send({
-                                        msg: err,
-                                      });
-                                    }
-                                    if (result) {
-                                      return res.status(200).send({
-                                        msg: 'Confirmed!',
-                                      });
-                                    }
-                                    return res.status(403).send({
-                                      msg: 'Incorrect Code!',
-                                    });
-                                  },
-                              );
-                            });
-                          },
-                      );
-                    });
-                  },
-              );
-            });
-          }
-        },
+                              (err, result) => {
+                                if (err) {
+                                  return res.status(500).send({
+                                    msg: err,
+                                  });
+                                } else {
+                                  return res.status(200).send({
+                                    msg: 'Confirmed!',
+                                  });
+                                }
+                              },
+                            );
+                          });
+                        }
+                      },
+                    );
+                  });
+                }
+              },
+            );
+          });
+        }
+      },
     );
   });
 });
