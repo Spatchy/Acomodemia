@@ -23,7 +23,7 @@
       </div>
       <div class="field">
         <div class="control is-expanded">
-          <button class=" button is-rounded is-primary">Upload</button>
+          <button class=" button is-rounded is-primary" :disabled="!file">Upload</button>
         </div>
       </div>
     </form>
@@ -118,6 +118,7 @@ export default {
       try {
         await AuthService.fileUpload(formData);
         this.message = 'Uploaded!';
+        this.cancelUpload(); // doing this after upload clears local stuff
       } catch (err) {
         console.log(err);
         this.message = 'Something went wrong';
