@@ -85,6 +85,14 @@ p.help{
   font-family: $family-sans-serif
 }
 
+/*apply global consistency to cropper (not accessable from scoped style)*/
+.cropper-line, .cropper-point{
+  background-color: white; 
+}
+.cropper-view-box{
+  outline-color: white;
+}
+
 // Import only what you need from Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
