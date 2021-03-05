@@ -35,10 +35,12 @@
         <div>
           <img :src="formattedPhoto" alt="Crop your photo" id="cropImage" ref="cropImage">
         </div>
+      </div>
+      <div class="modal-content has-overflow">
         <div class="box">
           <div class="level">
             <div class="level-item">
-              <button class="button is-primary">Test</button>
+              <button class="button is-primary is-rounded" ref="savebtn">Save</button>
             </div>
           </div>
         </div>
@@ -60,6 +62,7 @@ export default {
       message: '',
       modalClass: '',
       formattedPhoto: '',
+      cropper: null,
     };
   },
   methods: {
@@ -85,11 +88,23 @@ export default {
           reader.onload = function() {
             refThis.formattedPhoto = reader.result;
             setTimeout(function() {
-              const cropper = new Cropper(refThis.$refs.cropImage, {
+              refThis.cropper = new Cropper(refThis.$refs.cropImage, {
                 aspectRatio: 1 / 1,
                 viewMode: 3,
+                dragMode: 'move',
+                ready() {
+                  refThis.$refs.savebtn.addEventListener('click', function() {
+                    refThis.cropper.getCroppedCanvas({
+                      width: 300,
+                      height: 300,
+                    }).toBlob(function(blob) {
+                      refThis.file = blob;
+                      refThis.fileName = 'Ready for upload';
+                      refThis.modalClass = '';
+                    });
+                  });
+                },
               });
-              console.log(cropper);
             }, 10);
           };
         } catch (err) {
@@ -109,9 +124,15 @@ export default {
       }
     },
     cancelUpload() {
-      this.modalClass = '';
+      try {
+        this.cropper.destroy();
+      } catch (error) {
+        console.warn(error);
+      }
       this.file = '';
+      this.$refs.file.value = '';
       this.fileName = 'No file chosen…';
+      this.modalClass = ''; // This needs to stay last
     },
   },
 };
@@ -123,9 +144,6 @@ span.button{
 input.file-name{
   border-width: 2px;
 }
-img, .container, .cropper-container{
-  height: 100%;
-}
 img{
   object-fit: contain;
   max-width: 100%;
@@ -133,5 +151,8 @@ img{
 .box{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+.has-overflow{
+  overflow: visible;
 }
 </style>
