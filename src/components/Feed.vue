@@ -103,16 +103,24 @@ export default {
       profilePic: '',
       arraylength: 0,
       requestSentToName: '',
+      page: 0,
+      pageSize: 20,
     };
   },
   async created() {
-    const credentials = {page: 0};
+    const credentials = {page: this.page};
     const result = await AuthService.getFeed(credentials);
     this.res = result;
     this.next();
   },
   methods: {
-    next() {
+    async next() {
+      if (this.currentSuggestion == this.pageSize * (this.page +1)) {
+        this.page ++;
+        const credentials = {page: this.page};
+        const result = await AuthService.getFeed(credentials);
+        this.res.push(result);
+      }
       this.currentSuggestion = this.currentSuggestion + 1;
       this.change();
     },
