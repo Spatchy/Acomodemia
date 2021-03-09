@@ -1,5 +1,6 @@
 <template>
 <div>
+  <mobile-header></mobile-header>
 
   <!--
       TOUCH CONTAINER
@@ -68,6 +69,7 @@
 import Matches from '@/components/Matches.vue';
 import Matching from '@/components/Matching.vue';
 import Settings from '@/components/UserSettings.vue';
+import MobileHeader from '@/components/MobileHeader.vue';
 import _ from 'lodash';
 import Hammer from 'hammerjs';
 export default {
@@ -90,6 +92,9 @@ export default {
     };
   },
   props: ['startOn'],
+  components: {
+    MobileHeader,
+  },
   computed: {
     // Returns array of objects with id & key for each item
     // For the v-for loop, each slide needs a stable and unique key
