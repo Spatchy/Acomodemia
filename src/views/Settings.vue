@@ -1,23 +1,21 @@
 <template>
   <div>
-    <settings-header></settings-header>
     <div>
-      <div class="box">
-        <h1 style="text-align: center;" class="title is-1">Account Settings</h1>
-      </diV>
-        <br>
-        <user-settings>
+        <mobile-container startOn="Settings" v-if="$isMobile()"></mobile-container>
+        <user-settings v-else></user-settings>
     </div>
   </div>
 </template>
 
 <script>
 import UserSettings from '@/components/UserSettings.vue';
+import MobileContainer from '@/components/MobileContainer.vue';
 
 export default {
   name: 'Settings',
   components: {
     UserSettings,
+    MobileContainer,
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {

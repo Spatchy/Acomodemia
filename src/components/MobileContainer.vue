@@ -66,15 +66,15 @@
 
 <script>
 import Matches from '@/components/Matches.vue';
-import Matching from '@/views/Matching.vue';
-import Settings from '@/views/Settings.vue';
+import Matching from '@/components/Matching.vue';
+import Settings from '@/components/UserSettings.vue';
 import _ from 'lodash';
 import Hammer from 'hammerjs';
 export default {
   name: 'MobileContainer',
   data() {
     return {
-      items: ['Matches', 'Matching', 'Settings'], // IDs for all items
+      items: ['Matches', 'Feed', 'Settings'], // IDs for all items
       views: [Matches, Matching, Settings],
       isInfiniteLoop: false, // Whether to loop back to start of item array when reaching the end
       prefersReducedMotion: false,
@@ -89,6 +89,7 @@ export default {
       rightEdgeScale: 0,
     };
   },
+  props: ['startOn'],
   computed: {
     // Returns array of objects with id & key for each item
     // For the v-for loop, each slide needs a stable and unique key
@@ -136,6 +137,9 @@ export default {
       const {items, currentIndex, isInfiniteLoop} = this;
       return currentIndex > 0 || (isInfiniteLoop && items.length !== 1);
     },
+  },
+  created() {
+    this.currentIndex = this.items.indexOf(this.startOn);
   },
   mounted() {
     // Set up Hammer element & event listeners to respond to swiping gestures
@@ -323,6 +327,7 @@ export default {
     updateCurrentItem() {
       this.currentIndex = this.upcomingIndex;
       this.resetTranslate();
+      history.replaceState({}, null, this.items[this.currentIndex].toLowerCase());
     },
 
     resetTranslate() {

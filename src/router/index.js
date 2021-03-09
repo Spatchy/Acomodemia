@@ -4,7 +4,6 @@ import VueRouter from 'vue-router';
 import Login from '../views/Login.vue';
 import SignUp from '../views/SignUp.vue';
 import Settings from '../views/Settings.vue';
-import Complete from '../views/Complete.vue';
 import Matching from '../views/Matching.vue';
 import Verify from '../views/Verify.vue';
 import Chat from '../views/Chat.vue';
