@@ -27,11 +27,7 @@ const routes = [{
   path: '/settings',
   name: 'Settings',
   component: Settings,
-},
-{
-  path: '/complete',
-  name: 'Complete',
-  component: Complete,
+  alias: '/complete',
 },
 {
   path: '/feed',

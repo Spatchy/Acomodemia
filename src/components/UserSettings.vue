@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div class="box">
+        <h1 class="title is-1">
+          <div v-if="this.$route.path == '/complete'">
+            Complete Your Profile
+            <h6 class="subtitle is-6">You can change any of these settings at any time on your account page</h6>
+          </div>
+          <span v-else>Account Settings</span>
+        </h1>
+    </div>
     <div class="columns">
       <div class="column is-flex">
 
@@ -270,9 +279,18 @@
       </div>
 
       <div class="column is-one-third">
-        <div class="box" ref="changeemail">
+        <div class="box" ref="changeemail" v-if="this.$route.path != '/complete'">
           <h3 class="title is-3">Change Email</h3>
           <change-email>
+        </div>
+        <div class="box" v-else>
+          <h3 class="title is-3">Are You Done?</h3>
+          <div class="field">
+            <p>When you're happy with your profile, you can go to your feed to start finding matches</p>
+            <div class="control is-expanded">
+              <button class="button is-primary is-rounded" @click="router.push('/feed')">Go to feed</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -330,7 +348,6 @@ export default Vue.extend({
       dropdownSelections: [],
     };
   },
-
   async created() {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push('/');
