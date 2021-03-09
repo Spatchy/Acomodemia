@@ -288,7 +288,7 @@
           <div class="field">
             <p>When you're happy with your profile, you can go to your feed to start finding matches</p>
             <div class="control is-expanded">
-              <button class="button is-primary is-rounded" @click="router.push('/feed')">Go to feed</button>
+              <button class="button is-primary is-rounded" @click="$router.push('/feed')">Go to feed</button>
             </div>
           </div>
         </div>
