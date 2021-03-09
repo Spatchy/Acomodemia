@@ -11,6 +11,50 @@
 <script>
 export default {
   name: 'MobileHeader',
+  props: ['offsetMultiplier'],
+  data() {
+    return {
+      offset: 0,
+    };
+  },
+  computed: {
+    indicatorWidth() {
+      return this.$refs.indicator.clientWidth;
+    },
+    initialOffset() {
+      return this.indicatorWidth * this.offsetMultiplier;
+    },
+  },
+  methods: {
+    animate(doBackwards = false) {
+      let id = null;
+      let moved = 0;
+      let animWidth = this.indicatorWidth;
+      let translated = 0;
+      clearInterval(id);
+      id = setInterval(() => {
+        if (moved == this.indicatorWidth) {
+          clearInterval(id);
+          this.offset += translated;
+        } else {
+          moved++;
+          if (doBackwards) {
+            this.$refs.indicator.style.left = (this.offset - moved) + 'px';
+            translated -= 1;
+          } else {
+            this.$refs.indicator.style.left = (this.offset + moved) + 'px';
+            translated += 1;
+          }
+          animWidth-=2;
+          this.$refs.indicator.style.width = Math.abs(animWidth) + 'px';
+        }
+      }, 1);
+    },
+  },
+  mounted() {
+    this.offset = this.initialOffset;
+    this.$refs.indicator.style.left = this.offset + 'px';
+  },
 };
 </script>
 <style la scoped>

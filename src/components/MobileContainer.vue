@@ -1,6 +1,6 @@
 <template>
 <div>
-  <mobile-header></mobile-header>
+  <mobile-header :offsetMultiplier="items.indexOf(startOn)" ref="mobileHeader"></mobile-header>
 
   <!--
       TOUCH CONTAINER
@@ -290,6 +290,7 @@ export default {
           if (prefersReducedMotion) {
             this.updateCurrentItem();
           }
+          this.$refs.mobileHeader.animate(true);
         },
         100,
         {leading: true, trailing: false},
@@ -323,6 +324,7 @@ export default {
           if (prefersReducedMotion) {
             this.updateCurrentItem();
           }
+          this.$refs.mobileHeader.animate();
         },
         100,
         {leading: true, trailing: false},
