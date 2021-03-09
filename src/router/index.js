@@ -10,7 +10,6 @@ import Verify from '../views/Verify.vue';
 import Chat from '../views/Chat.vue';
 import Logout from '../views/Logout.vue';
 import Forgot from '../views/Forgot.vue';
-import MobileContainer from '../components/MobileContainer.vue';
 
 Vue.use(VueRouter);
 
@@ -59,11 +58,6 @@ const routes = [{
   path: '/forgot',
   name: 'Forgot',
   component: Forgot,
-},
-{
-  path: '/mobile',
-  name: 'MobileTest',
-  component: MobileContainer,
 },
 ];
 
