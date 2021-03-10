@@ -1,16 +1,16 @@
 <template>
 <div>
   <mobile-container :startOn="'Feed'" v-if="$isMobile()"></mobile-container>
-  <matching v-else></matching>
+  <matchpage v-else></matchpage>
 </div>
 </template>
 <script>
-import Matching from '@/components/Matching.vue';
+import Matchpage from '@/components/Matching.vue';
 import MobileContainer from '@/components/MobileContainer.vue';
 export default {
   name: 'Matching',
   components: {
-    Matching,
+    Matchpage,
     MobileContainer,
   },
 };
