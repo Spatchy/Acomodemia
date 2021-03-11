@@ -887,7 +887,7 @@ router.post('/forgotPassword', (req, res) => {
 });
 
 router.post('/resetPassword', (req, res) => {
-  if (req.body.newpass == req.body.confirm) {
+  if (req.body.newpass == req.body.confirm && req.body.newpass.length > 6) {
     const salt = uuid.v4().replace(/-/g, '');
     const password = req.body.newpass + salt;
     bcrypt.hash(password, 12, (err, hash) => {
@@ -938,7 +938,7 @@ router.post('/resetPassword', (req, res) => {
     });
   } else {
     return res.status(400).send({
-      msg: 'passwords do not match!',
+      msg: 'passwords do not match or your password was too short',
     });
   }
 });
