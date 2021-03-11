@@ -905,10 +905,16 @@ router.post('/resetPassword', (req, res) => {
                 });
               } else {
                 const resetcode = result[0].ResetCode;
+                // fix to prevent users entering empty strings/undefined/null as password
+                if (req.body.code.length <= 0 || null || undefined) {
+                    return res.status(500).send({
+                    msg: 'Please enter valid password.'
+                  })};
                 if (resetcode == req.body.code) {
                   db.query(
                       `UPDATE User SET HashedPassword=${db.escape(hash)}, Salt=${db.escape(salt)} WHERE PrimaryEmail=${db.escape(req.body.username)};`,
                       (err, result) => {
+                        
                         if (err) {
                           return res.status(500).send({
                             msg: err,
