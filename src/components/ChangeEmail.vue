@@ -22,8 +22,10 @@
         <div class="control is-expanded">
           <input class="button is-rounded is-primary" type="button" @click="submit" value="Change Email">
         </div>
+        <p :class="msg.startsWith('Email successfully changed!') ? 'has-text-success' : 'has-text-danger'">{{ msg }}</p>
       </div>
     </div>
+
 </template>
 <script>
 import AuthService from '@/services/AuthService.js';
@@ -39,7 +41,10 @@ export default {
   },
   methods: {
     async submit() {
-      if (this.newEmail == this.newEmailConf) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const regResult = re.test(String(this.newEmail).toLowerCase());
+      if (regResult) {
+        if (this.newEmail == this.newEmailConf) {
         try {
           const credentials = {
             newEmail: this.newEmail,
@@ -47,10 +52,17 @@ export default {
             password: this.password,
           };
           const response = AuthService.changeEmail(credentials);
-          this.msg = response.msg;
+          this.msg = 'Email successfully changed!';
+          this.$router.push('/logout');
         } catch (error) {
           console.error(error);
+          this.msg = error.response.data.msg;
         }
+      } else {
+        this.msg = 'Emails do not match!';
+      }
+      } else {
+        this.msg = 'Please enter non gibberish email ';
       }
     },
   },
