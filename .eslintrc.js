@@ -23,6 +23,6 @@ module.exports = {
     'linebreak-style': 'off',
     'max-len': 'off',
     'require-jsdoc': 'off',
-    'no-invalid-this': 'off'
+    'no-invalid-this': 'off',
   },
 };

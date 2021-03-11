@@ -45,22 +45,21 @@ export default {
       const regResult = re.test(String(this.newEmail).toLowerCase());
       if (regResult) {
         if (this.newEmail == this.newEmailConf) {
-        try {
-          const credentials = {
-            newEmail: this.newEmail,
-            newEmailConf: this.newEmailConf,
-            password: this.password,
-          };
-          const response = AuthService.changeEmail(credentials);
-          this.msg = 'Email successfully changed!';
-          this.$router.push('/logout');
-        } catch (error) {
-          console.error(error);
-          this.msg = error.response.data.msg;
+          try {
+            const credentials = {
+              newEmail: this.newEmail,
+              newEmailConf: this.newEmailConf,
+              password: this.password,
+            };
+            AuthService.changeEmail(credentials);
+            this.msg = 'Email successfully changed!';
+            this.$router.push('/logout');
+          } catch (error) {
+            console.error(error);
+          }
+        } else {
+          this.msg = 'Emails do not match!';
         }
-      } else {
-        this.msg = 'Emails do not match!';
-      }
       } else {
         this.msg = 'Please enter non gibberish email ';
       }
