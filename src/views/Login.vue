@@ -53,7 +53,7 @@
             </div>
           </div>
         </div>
-        <p v-if="msg">{{ msg }}</p> <!--here for now, best to move to notifiaction-->
+        <p class="has-text-danger">{{ msg }}</p> <!--here for now, best to move to notifiaction-->
       </div>
     </div>
   </div>
@@ -84,7 +84,8 @@ export default {
         };
         const response = await AuthService.login(credentials);
         this.msg = response.msg;
-
+        console.log(this.msg);
+        console.log(response.msg);
         const token = response.token;
         const user = response.user;
         this.$store.dispatch('login', {token, user});
@@ -97,8 +98,8 @@ export default {
 
         this.$router.push('/feed');
       } catch (error) {
-        console.log(error);
-        this.msg = error.response.msg;
+        console.log(error.response.data.msg);
+        this.msg = error.response.data.msg;
       }
     },
     async forgot() {
