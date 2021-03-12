@@ -73,7 +73,7 @@ export default {
       this.fileName = file.name;
       console.log(file);
       if (!allowedTypes.includes(file.type)) {
-        this.message = 'Only images are allowed!';
+        this.message = 'Only JPEG/JPG/PNG filetypes are allowed!';
       } else if (file.size > 1500000) {
         this.message = 'Your file is too large! max size is 1.5MB';
       } else {
