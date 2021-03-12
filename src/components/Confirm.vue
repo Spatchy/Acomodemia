@@ -32,6 +32,9 @@
 
       <input class="button is-rounded is-primary" type="button" @click="confirm" value="Confim" />
       <p class="has-text-danger" v-if="msg">{{ msg }}</p>
+      <br>
+      <hr>
+      <input class="button is-rounded is-primary" type="button" @click="back" value="Back to Main Stage" />
     </div>
   </div>
 </template>
@@ -49,6 +52,9 @@ export default {
     };
   },
   methods: {
+    async back() {
+      this.$router.push('/logout');
+    },
     async confirm() {
       try {
         const credentials = {

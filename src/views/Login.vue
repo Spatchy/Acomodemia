@@ -101,8 +101,11 @@ export default {
 
         this.$router.push('/feed');
       } catch (error) {
-        console.log(error.response.data.msg);
+        // console.log(error.response.data.msg);
         this.msg = error.response.data.msg;
+        if (this.msg == 'You are not verified') {
+          this.$router.push('/verify');
+        }
       }
     },
     async forgot() {
