@@ -251,7 +251,7 @@ function doLogin(username, password, res) {
         }
         if (!result.length) {
           return res.status(401).send({
-            msg: 'Username or password is incorrect!',
+            msg: 'Email or password is incorrect!',
           });
         }
         // check password
@@ -263,7 +263,7 @@ function doLogin(username, password, res) {
               if (bErr) {
                 // throw bErr;
                 return res.status(401).send({
-                  msg: 'Username or password is incorrect!',
+                  msg: 'Email or password is incorrect!',
                 });
               }
               if (bResult) {
@@ -296,7 +296,7 @@ function doLogin(username, password, res) {
                 });
               }
               return res.status(401).send({
-                msg: 'Username or password is incorrect!',
+                msg: 'Email or password is incorrect!',
               });
             },
         );

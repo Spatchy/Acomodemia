@@ -35,6 +35,9 @@
                 <div class="control" id="loginbtn">
                   <input class="button is-rounded is-primary" type="button" @click="login" value="Login" />
                 </div>
+
+              <p class="has-text-danger">{{ msg }}</p> <!--here for now, best to move to notifiaction-->
+
               </div>
               <hr>
               <div class="field">
@@ -53,7 +56,7 @@
             </div>
           </div>
         </div>
-        <p class="has-text-danger">{{ msg }}</p> <!--here for now, best to move to notifiaction-->
+
       </div>
     </div>
   </div>
