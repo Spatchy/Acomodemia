@@ -1,4 +1,8 @@
 <template>
+<div>
+  <br>
+  <br>
+  <br>
   <div class="container">
     <div class="box">
       <div class="level">
@@ -58,6 +62,7 @@
       <p :class="msg.startsWith('Reset code sent!') ? 'has-text-success' : 'has-text-danger'">{{ msg }}</p>
     </div>
   </div>
+</div>
 </template>
 
 <script>
