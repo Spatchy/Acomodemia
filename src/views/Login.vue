@@ -59,6 +59,38 @@
 
       </div>
     </div>
+
+  <div :class="['modal', {'is-active': $isMobile() && showPrompt}]">
+    <section class="hero is-primary is-fullheight">
+      <div class="hero-body">
+        <div class="container is-fluid">
+          <div class="image is-300x300">
+            <img src="../assets/Acomodemia Logo Inverted.svg" alt="Acomodemia Logo">
+          </div>
+          <p class="title">
+            Install Acomodemia as an App
+          </p>
+          <p class="subtitle">
+            Install Acomodemia to your device for a better experience
+          </p>
+          <button class="button is-white has-text-primary is-rounded" @click="install()">
+            <span>Install Now!</span>
+            <span class="icon">
+              <i class="fas fa-download"></i>
+            </span>
+          </button>
+          <button class="button is-white is-outlined has-text-white is-rounded" @click="dismiss()">
+            <span>No thanks</span>
+            <span class="icon">
+              <i class="fas fa-arrow-right"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+    <button class="modal-close is-large" aria-label="close" @click="dismiss()"></button>
+  </div>
+
   </div>
 </template>
 
@@ -71,12 +103,26 @@ export default {
       username: '',
       password: '',
       msg: '',
+      showPrompt: true,
+      deferredPrompt: null,
     };
   },
   async created() {
     if (this.$store.getters.isLoggedIn) {
       this.$router.push('/feed');
     }
+    // handle app install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.prompt();
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      this.deferredPrompt = e;
+    });
+    // check if app is already installed
+    window.addEventListener('appinstalled', () => {
+      this.deferredPrompt = null;
+      this.showPrompt = false;
+    });
   },
   methods: {
     async login() {
@@ -111,6 +157,15 @@ export default {
     async forgot() {
       this.$router.push('/forgot');
     },
+    // for app install prompt
+    async dismiss() {
+      this.deferredPrompt = null;
+      this.showPrompt = false;
+    },
+    async install() {
+      this.deferredPrompt.prompt();
+      this.showPrompt = false;
+    },
   },
 };
 </script>
@@ -119,5 +174,8 @@ export default {
 .box{
   width: 80%;
   margin: 0.25rem;
+}
+.buttons{
+  margin: 0.25rem
 }
 </style>
