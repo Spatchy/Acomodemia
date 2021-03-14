@@ -394,65 +394,26 @@ router.post('/interests', (req, res, next) => {
       token,
       'SECRETKEY',
   );
-  req.body.sportsSelection.forEach((selection) => {
-    db.query(
-      `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(selection)});`,
+  let allSelections = req.body.sportsSelection.concat(req.body.outdoorSelection, req.body.indoorSelection, req.body.musicSelection);
+  let interestsQuery = "";
+  allSelections.forEach(selection => {
+    interestsQuery += `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(selection)});`;
+  })
+  db.query(
+    interestsQuery,
 
-      (err, result) => {
-        if (err) {
-          return res.status(500).send({
-            msg: err,
-          });
-        } else {
-          req.body.outdoorSelection.forEach((sel) => {
-            db.query(
-              `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(sel)});`,
-
-              (err, result) => {
-                if (err) {
-                  return res.status(500).send({
-                    msg: err,
-                  });
-                } else {
-                  req.body.indoorSelection.forEach((se) => {
-                    db.query(
-                      `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(se)});`,
-
-                      (err, result) => {
-                        if (err) {
-                          return res.status(500).send({
-                            msg: err,
-                          });
-                        } else {
-                          req.body.musicSelection.forEach((s) => {
-                            db.query(
-                              `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(s)});`,
-
-                              (err, result) => {
-                                if (err) {
-                                  return res.status(500).send({
-                                    msg: err,
-                                  });
-                                } else {
-                                  return res.status(200).send({
-                                    msg: 'Confirmed!',
-                                  });
-                                }
-                              },
-                            );
-                          });
-                        }
-                      },
-                    );
-                  });
-                }
-              },
-            );
-          });
-        }
-      },
-    );
-  });
+    (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          msg: err,
+        });
+      } else {
+        return res.status(200).send({
+          msg: 'Confirmed!',
+        });
+      }
+    },
+  );
 });
 
 router.get('/getProfilePic', (req, res, next) => {
