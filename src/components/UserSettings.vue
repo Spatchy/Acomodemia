@@ -368,7 +368,7 @@ export default Vue.extend({
     this.smoke = details.smoke;
     this.diet = details.diet;
     this.study = details.study;
-    // retrieving and populating dropDown menu in Settings page
+    // retrieving and populating interests dropDown
     this.dataSports = await AuthService.retrieveSportsData();
     this.dataSports.msg.forEach((element) =>
       this.sportsData.push(element.Interest),
@@ -385,6 +385,19 @@ export default Vue.extend({
     this.dataMusicData.msg.forEach((element) =>
       this.musicData.push(element.Interest),
     );
+    // retrieving user's already selected interests
+    const allInterests = await AuthService.getInterests();
+    allInterests.forEach((element) => {
+      if (element.Category == 'Sports') {
+        this.sportsSelection.push(element.Interest);
+      } else if (element.Category == 'Indoor') {
+        this.indoorSelection.push(element.Interest);
+      } else if (element.Category == 'Outdoor/Adventure') {
+        this.outdoorSelection.push(element.Interest);
+      } else if (element.Category == 'Music') {
+        this.musicSelection.push(element.Interest);
+      }
+    });
   },
   methods: {
     async settings() {

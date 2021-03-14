@@ -135,4 +135,9 @@ export default {
         .post(url + 'changeEmail/', credentials)
         .then((response) => response.data);
   },
+  getInterests() {
+    return axios
+        .get(url+ 'getInterests/')
+        .then((response) => response.data);
+  },
 };
