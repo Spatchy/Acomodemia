@@ -395,7 +395,7 @@ router.post('/interests', (req, res, next) => {
       'SECRETKEY',
   );
   let allSelections = req.body.sportsSelection.concat(req.body.outdoorSelection, req.body.indoorSelection, req.body.musicSelection);
-  let interestsQuery = "";
+  let interestsQuery = `DELETE FROM InterestsSet WHERE UserID = ${db.escape(decoded.email)};`; // just delete everything before re-inserting to allow for individual deletions
   allSelections.forEach(selection => {
     interestsQuery += `INSERT INTO InterestsSet VALUES(${db.escape(decoded.email)}, ${db.escape(selection)});`;
   })
@@ -414,6 +414,28 @@ router.post('/interests', (req, res, next) => {
       }
     },
   );
+});
+
+router.get('/getInterests', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+      token,
+      'SECRETKEY',
+  );
+  db.query(
+    `SELECT InterestsSet.Interest, Category FROM InterestsSet, Interests WHERE InterestsSet.UserID = ${db.escape(decoded.email)} AND InterestsSet.Interest = Interests.Interest;`,
+    (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          msg: err,
+        });
+      } else {
+        res.status(200).send(
+          result,
+        )
+      }
+    },
+);
 });
 
 router.get('/getProfilePic', (req, res, next) => {
