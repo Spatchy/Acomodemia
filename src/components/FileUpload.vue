@@ -101,6 +101,8 @@ export default {
                       refThis.file = blob;
                       refThis.fileName = 'Ready for upload';
                       refThis.modalClass = '';
+                      refThis.$emit('fileReady', refThis.file);
+                      refThis.cropper.destroy();
                     });
                   });
                 },
@@ -119,11 +121,11 @@ export default {
         await AuthService.fileUpload(formData);
         this.message = 'Uploaded!';
         this.cancelUpload(); // doing this after upload clears local stuff
+        this.$emit('successfulUpload');
       } catch (err) {
         console.log(err);
         this.message = 'Something went wrong';
       }
-      window.location.reload();
     },
     cancelUpload() {
       try {

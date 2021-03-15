@@ -75,13 +75,13 @@
           <div class="level">
             <div class="level-item">
               <div class="image is-300x300">
-                <profile-pic>
+                <profile-pic ref="profilePic">
               </div>
             </div>
           </div>
           <hr>
           <div>
-            <file-upload>
+            <file-upload @fileReady="refreshImage" @successfulUpload="successfulUpload">
           </div>
           <p class="help is-danger">A profile pic is compulsory</p>
         </div>
@@ -442,6 +442,12 @@ export default Vue.extend({
       } catch (error) {
         this.msg = error.response.data.msg;
       }
+    },
+    async refreshImage(file) {
+      this.$refs.profilePic.refreshImage(file); // pass data to profilePic component when an image is ready
+    },
+    async successfulUpload() {
+      this.$refs.profilePic.successfulUpload();
     },
   },
 });
