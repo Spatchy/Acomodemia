@@ -355,11 +355,15 @@ body {
   background-color: white;
 }
 
+#mobile-wrapper {
+  overflow: hidden;
+}
+
 #touch-container {
   position: relative;
   min-width: 100%;
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #rendered-items-flexbox {

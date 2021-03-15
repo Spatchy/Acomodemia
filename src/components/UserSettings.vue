@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'mobile-scrolling':$isMobile()}">
     <div class="box">
         <h1 class="title is-1">
           <div v-if="this.$route.path == '/complete'">
@@ -495,5 +495,10 @@ export default Vue.extend({
 
 .control.is-radio-left{
   text-align: left;
+}
+
+.mobile-scrolling {
+  overflow-y: scroll;
+  height: 100%;
 }
 </style>
