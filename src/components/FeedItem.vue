@@ -167,4 +167,8 @@ img{
   position: sticky;
   top: 0;
 }
+
+.control{
+  position: unset; /** fixed weird tag overlay bug*/
+}
 </style>
