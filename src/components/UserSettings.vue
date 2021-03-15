@@ -421,9 +421,7 @@ export default Vue.extend({
           smoke: this.smoke,
           diet: this.diet,
         };
-        // console.log(info);
         this.msgBasic = 'Saved';
-        // this.lifestyleChoiceCheck();
         const response = await AuthService.settings(info);
         this.msg = response.msg;
       } catch (error) {
@@ -443,25 +441,13 @@ export default Vue.extend({
           smoke: this.smoke,
           diet: this.diet,
         };
-        // console.log(info);
         this.msgLifeStyleChoice = 'Saved';
-        // this.lifestyleChoiceCheck();
         const response = await AuthService.settings(info);
         this.msg = response.msg;
       } catch (error) {
         this.msg = error.response.data.msg;
       }
     },
-    // async lifestyleChoiceCheck() {
-    //   console.log("this.drinkingVal: " + this.drinkingVal);
-    //   console.log("details.drinkingVal: " + details.drinking);
-
-    //   if (this.drinkingVal != details.drinking || this.nightOwl != details.owl || this.extro != details.extro || this.smoke != details.smoke || this.diet != details.diet || this.study != details.study) {
-    //     this.msgLifeStyleChoice = true;
-    //   } else {
-    //     this.msgLifeStyleChoice = false;
-    //   }
-    // },
     async dropdown() {
       try {
         const info = {
