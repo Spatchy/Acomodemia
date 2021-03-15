@@ -123,6 +123,7 @@ export default {
         console.log(err);
         this.message = 'Something went wrong';
       }
+      window.location.reload();
     },
     cancelUpload() {
       try {
