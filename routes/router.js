@@ -200,11 +200,20 @@ router.post('/fileUpload', upload.single('file'), (req, res) => {
         'SECRETKEY',
     );
     db.query(
-        `UPDATE User SET PhotoUUID = '${req.file.filename}' WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
-        (result, err) => {});
-    return res.status(201).send({
-      msg: 'Uploaded!',
-    });
+        `SELECT PhotoUUID FROM User WHERE PrimaryEmail =  ${db.escape(decoded.email)};UPDATE User SET PhotoUUID = ${db.escape(req.file.filename)} WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
+        (err, result) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).send({
+              msg: 'internal server error',
+            });
+          } else if (result) {
+            fs.unlinkSync('./uploads/' + result[0][0].PhotoUUID); // delete the old file
+            return res.status(201).send({
+              msg: 'Uploaded!',
+            });
+          }
+        });
   }
 });
 
