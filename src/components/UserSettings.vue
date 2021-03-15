@@ -61,7 +61,7 @@
           </div>
 
           <div class="column is-one-third is-offset-one-third">
-            <input class=" button is-rounded is-primary" type="button" @click="settings" value="Save Changes">
+            <input class=" button is-rounded is-primary" type="button" @click="settingsBasic" value="Save Changes">
             <p class="has-text-success" v-if="msgBasic">{{ msgBasic }}</p>
           </div>
 
@@ -204,7 +204,8 @@
           </div>
 
           <div class="column is-one-third is-offset-one-third">
-            <input class=" button is-rounded is-primary" type="button" @click="settings" value="Save Changes">
+            <input class=" button is-rounded is-primary" type="button" @click="settingsLifestyleChoice" value="Save Changes">
+            <p class="has-text-success" v-if="msgLifeStyleChoice">{{ msgLifeStyleChoice }}</p>
           </div>
         </div>
 
@@ -323,6 +324,7 @@ export default Vue.extend({
     return {
       msgBasic: '',
       msgInterests: '',
+      msgLifeStyleChoice: '',
       firstName: '',
       // variables for basic settings
       budget: '',
@@ -405,7 +407,7 @@ export default Vue.extend({
     });
   },
   methods: {
-    async settings() {
+    async settingsBasic() {
       try {
         const info = {
           newBio: this.newBio,
@@ -419,8 +421,27 @@ export default Vue.extend({
           smoke: this.smoke,
           diet: this.diet,
         };
-        console.log(info);
         this.msgBasic = 'Saved';
+        const response = await AuthService.settings(info);
+        this.msg = response.msg;
+      } catch (error) {
+        this.msg = error.response.data.msg;
+      }
+    }, async settingsLifestyleChoice() {
+      try {
+        const info = {
+          newBio: this.newBio,
+          budget: this.budget,
+          location: this.location,
+          movDate: this.movDate,
+          study: this.study,
+          drinkingVal: this.drinkingVal,
+          nightOwl: this.nightOwl,
+          extro: this.extro,
+          smoke: this.smoke,
+          diet: this.diet,
+        };
+        this.msgLifeStyleChoice = 'Saved';
         const response = await AuthService.settings(info);
         this.msg = response.msg;
       } catch (error) {
