@@ -9,7 +9,7 @@
 
     <div ref="container" id="container" v-show="arraylength !=0"></div> <!--Feed items will be injected-->
 
-    <div id="controls">
+    <div class="box" id="controls">
       <div class="level is-mobile">
         <div class="level-item has-text-centred">
           <button class="button is-rounded is-primary" value="Previous" ref="prevBtn" :disabled="arraylength==0 || currentSuggestion==0" @click="prev">
@@ -231,8 +231,6 @@ button{
 }
 .level{
   width: 100%;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
 }
 #container{
   margin-left: 0.25rem;
@@ -242,8 +240,12 @@ button{
   flex-grow: inherit;
   position: relative;
 }
+#controls {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
 .icon.is-huge{
-  font-size: 10rem;
+  font-size: 8rem;
 }
 
 </style>
