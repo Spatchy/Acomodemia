@@ -272,6 +272,7 @@
             <div class="field">
               <div class="control is-expanded">
                 <button class="button is-primary is-rounded" @click="dropdown">Save Interests</button>
+                <p class="has-text-success" v-if="msgInterests">{{ msgInterests }}</p>
               </div>
             </div>
           </div>
@@ -321,6 +322,7 @@ export default Vue.extend({
   data() {
     return {
       msgBasic: '',
+      msgInterests: '',
       firstName: '',
       // variables for basic settings
       budget: '',
@@ -436,6 +438,7 @@ export default Vue.extend({
         };
         const response = await AuthService.dropdown(info);
         this.msg = response.msg;
+        this.msgInterests = 'Saved';
       } catch (error) {
         this.msg = error.response.data.msg;
       }
