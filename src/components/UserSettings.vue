@@ -62,7 +62,9 @@
 
           <div class="column is-one-third is-offset-one-third">
             <input class=" button is-rounded is-primary" type="button" @click="settings" value="Save Changes">
+            <p class="has-text-success" v-if="msgBasic">{{ msgBasic }}</p>
           </div>
+
 
         </div>
       </div>
@@ -318,6 +320,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      msgBasic: '',
       firstName: '',
       // variables for basic settings
       budget: '',
@@ -415,6 +418,7 @@ export default Vue.extend({
           diet: this.diet,
         };
         console.log(info);
+        this.msgBasic = 'Saved';
         const response = await AuthService.settings(info);
         this.msg = response.msg;
       } catch (error) {
