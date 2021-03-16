@@ -10,6 +10,7 @@
   "dependencies": {
     "@syncfusion/ej2-vue-dropdowns": "^18.4.32",
     "@vue/cli-plugin-eslint": "^4.5.11",
+    "anchorme": "^2.1.2",
     "axios": "^0.21.1",
     "base64-arraybuffer": "^0.2.0",
     "bcryptjs": "^2.4.3",
