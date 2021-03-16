@@ -83,7 +83,7 @@
           <div>
             <file-upload @fileReady="refreshImage" @successfulUpload="successfulUpload">
           </div>
-          <p class="help is-danger">A profile pic is compulsory</p>
+          <p class="help is-danger">A profile picture is compulsory</p>
         </div>
       </div>
 
