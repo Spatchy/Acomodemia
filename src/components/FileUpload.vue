@@ -86,6 +86,10 @@ export default {
           reader.onload = function() {
             refThis.formattedPhoto = reader.result;
             setTimeout(function() {
+              const minCroppedHeight = 100;
+              const minCroppedWidth = 100;
+              const maxCroppedHeight = 9000;
+              const maxCroppedWidth = 9000;
               refThis.cropper = new Cropper(refThis.$refs.cropImage, {
                 aspectRatio: 1 / 1,
                 viewMode: 3,
@@ -108,6 +112,21 @@ export default {
                       }
                     });
                   });
+                },
+                crop(event) { // enforce the minimum and maximum crop heights
+                  const width = event.detail.width;
+                  const height = event.detail.height;
+                  if (
+                    width < minCroppedWidth ||
+                    height < minCroppedHeight ||
+                    width > maxCroppedWidth ||
+                    height > maxCroppedHeight
+                  ) {
+                    refThis.cropper.setData({
+                      width: Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width)),
+                      height: Math.max(minCroppedHeight, Math.min(maxCroppedHeight, height)),
+                    });
+                  }
                 },
               });
             }, 10);
