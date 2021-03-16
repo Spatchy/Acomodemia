@@ -208,7 +208,9 @@ router.post('/fileUpload', upload.single('file'), (req, res) => {
               msg: 'internal server error',
             });
           } else if (result) {
-            fs.unlinkSync('./uploads/' + result[0][0].PhotoUUID); // delete the old file
+            if (result[0][0].PhotoUUID !== "00000000000000000000000000000000"){
+              fs.unlinkSync('./uploads/' + result[0][0].PhotoUUID); // delete the old file
+            }
             return res.status(201).send({
               msg: 'Uploaded!',
             });
