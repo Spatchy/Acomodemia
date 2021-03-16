@@ -43,7 +43,7 @@ export default {
     },
     async successfulUpload() {
       this.showOverlay = false;
-    }
+    },
   },
 };
 </script>
