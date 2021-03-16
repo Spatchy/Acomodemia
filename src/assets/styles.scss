@@ -93,6 +93,12 @@ p.help{
   outline-color: white;
 }
 
+/*style links in messages (not accessable from scoped style)*/
+.message-content > a {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
 // Import only what you need from Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
