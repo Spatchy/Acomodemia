@@ -74,8 +74,6 @@ export default {
       console.log(file);
       if (!allowedTypes.includes(file.type)) {
         this.message = 'Only JPEG/JPG/PNG filetypes are allowed!';
-      } else if (file.size > 1500000) {
-        this.message = 'Your file is too large! max size is 1.5MB';
       } else {
         this.message = ''; // reset message
 
@@ -98,11 +96,16 @@ export default {
                       width: 300,
                       height: 300,
                     }).toBlob(function(blob) {
-                      refThis.file = blob;
-                      refThis.fileName = 'Ready for upload';
-                      refThis.modalClass = '';
-                      refThis.$emit('fileReady', refThis.file);
-                      refThis.cropper.destroy();
+                      if (blob.size <= 1500000) {
+                        refThis.file = blob;
+                        refThis.fileName = 'Ready for upload';
+                        refThis.modalClass = '';
+                        refThis.$emit('fileReady', refThis.file);
+                        refThis.cropper.destroy();
+                      } else {
+                        refThis.message = 'Your file is too large! max size is 1.5MB';
+                        refThis.cancelUpload();
+                      }
                     });
                   });
                 },
