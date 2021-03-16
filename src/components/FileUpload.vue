@@ -40,7 +40,7 @@
         <div class="box">
           <div class="level">
             <div class="level-item">
-              <button class="button is-primary is-rounded" ref="savebtn">Save</button>
+              <button class="button is-primary is-rounded" ref="savebtn">Done</button>
             </div>
           </div>
         </div>
