@@ -2,16 +2,15 @@
     <div >
       <div :class="{'level': true, 'sent': sent, 'received': !sent}">
         <div :class="{'level-right': sent,'level-left': !sent}">
-          <span :class="{
-            'level-item': true,
+          <span :class="['level-item', 'message-content', {
             'sent': sent,
             'received': !sent,
             'has-text-white': sent,
             'has-text-primary': !sent
-          }"
+          }]"
           :messageId="messageID"
-          :id="messageID">
-            {{message}}
+          :id="messageID"
+          v-html="linkify(message)">
           </span>
         </div>
       </div>
@@ -19,9 +18,15 @@
 </template>
 
 <script>
+import anchorme from 'anchorme';
 export default {
   name: 'Message',
   props: ['message', 'messageID', 'sent'],
+  methods: {
+    linkify(str) {
+      return anchorme(str);
+    },
+  },
 };
 </script>
 
