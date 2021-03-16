@@ -98,7 +98,7 @@ export default {
                     }).toBlob(function(blob) {
                       if (blob.size <= 1500000) {
                         refThis.file = blob;
-                        refThis.fileName = 'Ready for upload';
+                        refThis.fileName = '(Cropped) ' + refThis.fileName;
                         refThis.modalClass = '';
                         refThis.$emit('fileReady', refThis.file);
                         refThis.cropper.destroy();
