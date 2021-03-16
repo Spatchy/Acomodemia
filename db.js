@@ -9,6 +9,7 @@ const connection = mysql.createConnection({
   database: credentials.db,
   password: credentials.password,
   multipleStatements: true,
+  charset: 'utf8mb4',
 });
 connection.connect();
 module.exports = connection;
