@@ -299,7 +299,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="box">
       <button class="button is-rounded is-danger" @click="deleteAccount">Delete Account</button>
     </div>
