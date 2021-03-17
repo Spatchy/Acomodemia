@@ -299,7 +299,6 @@
       </div>
 
     </div>
-    <input class="button is-rounded is-danger" type="button" @click="deleteaccount" value="Delete Account">
   </div>
 </template>
 <script>
