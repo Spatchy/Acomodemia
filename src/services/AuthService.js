@@ -140,4 +140,9 @@ export default {
         .get(url+ 'getInterests/')
         .then((response) => response.data);
   },
+  deleteAccount() {
+    return axios
+        .post(url + 'deleteAccount/')
+        .then((response) => response.data);
+  },
 };

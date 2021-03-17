@@ -297,7 +297,7 @@
           </div>
         </div>
       </div>
-
+      <button class="button is-rounded is-danger" @click="deleteAccount">Delete Account</button>
     </div>
   </div>
 </template>
@@ -469,6 +469,17 @@ export default Vue.extend({
     },
     async successfulUpload() {
       this.$refs.profilePic.successfulUpload();
+    },
+    async deleteAccount() {
+      if (confirm('Warning! this will permanently delete your account and cannot be undone! click ok to confirm!')) {
+        try {
+          const response = await AuthService.deleteAccount();
+          this.msg = response.msg;
+        } catch (error) {
+          console.error(error);
+        }
+        this.$router.push('/logout');
+      }
     },
   },
 });

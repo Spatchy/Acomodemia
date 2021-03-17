@@ -984,6 +984,28 @@ router.post('/changeEmail', (req, res) => {
   )
 });
 
+router.post('/deleteAccount', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+      token,
+      'SECRETKEY',
+  );
+  db.query(
+    `DELETE FROM User WHERE PrimaryEmail=${db.escape(decoded.email)};`,
+    (err, result) => {
+      if (err) {
+        return res.status(400).send({
+          msg: err,
+        })
+      } else {
+        return res.status(200).send({
+          msg: 'Account was successfully deleted!',
+        });
+      }
+    }
+  )
+});
+
 router.get('/secret-route', (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });
