@@ -41,6 +41,7 @@
                 <div class="control is-expanded">
                   <input class="input is-rounded is-primary" type="date" placeholder="dd/mm/yyyy" v-model="movDate" v-on:keyup.enter="settings">
                 </div>
+                <p class="has-text-danger" v-if="msgMoveIn">{{ msgMoveIn }}</p>
               </div>
             </div>
             <div class="column">
@@ -62,7 +63,7 @@
 
           <div class="column is-one-third is-offset-one-third">
             <input class=" button is-rounded is-primary" type="button" @click="settingsBasic" value="Save Changes">
-            <p class="has-text-success" v-if="msgBasic">{{ msgBasic }}</p>
+            <p class="has-text-success" v-if="msgBasic && (msgMoveIn.length == 0)">{{ msgBasic }}</p>
           </div>
 
 
@@ -322,6 +323,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      msgMoveIn: '',
       msgBasic: '',
       msgInterests: '',
       msgLifeStyleChoice: '',
@@ -409,6 +411,7 @@ export default Vue.extend({
   methods: {
     async settingsBasic() {
       try {
+        this.msgMoveIn = '';
         const info = {
           newBio: this.newBio,
           budget: this.budget,
@@ -421,13 +424,14 @@ export default Vue.extend({
           smoke: this.smoke,
           diet: this.diet,
         };
-        this.msgBasic = 'Saved';
         const response = await AuthService.settings(info);
         this.msg = response.msg;
       } catch (error) {
-        this.msg = error.response.data.msg;
+        this.msgMoveIn = error.response.data.msg;
       }
-    }, async settingsLifestyleChoice() {
+      this.msgBasic = 'Saved';
+    },
+    async settingsLifestyleChoice() {
       try {
         const info = {
           newBio: this.newBio,

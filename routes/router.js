@@ -232,7 +232,20 @@ router.post('/settings', (req, res, next) => {
     const decoded = jwt.verify(
         token,
         'SECRETKEY',
-    );
+  );
+  // checking if MoveDate is not too far into future
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  if ((req.body.movDate.substring(0, 4)) > (currentYear + 1)) {
+     return res.status(500).send({
+       msg: 'Max 1 year in advance is allowed'
+     });
+  };
+  if ((req.body.movDate.substring(0, 4)) < (currentYear)) {
+     return res.status(500).send({
+       msg: 'Are you the Time Traveler?'
+     });
+  };
   db.query(
       `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)}, DrinkingLevel = ${db.escape(req.body.drinkingVal)}, IsNightOwl = ${db.escape(req.body.nightOwl)}, IsExtrovert = ${db.escape(req.body.extro)}, SmokingLevel = ${db.escape(req.body.smoke)}, DietLevel = ${db.escape(req.body.diet)}, StudySubject = ${db.escape(req.body.study)} WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
       (err, result) => {
@@ -762,7 +775,7 @@ router.post('/getMatchByID', (req, res) => {
           return res.status(500).send({
             msg: err,
           });
-        } else {
+        } else if (result[0]) {
           payload = {
             name: result[0].FirstName,
             age: calculateAge(result[0].DateOfBirth),
@@ -770,6 +783,10 @@ router.post('/getMatchByID', (req, res) => {
           };
           return res.status(200).send(
               payload,
+          );
+        } else {
+          return res.status(404).send(
+              "User not found",
           );
         }
       },

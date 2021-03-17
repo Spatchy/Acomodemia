@@ -61,7 +61,7 @@ export default {
           this.msg = 'Emails do not match!';
         }
       } else {
-        this.msg = 'Please enter non gibberish email ';
+        this.msg = 'Please enter valid email ';
       }
     },
   },
