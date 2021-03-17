@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       matchesList: [],
+      mostRecentMatchTime: '',
     };
   },
   methods: {
@@ -35,6 +36,7 @@ export default {
           currentlyChatting: this.$route.query.to == match.matchingID,
         },
       });
+      this.mostRecentMatchTime = match.timestamp;
       instance.$mount(); // pass nothing
       this.$refs.matchedlist.prepend(instance.$el);
     },
@@ -43,8 +45,14 @@ export default {
     this.matchesList = await AuthService.getMatches();
     this.matchesList.forEach((element) => {
       this.displayMatches(element);
-      console.log(element.matchingID);
     });
+    setInterval(async (outerThis) => {
+      const newMatches = await AuthService.getNewMatchesByTimestamp({timestamp: outerThis.mostRecentMatchTime});
+      newMatches.forEach(async (id) => {
+        const match = await AuthService.getMatchByID({matchingID: id});
+        outerThis.displayMatches(match);
+      });
+    }, 30000, this);
   },
 };
 </script>

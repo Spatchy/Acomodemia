@@ -769,8 +769,13 @@ router.post('/verfication-check', userMiddleware.isVerified, (req, res) => {
 });
 
 router.post('/getMatchByID', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+      token,
+      'SECRETKEY',
+  );
   db.query(
-      `SELECT FirstName, DateOfBirth, PhotoUUID FROM User WHERE MatchingID = ${db.escape(req.body.matchingID)};`,
+      `SELECT u.FirstName, u.DateOfBirth, u.PhotoUUID, u.MatchingID, m.TimeStamp FROM User u, Matches m WHERE MatchingID = ${db.escape(req.body.matchingID)} AND ((m.Person1 = u.PrimaryEmail AND m.Person2 = ${db.escape(decoded.email)}) OR (m.Person2 = u.PrimaryEmail AND m.Person1 = ${db.escape(decoded.email)}));`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
@@ -781,6 +786,8 @@ router.post('/getMatchByID', (req, res) => {
             name: result[0].FirstName,
             age: calculateAge(result[0].DateOfBirth),
             photo: fs.readFileSync('./uploads/' + result[0].PhotoUUID),
+            matchingID: result[0].MatchingID,
+            timestamp: result[0].TimeStamp,
           };
           return res.status(200).send(
               payload,
@@ -791,6 +798,34 @@ router.post('/getMatchByID', (req, res) => {
           );
         }
       },
+  );
+});
+
+router.post('/getNewMatchesByTimestamp', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(
+      token,
+      'SECRETKEY',
+  );
+  db.query(
+      `SELECT u.matchingID FROM User u, Matches m WHERE ((m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2) OR (m.Person2 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person1)) AND m.RelType = 'Matched' AND TimeStamp > ${db.escape(req.body.timestamp)} ORDER BY m.TimeStamp;`,
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            msg: err,
+          });
+        } else {
+          payload = [];
+          result.forEach((element) => {
+            payload.push(
+              element.matchingID,
+            );
+          });
+          return res.status(200).send(
+            payload,
+          )
+        }
+      }
   );
 });
 

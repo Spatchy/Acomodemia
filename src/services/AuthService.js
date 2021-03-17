@@ -145,4 +145,9 @@ export default {
         .post(url + 'deleteAccount/')
         .then((response) => response.data);
   },
+  getNewMatchesByTimestamp(timestamp) {
+    return axios
+        .post(url + 'getNewMatchesByTimestamp/', timestamp)
+        .then((response) => response.data);
+  },
 };
