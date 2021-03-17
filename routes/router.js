@@ -232,7 +232,15 @@ router.post('/settings', (req, res, next) => {
     const decoded = jwt.verify(
         token,
         'SECRETKEY',
-    );
+  );
+  // checking if MoveDate is not too far into future
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  if ((req.body.movDate.substring(0, 4)) > (currentYear + 1)) {
+     return res.status(500).send({
+       msg: 'Max 1 year in advance is allowed'
+     });
+  };
   db.query(
       `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)}, DrinkingLevel = ${db.escape(req.body.drinkingVal)}, IsNightOwl = ${db.escape(req.body.nightOwl)}, IsExtrovert = ${db.escape(req.body.extro)}, SmokingLevel = ${db.escape(req.body.smoke)}, DietLevel = ${db.escape(req.body.diet)}, StudySubject = ${db.escape(req.body.study)} WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
       (err, result) => {
