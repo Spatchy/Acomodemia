@@ -177,6 +177,8 @@ export default {
     },
     async match() {
       try {
+        const currentReq = this.res[this.currentSuggestion];
+        this.requestSentToName = currentReq.name;
         this.res.splice(this.currentSuggestion, 1);
         const credentials = {
           matchingId: this.matchID,
@@ -188,6 +190,15 @@ export default {
         }
         const response = await AuthService.requestMatch(credentials);
         this.matchMessage = response.msg;
+        if (response.msg.startsWith('Matched with')) {
+          const latestMatchData = {
+            name: currentReq.name,
+            age: currentReq.age,
+            matchingID: this.matchID,
+            photo: currentReq.photo,
+          };
+          this.$emit('newMatch', latestMatchData);
+        }
       } catch (error) {
         this.msg = error.response.data.msg;
       }

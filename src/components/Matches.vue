@@ -24,7 +24,7 @@ export default {
     };
   },
   methods: {
-    displayMatches(match) {
+    displayMatches(match, forcePrepend = false) {
       const ComponentClass = Vue.extend(MatchedPerson);
       const instance = new ComponentClass({
         propsData: {
@@ -36,7 +36,11 @@ export default {
         },
       });
       instance.$mount(); // pass nothing
-      this.$refs.matchedlist.appendChild(instance.$el);
+      if (forcePrepend) {
+        this.$refs.matchedlist.prepend(instance.$el);
+      } else {
+        this.$refs.matchedlist.append(instance.$el);
+      }
     },
   },
   async created() {

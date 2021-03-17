@@ -5,13 +5,13 @@
           <div class="box">
             <h2 class="title is-2">Your Matches</h2>
           </div>
-          <matches>
+          <matches ref="matches">
         </div> <!--matches will be injected-->
         <div class="column">
             <div class="box" v-if="!$isMobile()">
               <h2 class="title is-2">Feed</h2>
             </div>
-            <feed>
+            <feed @newMatch="pushNewMatch">
         </div>
       </div>
     </div>
@@ -37,6 +37,11 @@ export default {
     if (!this.$store.getters.getUser.EssentialSettingsComplete) {
       this.$router.push('/Complete'); // redirect user to complete their essential settings
     }
+  },
+  methods: {
+    pushNewMatch(matchData) {
+      this.$refs.matches.displayMatches(matchData, true);
+    },
   },
 };
 </script>
