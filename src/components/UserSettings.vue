@@ -299,7 +299,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="box">
       <button class="button is-rounded is-danger" @click="deleteAccount">Delete Account</button>
     </div>
@@ -413,6 +413,9 @@ export default Vue.extend({
   },
   methods: {
     async settingsBasic() {
+      if (this.msgBasic == 'Saved') {
+        this.msgBasic = '';
+      }
       try {
         this.msgMoveIn = '';
         const info = {
