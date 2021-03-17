@@ -164,7 +164,10 @@ export default {
       const binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
       this.photo = 'data:image/jpeg;base64,' + btoa(binary);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.status);
+      if (error.response.status == 404) {
+        this.$router.push('/feed'); // maybe add a proper 404 page at some point?
+      }
     }
     try {
       const credentials = {

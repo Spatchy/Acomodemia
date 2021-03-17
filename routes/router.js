@@ -775,7 +775,7 @@ router.post('/getMatchByID', (req, res) => {
           return res.status(500).send({
             msg: err,
           });
-        } else {
+        } else if (result[0]) {
           payload = {
             name: result[0].FirstName,
             age: calculateAge(result[0].DateOfBirth),
@@ -783,6 +783,10 @@ router.post('/getMatchByID', (req, res) => {
           };
           return res.status(200).send(
               payload,
+          );
+        } else {
+          return res.status(404).send(
+              "User not found",
           );
         }
       },
