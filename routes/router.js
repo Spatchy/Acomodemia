@@ -241,6 +241,11 @@ router.post('/settings', (req, res, next) => {
        msg: 'Max 1 year in advance is allowed'
      });
   };
+  if ((req.body.movDate.substring(0, 4)) < (currentYear)) {
+     return res.status(500).send({
+       msg: 'Are you the Time Traveler?'
+     });
+  };
   db.query(
       `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)}, DrinkingLevel = ${db.escape(req.body.drinkingVal)}, IsNightOwl = ${db.escape(req.body.nightOwl)}, IsExtrovert = ${db.escape(req.body.extro)}, SmokingLevel = ${db.escape(req.body.smoke)}, DietLevel = ${db.escape(req.body.diet)}, StudySubject = ${db.escape(req.body.study)} WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
       (err, result) => {
