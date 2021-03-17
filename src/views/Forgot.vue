@@ -17,7 +17,7 @@
         <div class="column">
           <fieldset :disabled="codeSent">
             <div class="field">
-              <label class="label">Personal Email</label>
+              <label class="label">Personal Email:</label>
               <div class="control is-expanded">
                 <input class="input is-rounded is-primary" type="text" placeholder="e.g. bobsmith@gmail.com" v-model="username" v-on:keyup.enter="forgot" />
               </div>
@@ -31,21 +31,21 @@
           <hr>
           <fieldset :disabled="!codeSent">
             <div class="field">
-              <label class="label">Code</label>
+              <label class="label">Code:</label>
               <div class="control is-expanded">
                 <input class="input is-rounded is-primary" type="text" placeholder="Enter your code here" v-model="code" v-on:keyup.enter="submit" />
               </div>
             </div>
 
             <div class="field">
-              <label class="label">New password</label>
+              <label class="label">New password (Minimum of 6 Characters):</label>
               <div class="control is-expanded">
                 <input class="input is-rounded is-primary" type="password" v-model="newpass" v-on:keyup.enter="submit" />
               </div>
             </div>
 
             <div class="field">
-              <label class="label">Re-enter New password</label>
+              <label class="label">Re-enter New password:</label>
               <div class="control is-expanded">
                 <input class="input is-rounded is-primary" type="password" v-model="confirm" v-on:keyup.enter="submit" />
               </div>

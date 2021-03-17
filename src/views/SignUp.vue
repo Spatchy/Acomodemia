@@ -89,7 +89,7 @@
         <div class="columns">
           <div class="column">
             <div class="field">
-              <label class="label">Password:</label>
+              <label class="label">Password (Minimum of 6 Characters):</label>
               <div class="control is-expanded">
                 <input class="input is-rounded is-primary" type="password" placeholder="Password" v-model="password" v-on:keyup.enter="signUp" />
               </div>
