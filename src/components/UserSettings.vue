@@ -413,6 +413,9 @@ export default Vue.extend({
   },
   methods: {
     async settingsBasic() {
+      if (this.msgBasic == 'Saved') {
+        this.msgBasic = '';
+      }
       try {
         this.msgMoveIn = '';
         const info = {
