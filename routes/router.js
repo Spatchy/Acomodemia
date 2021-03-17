@@ -714,7 +714,7 @@ router.post('/getMatches', (req, res, next) => {
       'SECRETKEY',
   );
   db.query(
-      `SELECT u.FirstName, u.DateOfBirth, u.MatchingID, u.PhotoUUID FROM Matches m, User u WHERE ((m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2) OR (m.Person2 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person1)) AND m.RelType = 'Matched';`,
+      `SELECT u.FirstName, u.DateOfBirth, u.MatchingID, u.PhotoUUID, m.TimeStamp FROM Matches m, User u WHERE ((m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2) OR (m.Person2 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person1)) AND m.RelType = 'Matched' ORDER BY m.TimeStamp;`,
       (err, result) => {
         if (err) {
           return res.status(400).send({
@@ -728,6 +728,7 @@ router.post('/getMatches', (req, res, next) => {
               age: calculateAge(element.DateOfBirth),
               matchingID: element.MatchingID,
               photo: fs.readFileSync('./uploads/' + element.PhotoUUID),
+              timestamp: element.TimeStamp,
             });
           });
           res.status(200).send(

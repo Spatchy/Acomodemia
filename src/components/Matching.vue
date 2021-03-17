@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     pushNewMatch(matchData) {
-      this.$refs.matches.displayMatches(matchData, true);
+      this.$refs.matches.displayMatches(matchData);
     },
   },
 };
