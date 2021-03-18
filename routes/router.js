@@ -475,10 +475,10 @@ router.get('/getProfilePic', (req, res, next) => {
             msg: err,
           });
         } else {
-          payload = fs.readFileSync('./uploads/' + result[0].PhotoUUID);
-          res.status(200).send(
-              payload,
-          );
+          res.status(200).send({
+            image: fs.readFileSync('./uploads/' + result[0].PhotoUUID),
+            isDefault: result[0].PhotoUUID == "00000000000000000000000000000000",
+          });
         }
       });
 });

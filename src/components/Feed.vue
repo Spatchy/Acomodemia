@@ -1,7 +1,7 @@
 <template>
   <div class="outer-boundary">
-    <div id="empty-feed-info" v-if="arraylength==0">
-      <div class="icon">
+    <div id="container" v-if="arraylength==0">
+      <div id="container">
         <i class="fas fa-users title is-1"></i>
       </div>
       <p class="subtitle is-6 left-align">Your feed is empty, check back later</p>

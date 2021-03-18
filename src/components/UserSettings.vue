@@ -20,7 +20,7 @@
                 <label class="label">Location</label>
                 <div class="control is-expanded">
                   <input class="input is-rounded is-primary" type="text" placeholder="Town or city you want to live" v-model="location" v-on:keyup.enter="settings">
-                  <p class="help is-danger">Location is compulsory</p>
+                  <p class="help is-danger" v-if="!location">Location is compulsory</p>
                 </div>
               </div>
             </div>
@@ -28,7 +28,7 @@
               <div class="field">
                 <label class="label">Budget</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="number" placeholder="£ per person per month" v-model="budget" v-on:keyup.enter="settings">
+                  <input class="input is-rounded is-primary" type="number" placeholder="£ per person per month" max="2000" v-model="budget" v-on:keyup.enter="settings">
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@
           <div class="level">
             <div class="level-item">
               <div class="image is-300x300">
-                <profile-pic ref="profilePic">
+                <profile-pic ref="profilePic" @tipState="changeImageTipState">
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
           <div>
             <file-upload @fileReady="refreshImage" @successfulUpload="successfulUpload">
           </div>
-          <p class="help is-danger">A profile picture is compulsory</p>
+          <p class="help is-danger" v-if="showImageTip">A profile picture is compulsory</p>
         </div>
       </div>
 
@@ -408,6 +408,7 @@ export default Vue.extend({
       dropdownSelections: [],
       // control flow
       showDeleteModal: false,
+      showImageTip: true,
     };
   },
   async created() {
@@ -538,6 +539,27 @@ export default Vue.extend({
         console.error(error);
       }
       this.$router.push('/logout');
+    },
+    async changeImageTipState(state) {
+      this.showImageTip = state;
+      console.log('emit run: ' + this.showImageTip);
+    },
+  },
+  watch: {
+    msgBasic() {
+      setTimeout(() => {
+        this.msgBasic = '';
+      }, 5000);
+    },
+    msgInterests() {
+      setTimeout(() => {
+        this.msgInterests = '';
+      }, 5000);
+    },
+    msgLifeStyleChoice() {
+      setTimeout(() => {
+        this.msgLifeStyleChoice = '';
+      }, 5000);
     },
   },
 });

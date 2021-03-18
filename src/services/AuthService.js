@@ -69,7 +69,8 @@ export default {
   },
 
   getProfilePic() {
-    return axios({url: url + 'getProfilePic/', method: 'GET', responseType: 'arraybuffer'})
+    return axios
+        .get(url + 'getProfilePic/')
         .then((response) => response.data);
   },
 
@@ -148,6 +149,11 @@ export default {
   getNewMatchesByTimestamp(timestamp) {
     return axios
         .post(url + 'getNewMatchesByTimestamp/', timestamp)
+        .then((response) => response.data);
+  },
+  unmatch(credentials) {
+    return axios
+        .post(url + 'reject/', credentials)
         .then((response) => response.data);
   },
 };
