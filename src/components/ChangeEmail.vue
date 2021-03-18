@@ -53,7 +53,7 @@ export default {
             };
             AuthService.changeEmail(credentials);
             this.msg = 'Email successfully changed! Log Out for changes to apply.';
-           // this.$router.push('/logout');
+            // this.$router.push('/logout');
           } catch (error) {
             console.error(error);
           }
