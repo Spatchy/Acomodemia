@@ -2,7 +2,7 @@
   <div>
     <div class="card">
       <div>
-          <button class="delete" @click="showDeleteModal = true" style="float:right"></button>
+          <button class="delete" @click="showDeleteModal = true"></button>
       </div>
       <div class="card-content"  @click="clickEvent">
         <div class="media">
@@ -24,10 +24,10 @@
         <div class="box">
           <h2 class="title is-2">Unmatch</h2>
           <div class="section">
-            <span class="icon is-huge has-text-danger">
-              <i class="fas fa-exclamation-triangle"></i>
+            <span class="icon is-huge has-text-primary">
+              <i class="fas fa-users-slash"></i>
             </span>
-            <p class="deleteModalMessage">Are you sure that you want to unmatch with this person? this cannot be undone!.</p>
+            <p class="unmatchModalMessage">Are you sure that you want to unmatch {{name}}? They won't be shown to you again.</p>
           </div>
           <div class="columns">
             <div class="column">
@@ -107,5 +107,18 @@ export default {
 
 .left-align{
   text-align: left;
+}
+
+.icon.is-huge{
+  font-size: 8rem;
+}
+
+.delete{
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+}
+.unmatchModalMessage{
+  margin-top: 1rem;
 }
 </style>
