@@ -41,7 +41,6 @@
                 <div class="control is-expanded">
                   <input class="input is-rounded is-primary" type="date" placeholder="dd/mm/yyyy" v-model="movDate" v-on:keyup.enter="settings">
                 </div>
-                <p class="has-text-danger" v-if="msgMoveIn">{{ msgMoveIn }}</p>
               </div>
             </div>
             <div class="column">
@@ -63,9 +62,8 @@
 
           <div class="column is-one-third is-offset-one-third">
             <input class=" button is-rounded is-primary" type="button" @click="settingsBasic" value="Save Changes">
-            <p class="has-text-success" v-if="msgBasic && (msgMoveIn.length == 0)">{{ msgBasic }}</p>
+            <p class="has-text-success" v-if="msgBasic">{{ msgBasic }}</p>
           </div>
-
 
         </div>
       </div>
@@ -374,7 +372,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      msgMoveIn: '',
       msgBasic: '',
       msgInterests: '',
       msgLifeStyleChoice: '',
@@ -468,7 +465,6 @@ export default Vue.extend({
         this.msgBasic = '';
       }
       try {
-        this.msgMoveIn = '';
         const info = {
           newBio: this.newBio,
           budget: this.budget,
@@ -484,7 +480,7 @@ export default Vue.extend({
         const response = await AuthService.settings(info);
         this.msg = response.msg;
       } catch (error) {
-        this.msgMoveIn = error.response.data.msg;
+        this.msgBasic = error.response.data.msg;
       }
       this.msgBasic = 'Saved';
     },
