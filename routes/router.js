@@ -238,14 +238,22 @@ router.post('/settings', (req, res, next) => {
   const currentYear = currentDate.getFullYear();
   if ((req.body.movDate.substring(0, 4)) > (currentYear + 1)) {
      return res.status(500).send({
-       msg: 'Max 1 year in advance is allowed'
+       msg: 'Max 1 year in advance is allowed',
      });
   };
   if ((req.body.movDate.substring(0, 4)) < (currentYear)) {
      return res.status(500).send({
-       msg: 'Are you the Time Traveler?'
+       msg: 'Please enter a valid future date',
      });
   };
+  // Validate Budget
+  if (req.body.budget && (req.body.budget.length < 3 || req.body.budget.length > 4)) {
+    return res.status(500).send({
+      msg: 'Budget should be 3 or 4 digits long',
+    });
+  } else if (!req.body.budget) {
+    req.body.budget = 0;
+  }
   db.query(
       `UPDATE User SET Bio = ${db.escape(req.body.newBio)}, MoveDate = ${db.escape(req.body.movDate)}, Location = ${db.escape(req.body.location)}, Budget = ${db.escape(req.body.budget)}, DrinkingLevel = ${db.escape(req.body.drinkingVal)}, IsNightOwl = ${db.escape(req.body.nightOwl)}, IsExtrovert = ${db.escape(req.body.extro)}, SmokingLevel = ${db.escape(req.body.smoke)}, DietLevel = ${db.escape(req.body.diet)}, StudySubject = ${db.escape(req.body.study)} WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
       (err, result) => {
