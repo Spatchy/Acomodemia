@@ -247,7 +247,7 @@ router.post('/settings', (req, res, next) => {
      });
   };
   // Validate Budget
-  if (req.body.budget && (req.body.budget.length < 3 || req.body.budget.length > 4)) {
+  if (req.body.budget && (req.body.budget.length < 3 || req.body.budget.length > 4 || req.body.budget < 0)) {
     return res.status(500).send({
       msg: 'Budget should be 3 or 4 digits long',
     });
