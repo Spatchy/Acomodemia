@@ -76,7 +76,7 @@
           <div class="level">
             <div class="level-item">
               <div class="image is-300x300">
-                <profile-pic ref="profilePic">
+                <profile-pic ref="profilePic" @tipState="changeImageTipState">
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
           <div>
             <file-upload @fileReady="refreshImage" @successfulUpload="successfulUpload">
           </div>
-          <p class="help is-danger">A profile picture is compulsory</p>
+          <p class="help is-danger" v-if="showImageTip">A profile picture is compulsory</p>
         </div>
       </div>
 
@@ -408,6 +408,7 @@ export default Vue.extend({
       dropdownSelections: [],
       // control flow
       showDeleteModal: false,
+      showImageTip: true,
     };
   },
   async created() {
@@ -538,6 +539,10 @@ export default Vue.extend({
         console.error(error);
       }
       this.$router.push('/logout');
+    },
+    async changeImageTipState(state) {
+      this.showImageTip = state;
+      console.log('emit run: ' + this.showImageTip);
     },
   },
   watch: {

@@ -15,12 +15,17 @@ export default {
     return {
       src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
       showOverlay: false,
+      isDefault: false,
     };
   },
   async created() {
     const response = await AuthService.getProfilePic();
     console.log(response);
-    const bytes = new Uint8Array(response);
+    console.log(response.image);
+    console.log(response.isDefault);
+    const bytes = new Uint8Array(response.image.data);
+    this.isDefault = response.isDefault;
+    this.$emit('tipState', this.isDefault);
     console.log('bytes: ' + bytes);
     const binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
     console.log('bin: ' + binary);
@@ -43,6 +48,8 @@ export default {
     },
     async successfulUpload() {
       this.showOverlay = false;
+      this.isDefault = false;
+      this.$emit('tipState', false);
     },
   },
 };

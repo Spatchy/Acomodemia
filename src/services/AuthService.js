@@ -69,7 +69,8 @@ export default {
   },
 
   getProfilePic() {
-    return axios({url: url + 'getProfilePic/', method: 'GET', responseType: 'arraybuffer'})
+    return axios
+        .get(url + 'getProfilePic/')
         .then((response) => response.data);
   },
 
