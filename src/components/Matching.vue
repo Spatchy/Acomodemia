@@ -35,7 +35,8 @@ export default {
       this.$router.push('/verify'); // redirect user to verify if not verified
     }
     if (!this.$store.getters.getUser.EssentialSettingsComplete) {
-      this.$router.push('/Complete'); // redirect user to complete their essential settings
+      console.log(this.$store.getters.getUser);
+      this.$router.push('/complete'); // redirect user to complete their essential settings
     }
   },
   methods: {

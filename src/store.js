@@ -26,6 +26,9 @@ export default new Vuex.Store({
     isVerified: (state) => { // only for UX purposes, verification still checked server side on all requests
       return state.verified;
     },
+    getEssential: (state) => {
+      return state.essentialSettingsComplete;
+    },
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -36,6 +39,9 @@ export default new Vuex.Store({
     },
     SET_VERIFIED: (state) => {
       state.verified = true;
+    },
+    SET_ESSENTIAL: (state) => {
+      state.user.EssentialSettingsComplete = true;
     },
     RESET: (state) => {
       Object.assign(state, getDefaultState());
@@ -53,6 +59,9 @@ export default new Vuex.Store({
     },
     logout: ({commit}) => {
       commit('RESET', '');
+    },
+    essential: ({commit}) => {
+      commit('SET_ESSENTIAL', '');
     },
   },
 });
