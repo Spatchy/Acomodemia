@@ -153,6 +153,6 @@ export default {
   unmatch(credentials) {
     return axios
         .post(url + 'reject/', credentials)
-        .then((response) => response.data)
+        .then((response) => response.data);
   },
 };
