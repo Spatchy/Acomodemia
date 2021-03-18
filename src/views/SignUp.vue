@@ -121,6 +121,7 @@
 
 <script>
 import AuthService from '@/services/AuthService.js';
+import Vue from 'vue';
 export default {
   data() {
     return {
@@ -167,6 +168,8 @@ export default {
       } catch (error) {
         this.msg = error.response.data.msg;
       }
+      Vue.prototype.$userEmail = this.username;
+      Vue.prototype.$uniEmail = this.uniEmail;
     },
     async clearGender() { // used for back button in custom gender input
       this.gender = '';

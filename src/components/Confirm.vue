@@ -14,7 +14,8 @@
       <div class="columns">
         <div class="column">
           <div class="field">
-            <label class="label">Personal Email Code</label>
+            <label class="label">Personal Email Code from:</label>
+            <p style="text-align: left">{{ userEmail }}</p>
             <div class="control is-expanded">
               <input class="input is-rounded is-primary" type="text" placeholder="Personal Email" v-model="confirm1" />
             </div>
@@ -22,7 +23,8 @@
         </div>
         <div class="column">
           <div class="field">
-            <label class="label">University Email Code</label>
+            <label class="label">University Email Code from:</label>
+            <p style="text-align: left">{{ uniEmail }}</p>
             <div class="control is-expanded">
               <input class="input is-rounded is-primary" type="text" placeholder="University Email" v-model="confirm2" />
             </div>
@@ -34,7 +36,7 @@
       <p class="has-text-danger" v-if="msg">{{ msg }}</p>
       <br>
       <hr>
-      <input class="button is-rounded is-primary" type="button" @click="back" value="Back to Main Stage" />
+      <input class="button is-rounded is-primary" type="button" @click="back" value="Back to Login" />
     </div>
   </div>
 </template>
@@ -46,6 +48,8 @@ export default {
   name: 'Confirm',
   data() {
     return {
+      userEmail: this.$userEmail,
+      uniEmail: this.$uniEmail,
       confirm1: '',
       confirm2: '',
       msg: '',
