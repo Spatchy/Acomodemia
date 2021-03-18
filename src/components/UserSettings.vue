@@ -28,7 +28,7 @@
               <div class="field">
                 <label class="label">Budget</label>
                 <div class="control is-expanded">
-                  <input class="input is-rounded is-primary" type="number" placeholder="£ per person per month" v-model="budget" v-on:keyup.enter="settings">
+                  <input class="input is-rounded is-primary" type="number" placeholder="£ per person per month" max="2000" v-model="budget" v-on:keyup.enter="settings">
                 </div>
               </div>
             </div>
