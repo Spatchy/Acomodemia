@@ -300,8 +300,56 @@
       </div>
     </div>
 
-    <div class="box">
-      <button class="button is-rounded is-danger" @click="deleteAccount">Delete Account</button>
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <div class="box">
+          <h3 class="title is-3">Delete Your Account</h3>
+          <div class="field">
+            <p>If you really want to delete your account, you can click the button below. Be very sure as there is no way of recovering it.</p>
+          </div>
+          <div class="column is-one-third is-offset-one-third">
+            <div class="control is-expanded">
+              <button class="button is-rounded is-danger" @click="showDeleteModal = true">Delete Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div :class="['modal', {'is-active': showDeleteModal}]">
+      <div class="modal-background" @click="showDeleteModal = false"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title is-2">Delete Account</h2>
+          <div class="section">
+            <span class="icon is-huge has-text-danger">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+            <p class="deleteModalMessage">This is your last chance! Pressing the delete button will delete your account FOREVER.</p>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <div class="control is-expended">
+                  <button class="button is-primary is-rounded" @click="showDeleteModal = false">
+                    Go Back
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <div class="control is-expanded">
+                  <button class="button is-rounded is-danger" @click="deleteAccount()">
+                    Delete Account
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"  @click="showDeleteModal = false"></button>
     </div>
   </div>
 </template>
@@ -358,6 +406,8 @@ export default Vue.extend({
       indoorSelection: [],
       musicSelection: [],
       dropdownSelections: [],
+      // control flow
+      showDeleteModal: false,
     };
   },
   async created() {
@@ -481,15 +531,13 @@ export default Vue.extend({
       this.$refs.profilePic.successfulUpload();
     },
     async deleteAccount() {
-      if (confirm('Warning! this will permanently delete your account and cannot be undone! click ok to confirm!')) {
-        try {
-          const response = await AuthService.deleteAccount();
-          this.msg = response.msg;
-        } catch (error) {
-          console.error(error);
-        }
-        this.$router.push('/logout');
+      try {
+        const response = await AuthService.deleteAccount();
+        this.msg = response.msg;
+      } catch (error) {
+        console.error(error);
       }
+      this.$router.push('/logout');
     },
   },
 });
@@ -521,5 +569,12 @@ export default Vue.extend({
 .mobile-scrolling {
   overflow-y: scroll;
   height: 100%;
+}
+
+.icon.is-huge{
+  font-size: 8rem;
+}
+.deleteModalMessage{
+  margin-top: 1rem;
 }
 </style>
