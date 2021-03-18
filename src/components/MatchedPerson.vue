@@ -35,6 +35,7 @@ export default {
   methods: {
     clickEvent: function() {
       router.push('/chat?to=' + this.matchingID);
+      window.location.reload();
     },
     getPic: function() {
       return this.pic;
