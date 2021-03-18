@@ -132,7 +132,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
       (err, result) => {
         if (result.length) {
           return res.status(409).send({
-            msg: 'This username is already in use!',
+            msg: 'This email address is already in use!',
           });
         } else {
           // username is available
