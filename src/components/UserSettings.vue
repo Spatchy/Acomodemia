@@ -479,10 +479,10 @@ export default Vue.extend({
         };
         const response = await AuthService.settings(info);
         this.msg = response.msg;
+        this.msgBasic = 'Saved';
       } catch (error) {
         this.msgBasic = error.response.data.msg;
       }
-      this.msgBasic = 'Saved';
     },
     goFeed() {
       if (!this.showImageTip && this.location) {
