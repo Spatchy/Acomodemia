@@ -22,7 +22,7 @@
         <div class="control is-expanded">
           <input class="button is-rounded is-primary" type="button" @click="submit" value="Change Email">
         </div>
-        <p :class="msg.startsWith('Email successfully changed!') ? 'has-text-success' : 'has-text-danger'">{{ msg }}</p>
+        <p :class="msg.startsWith('Email successfully changed! Log Out for changes to apply.') ? 'has-text-success' : 'has-text-danger'">{{ msg }}</p>
       </div>
     </div>
 
@@ -52,8 +52,8 @@ export default {
               password: this.password,
             };
             AuthService.changeEmail(credentials);
-            this.msg = 'Email successfully changed!';
-            this.$router.push('/logout');
+            this.msg = 'Email successfully changed! Log Out for changes to apply.';
+           // this.$router.push('/logout');
           } catch (error) {
             console.error(error);
           }
