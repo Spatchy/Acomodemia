@@ -540,6 +540,23 @@ export default Vue.extend({
       this.$router.push('/logout');
     },
   },
+  watch: {
+    msgBasic() {
+      setTimeout(() => {
+        this.msgBasic = '';
+      }, 5000);
+    },
+    msgInterests() {
+      setTimeout(() => {
+        this.msgInterests = '';
+      }, 5000);
+    },
+    msgLifeStyleChoice() {
+      setTimeout(() => {
+        this.msgLifeStyleChoice = '';
+      }, 5000);
+    },
+  },
 });
 </script>
 
