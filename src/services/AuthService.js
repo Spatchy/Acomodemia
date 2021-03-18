@@ -150,4 +150,9 @@ export default {
         .post(url + 'getNewMatchesByTimestamp/', timestamp)
         .then((response) => response.data);
   },
+  unmatch(credentials) {
+    return axios
+        .post(url + 'reject/', credentials)
+        .then((response) => response.data)
+  },
 };
