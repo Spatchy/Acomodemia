@@ -62,7 +62,7 @@
 
           <div class="column is-one-third is-offset-one-third">
             <input class=" button is-rounded is-primary" type="button" @click="settingsBasic" value="Save Changes">
-            <p class="has-text-success" v-if="msgBasic">{{ msgBasic }}</p>
+            <p :class="[msgBasic == 'Saved' ? 'has-text-success' : 'has-text-danger']" v-if="msgBasic">{{ msgBasic }}</p>
           </div>
 
         </div>
@@ -204,7 +204,7 @@
 
           <div class="column is-one-third is-offset-one-third">
             <input class=" button is-rounded is-primary" type="button" @click="settingsLifestyleChoice" value="Save Changes">
-            <p class="has-text-success" v-if="msgLifeStyleChoice">{{ msgLifeStyleChoice }}</p>
+            <p :class="[msgLifeStyleChoice == 'Saved' ? 'has-text-success' : 'has-text-danger']" v-if="msgLifeStyleChoice">{{ msgLifeStyleChoice }}</p>
           </div>
         </div>
 
@@ -272,7 +272,7 @@
             <div class="field">
               <div class="control is-expanded">
                 <button class="button is-primary is-rounded" @click="dropdown">Save Interests</button>
-                <p class="has-text-success" v-if="msgInterests">{{ msgInterests }}</p>
+                <p :class="[msgInterests == 'Saved' ? 'has-text-success' : 'has-text-danger']" v-if="msgInterests">{{ msgInterests }}</p>
               </div>
             </div>
           </div>
