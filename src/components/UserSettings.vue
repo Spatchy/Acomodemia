@@ -20,7 +20,7 @@
                 <label class="label">Location</label>
                 <div class="control is-expanded">
                   <input class="input is-rounded is-primary" type="text" placeholder="Town or city you want to live" v-model="location" v-on:keyup.enter="settings">
-                  <p class="help is-danger">Location is compulsory</p>
+                  <p class="help is-danger" v-if="!location">Location is compulsory</p>
                 </div>
               </div>
             </div>
