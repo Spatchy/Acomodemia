@@ -3,7 +3,7 @@
 
     <div class="navbar-brand">
       <router-link class="navbar-item" to="/feed">
-        <img src="../assets/Acomodemia Wordmark Inverted.svg" width="100%" style="max-height: 3.25rem">
+        <img src="../assets/Acomodemia Wordmark Inverted.svg" width="100" height="100" style="height: 3.25rem; width: auto;">
       </router-link>
 
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" @click="burgerClick($event)">
@@ -43,3 +43,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.navbar-item img{
+  max-height: 3.25rem;
+}
+</style>
