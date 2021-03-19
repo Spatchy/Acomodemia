@@ -9,8 +9,8 @@
             'has-text-primary': !sent
           }]"
           :messageId="messageID"
-          :id="messageID"
-          v-html="linkify(message)">
+          :id="messageID">
+            <p class="message-content-inner" v-html="linkify(message)"> </p>
           </span>
         </div>
       </div>
@@ -105,5 +105,9 @@ export default {
   border-top: 0;
   margin-top: -2.5px;
   margin-left: -4px;
+}
+
+.message-content-inner{
+  max-width: 100%;
 }
 </style>

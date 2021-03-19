@@ -94,9 +94,8 @@ p.help{
 }
 
 /*style links in messages (not accessable from scoped style)*/
-.message-content > a {
-  margin-left: 0.25em;
-  margin-right: 0.25em;
+.message-content-inner > a {
+  display: contents;
 }
 
 // Import only what you need from Bulma
