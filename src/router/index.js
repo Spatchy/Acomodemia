@@ -54,6 +54,12 @@ const routes = [{
   name: 'Forgot',
   component: Forgot,
 },
+{
+  path: '/matches',
+  redirect: {
+    name: 'Matching',
+  },
+},
 ];
 
 const router = new VueRouter({
