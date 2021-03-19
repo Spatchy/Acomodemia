@@ -109,5 +109,6 @@ export default {
 
 .message-content-inner{
   max-width: 100%;
+  word-break: break-word;
 }
 </style>
