@@ -8,7 +8,7 @@ module.exports = {
 
     io.use(function(socket, next) {
       if (socket.handshake.query && socket.handshake.query.token) {
-        jwt.verify(socket.handshake.query.token, 'SECRETKEY', function(err, decoded) {
+        jwt.verify(socket.handshake.query.token, '65e72c383f57472fb084b23bf2cf51f3', function(err, decoded) {
           if (err) {
             console.log(err);
             return next(new Error('Authentication error'));

@@ -187,7 +187,7 @@ const upload = multer({
   dest: './uploads/',
 });
 
-router.post('/fileUpload', upload.single('file'), (req, res) => {
+router.post('/fileUpload', upload.single('file'), userMiddleware.isLoggedIn, (req, res) => {
   const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
   if (!allowedTypes.includes(req.file.mimetype)) {
     return res.status(400).send({
@@ -197,7 +197,7 @@ router.post('/fileUpload', upload.single('file'), (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(
         token,
-        'SECRETKEY',
+        '65e72c383f57472fb084b23bf2cf51f3',
     );
     db.query(
         `SELECT PhotoUUID FROM User WHERE PrimaryEmail =  ${db.escape(decoded.email)};UPDATE User SET PhotoUUID = ${db.escape(req.file.filename)} WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
@@ -227,11 +227,11 @@ router.get('/complete', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });
 
-router.post('/settings', (req, res, next) => {
+router.post('/settings', userMiddleware.isLoggedIn, (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(
         token,
-        'SECRETKEY',
+        '65e72c383f57472fb084b23bf2cf51f3',
   );
   // checking if MoveDate is not too far into future
   const currentDate = new Date();
@@ -305,7 +305,7 @@ function doLogin(username, password, res) {
                   verified: result[0].Verified,
                   matchingID: result[0].MatchingID,
                 },
-                'SECRETKEY', {
+                '65e72c383f57472fb084b23bf2cf51f3', {
                   expiresIn: '30d',
                 },
                 );
@@ -344,7 +344,7 @@ router.post('/confirm', (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
       `SELECT UserId FROM UnverifiedUsers WHERE UserId = ${db.escape(decoded.email)} AND CodeP1 = ${db.escape(req.body.confirm1)} AND CodeP2 = ${db.escape(req.body.confirm2)} ;`,
@@ -389,11 +389,11 @@ router.post('/confirm', (req, res, next) => {
   );
 });
 
-router.post('/details', (req, res, next) => {
+router.post('/details', userMiddleware.isLoggedIn, (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(`SELECT * FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
       (err, result) => {
@@ -420,11 +420,11 @@ router.post('/details', (req, res, next) => {
       });
 });
 
-router.post('/interests', (req, res, next) => {
+router.post('/interests', userMiddleware.isLoggedIn, (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   let allSelections = req.body.sportsSelection.concat(req.body.outdoorSelection, req.body.indoorSelection, req.body.musicSelection);
   let interestsQuery = `DELETE FROM InterestsSet WHERE UserID = ${db.escape(decoded.email)};`; // just delete everything before re-inserting to allow for individual deletions
@@ -452,7 +452,7 @@ router.get('/getInterests', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
     `SELECT InterestsSet.Interest, Category FROM InterestsSet, Interests WHERE InterestsSet.UserID = ${db.escape(decoded.email)} AND InterestsSet.Interest = Interests.Interest;`,
@@ -474,7 +474,7 @@ router.get('/getProfilePic', (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(`SELECT PhotoUUID FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
       (err, result) => {
@@ -514,11 +514,11 @@ function retrieveInterests(id) {
   });
 }
 
-router.post('/getFeed', (req, res, next) => {
+router.post('/getFeed', userMiddleware.isLoggedIn, (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
       `SELECT Location FROM User Where PrimaryEmail = ${db.escape(decoded.email)};`,
@@ -578,11 +578,11 @@ router.post('/getFeed', (req, res, next) => {
   );
 });
 
-router.post('/requestMatch', (req, res, next) => {
+router.post('/requestMatch', userMiddleware.isLoggedIn, (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
       `SELECT PrimaryEmail FROM User WHERE MatchingID = ${db.escape(req.body.matchingId)};`,
@@ -647,11 +647,11 @@ router.post('/requestMatch', (req, res, next) => {
   );
 });
 
-router.post('/reject', (req, res, next) => {
+router.post('/reject', userMiddleware.isLoggedIn, (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
       `SELECT PrimaryEmail, FirstName FROM User WHERE MatchingID = ${db.escape(req.body.matchingId)};`,
@@ -715,11 +715,11 @@ router.post('/reject', (req, res, next) => {
   );
 });
 
-router.post('/getMatches', (req, res, next) => {
+router.post('/getMatches', userMiddleware.isLoggedIn, (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
       `SELECT u.FirstName, u.DateOfBirth, u.MatchingID, u.PhotoUUID, m.TimeStamp FROM Matches m, User u WHERE ((m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2) OR (m.Person2 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person1)) AND m.RelType = 'Matched' ORDER BY m.TimeStamp;`,
@@ -747,11 +747,11 @@ router.post('/getMatches', (req, res, next) => {
   );
 });
 
-router.post('/postMessage', (req, res, next) => {
+router.post('/postMessage', userMiddleware.isLoggedIn, (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   const messageContent = req.body.message;
   const recipient = req.body.recipient;
@@ -780,7 +780,7 @@ router.post('/getMatchByID', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
       `SELECT u.FirstName, u.DateOfBirth, u.PhotoUUID, u.MatchingID, m.TimeStamp FROM User u, Matches m WHERE MatchingID = ${db.escape(req.body.matchingID)} AND ((m.Person1 = u.PrimaryEmail AND m.Person2 = ${db.escape(decoded.email)}) OR (m.Person2 = u.PrimaryEmail AND m.Person1 = ${db.escape(decoded.email)}));`,
@@ -809,11 +809,11 @@ router.post('/getMatchByID', (req, res) => {
   );
 });
 
-router.post('/getNewMatchesByTimestamp', (req, res) => {
+router.post('/getNewMatchesByTimestamp', userMiddleware.isLoggedIn, (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
       `SELECT u.matchingID FROM User u, Matches m WHERE ((m.Person1 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person2) OR (m.Person2 = ${db.escape(decoded.email)} AND u.PrimaryEmail = m.Person1)) AND m.RelType = 'Matched' AND TimeStamp > ${db.escape(req.body.timestamp)} ORDER BY m.TimeStamp;`,
@@ -837,11 +837,11 @@ router.post('/getNewMatchesByTimestamp', (req, res) => {
   );
 });
 
-router.post('/getChatMostRecent', (req, res) => {
+router.post('/getChatMostRecent', userMiddleware.isLoggedIn, (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
     `SELECT * FROM Messages WHERE (Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)}) ORDER BY Timestamp DESC LIMIT 30;`,
@@ -876,11 +876,11 @@ router.post('/getChatMostRecent', (req, res) => {
   )
 });
 
-router.post('/getChatHistory', (req, res) => {
+router.post('/getChatHistory', userMiddleware.isLoggedIn, (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
       `SELECT * FROM (SELECT * FROM Messages WHERE MessageID = ${db.escape(req.body.oldestMessageId)} union all (SELECT * FROM Messages WHERE TrackNum < (SELECT TrackNum FROM Messages where MessageID = ${db.escape(req.body.oldestMessageId)}) AND ((Sender = ${db.escape(decoded.matchingID)} AND Recipient = ${db.escape(req.body.matchingID)}) OR (Sender = ${db.escape(req.body.matchingID)} AND Recipient = ${db.escape(decoded.matchingID)})) ORDER BY TrackNum DESC LIMIT 30) ORDER BY TrackNum DESC) temp WHERE MessageID != ${db.escape(req.body.oldestMessageId)};`,
@@ -998,11 +998,11 @@ router.post('/resetPassword', (req, res) => {
   }
 });
 
-router.post('/changeEmail', (req, res) => {
+router.post('/changeEmail', userMiddleware.isLoggedIn, (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
     `SELECT HashedPassword, Salt FROM User WHERE PrimaryEmail=${db.escape(decoded.email)};`,
@@ -1045,11 +1045,11 @@ router.post('/changeEmail', (req, res) => {
   )
 });
 
-router.post('/deleteAccount', (req, res) => {
+router.post('/deleteAccount',  userMiddleware.isLoggedIn, (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(
       token,
-      'SECRETKEY',
+      '65e72c383f57472fb084b23bf2cf51f3',
   );
   db.query(
     `DELETE FROM User WHERE PrimaryEmail=${db.escape(decoded.email)};`,
@@ -1065,9 +1065,5 @@ router.post('/deleteAccount', (req, res) => {
       }
     }
   )
-});
-
-router.get('/secret-route', (req, res, next) => {
-  res.send('This is the secret content. Only logged in users can see that!');
 });
 module.exports = router;

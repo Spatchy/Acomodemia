@@ -110,7 +110,7 @@ module.exports = {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(
           token,
-          'SECRETKEY',
+          '65e72c383f57472fb084b23bf2cf51f3',
       );
       req.userData = decoded;
       next();
@@ -127,7 +127,7 @@ module.exports = {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(
           token,
-          'SECRETKEY',
+          '65e72c383f57472fb084b23bf2cf51f3',
       );
       db.query(
           `SELECT Verified FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
