@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 const db = require('../db.js');
 const uuid = require('uuid');
+const fs = require('fs');
+const credentials = JSON.parse(fs.readFileSync('credentials.json'));
+const secret = credentials['secretkey'];
 
 module.exports = {
   start: function(io) {
@@ -8,7 +11,7 @@ module.exports = {
 
     io.use(function(socket, next) {
       if (socket.handshake.query && socket.handshake.query.token) {
-        jwt.verify(socket.handshake.query.token, '65e72c383f57472fb084b23bf2cf51f3', function(err, decoded) {
+        jwt.verify(socket.handshake.query.token, secret, function(err, decoded) {
           if (err) {
             console.log(err);
             return next(new Error('Authentication error'));

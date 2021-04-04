@@ -1,4 +1,8 @@
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const credentials = JSON.parse(fs.readFileSync('credentials.json'));
+const secret = credentials['secretkey'];
+
 module.exports = {
   validateRegister: (req, res, next) => {
 
@@ -110,9 +114,9 @@ module.exports = {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(
           token,
-          '65e72c383f57472fb084b23bf2cf51f3',
+          secret,
       );
-      req.userData = decoded;
+      res.locals.decoded = decoded;
       next();
     } catch (err) {
       return res.status(401).send({
@@ -127,7 +131,7 @@ module.exports = {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(
           token,
-          '65e72c383f57472fb084b23bf2cf51f3',
+          secret,
       );
       db.query(
           `SELECT Verified FROM User WHERE PrimaryEmail = ${db.escape(decoded.email)};`,
