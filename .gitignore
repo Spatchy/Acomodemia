@@ -21,3 +21,10 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Sensitive files
+credentials.json
+
+# user content
+/uploads/*
+!/uploads/00000000000000000000000000000000

@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+// Import a Google Font
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+
+// Set your brand colors
+$purple: #8a4d76;
+$pink: #fa7c91;
+$brown: #757763;
+$beige-light: #d0d1cd;
+$beige-lighter: #eff0eb;
+$white: #fff;
+$blue: #3498db;
+$acomodemia-blue: #313266;
+$background-grey: #f2f4f7;
+
+// Update Bulma's global variables
+$family-sans-serif: "Nunito", sans-serif;
+$grey-dark: $brown;
+$grey-light: $beige-light;
+$primary: $acomodemia-blue;
+$link: $pink;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+// Update some of Bulma's component variables
+$body-background-color: $background-grey;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+$navbar-height: 4rem;
+
+.container {
+  min-height: 75vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+// line global adjusments
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+  color: $primary;
+}
+
+.button {
+  padding-top: 5px;
+  width: 100%;
+}
+
+label{
+  text-align: left;
+}
+
+.icon {
+  margin: 2px;
+}
+
+.image.is-300x300 {
+  height: 300px;
+  width: 300px;
+}
+
+p.help{
+  text-align: left;
+}
+
+/* apply global consistancy to multiselect dropdowns */
+.e-chips-close.e-close-hooker{
+  display: none;
+}
+
+.e-dropdownbase{
+  font-family: $family-sans-serif
+}
+
+/*apply global consistency to cropper (not accessable from scoped style)*/
+.cropper-line, .cropper-point{
+  background-color: white; 
+}
+.cropper-view-box{
+  outline-color: white;
+}
+
+/*style links in messages (not accessable from scoped style)*/
+.message-content-inner > a {
+  display: contents;
+}
+
+// Import only what you need from Bulma
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/sass/base/_all.sass";
+@import "../../node_modules/bulma/sass/elements/button.sass";
+@import "../../node_modules/bulma/sass/elements/container.sass";
+@import "../../node_modules/bulma/sass/elements/title.sass";
+@import "../../node_modules/bulma/sass/elements/image.sass";
+@import "../../node_modules/bulma/sass/elements/icon.sass";
+@import "../../node_modules/bulma/sass/form/_all.sass";
+@import "../../node_modules/bulma/sass/components/navbar.sass";
+@import "../../node_modules/bulma/sass/layout/hero.sass";
+@import "../../node_modules/bulma/sass/layout/section.sass";
+@import "../../node_modules/bulma/sass/grid/columns.sass";
+@import "../../node_modules/bulma/sass/components/card.sass";
+@import "../../node_modules/bulma/sass/components/media.sass";
+@import "../../node_modules/bulma/sass/elements/box.sass";
+@import "../../node_modules/bulma/sass/elements/tag.sass";
+@import "../../node_modules/bulma/sass/helpers/color.sass";
+@import "../../node_modules/bulma/sass/components/level.sass";
+@import "../../node_modules/bulma/sass/components/modal.sass";
+@import "../../node_modules/bulma/sass/elements/other.sass";

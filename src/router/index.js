@@ -1,29 +1,71 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+// import all views here
+import Login from '../views/Login.vue';
+import SignUp from '../views/SignUp.vue';
+import Settings from '../views/Settings.vue';
+import Matching from '../views/Matching.vue';
+import Verify from '../views/Verify.vue';
+import Chat from '../views/Chat.vue';
+import Logout from '../views/Logout.vue';
+import Forgot from '../views/Forgot.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
+const routes = [{
+  path: '/',
+  name: 'Login',
+  component: Login,
+},
+{
+  path: '/sign-up',
+  name: 'Sign-up',
+  component: SignUp,
+},
+{
+  path: '/settings',
+  name: 'Settings',
+  component: Settings,
+  alias: '/complete',
+},
+{
+  path: '/feed',
+  name: 'Matching',
+  component: Matching,
+},
+{
+  path: '/verify',
+  name: 'Verify',
+  component: Verify,
+},
+{
+  path: '/chat',
+  name: 'Chat',
+  component: Chat,
+  props: (route) => ({matchingID: `${route.query.to}`}),
+},
+{
+  path: '/logout',
+  name: 'Logout',
+  component: Logout,
+},
+{
+  path: '/forgot',
+  name: 'Forgot',
+  component: Forgot,
+},
+{
+  path: '/matches',
+  redirect: {
+    name: 'Matching',
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+},
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
