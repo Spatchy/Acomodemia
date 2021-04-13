@@ -1,24 +1,31 @@
-# co600-housemate-finder
+# Acomodemia (CO600-housemate-finder)
 
 ## Project setup
+Server requires a credentials.json file containing the following:
+```
+{
+  "host": "[database server]",
+  "user": "[database username]",
+  "db": "[database schema name]",
+  "password": "[database password]",
+  "smtp":{
+    "user": "[email address]",
+    "password": "[email password]"
+  },
+  "secretkey": "[token key]"
+}
+```
+
+Then run
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
+Then:
 ```
 npm run build
 ```
-
-### Lints and fixes files
+And finally:
 ```
-npm run lint
+node server.js
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+To run the server on port 8080.
